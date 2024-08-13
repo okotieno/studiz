@@ -64,15 +64,11 @@
             "inject": true
           },
           {
-            "input": "node_modules/@ionic/angular/css/palettes/dark.class.css",
+            "input": "libs/shared/theme/theme.css",
             "inject": true
           },
           {
-            "input": "node_modules/@ionic/angular/css/palettes/high-contrast.class.css",
-            "inject": true
-          },
-          {
-            "input": "node_modules/@ionic/angular/css/palettes/high-contrast-dark.class.css",
+            "input": "libs/shared/theme/variables.css",
             "inject": true
           },
           "apps/website/src/styles.scss"

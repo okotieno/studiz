@@ -4,27 +4,34 @@
     <ion-buttons slot="end">
       <ion-button>Home</ion-button>
       <ion-button>Contact Us</ion-button>
+      <ion-toggle></ion-toggle>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
 <ion-content>
 
-  <div class="swiper" #swiper>
-    <!-- Additional required wrapper -->
-    <div class="swiper-wrapper">
-      <!-- Slides -->
-      <div class="swiper-slide">Slide 1</div>
-      <div class="swiper-slide">Slide 2</div>
-      <div class="swiper-slide">Slide 3</div>
-      ...
-    </div>
+  <ion-row class="banner ion-justify-content-center ion-align-items-center">
+    <ion-col sizeLg="4">
+      Studiz
+    </ion-col>
+    <ion-col sizeLg="4">
+      <div class="swiper" #swiper>
+        <!-- Additional required wrapper -->
+        <div class="swiper-wrapper">
+          <!-- Slides -->
+          <div class="swiper-slide">Slide 1</div>
+          <div class="swiper-slide">Slide 2</div>
+          <div class="swiper-slide">Slide 3</div>
+          ...
+        </div>
 
-    <!-- If we need navigation buttons -->
-    <div class="swiper-button-prev"></div>
-    <div class="swiper-button-next"></div>
+        <!-- If we need navigation buttons -->
+        <div class="swiper-button-prev"></div>
+        <div class="swiper-button-next"></div>
 
-    <!-- If we need scrollbar -->
-    <div class="swiper-scrollbar"></div>
-  </div>
-
+        <!-- If we need scrollbar -->
+        <div class="swiper-scrollbar"></div>
+      </div>
+    </ion-col>
+  </ion-row>
 </ion-content>

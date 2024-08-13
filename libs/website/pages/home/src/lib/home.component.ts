@@ -6,7 +6,16 @@ import {
   ElementRef,
   viewChild
 } from '@angular/core';
-import { IonButton, IonButtons, IonContent, IonHeader, IonToolbar } from '@ionic/angular/standalone';
+import {
+  IonButton,
+  IonButtons,
+  IonCol,
+  IonContent,
+  IonHeader,
+  IonRow,
+  IonToggle,
+  IonToolbar
+} from '@ionic/angular/standalone';
 import Swiper from 'swiper';
 import 'swiper/css';
 import 'swiper/css/navigation';
@@ -21,7 +30,10 @@ Swiper.use([Navigation]);
     IonHeader,
     IonToolbar,
     IonButtons,
-    IonButton
+    IonButton,
+    IonRow,
+    IonCol,
+    IonToggle
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -59,6 +71,10 @@ export class HomeComponent implements AfterContentInit {
 
   ngAfterContentInit() {
     this.initializeSwiper();
+  }
+
+  toggleDarkMode() {
+
   }
 
 }

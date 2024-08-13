@@ -6,7 +6,7 @@ import { ThemeStore } from '@studiz/theme';
   selector: 'studiz-logo',
   templateUrl: './logo.component.svg'
 })
-export class LogoComponent implements OnInit {
+export class LogoComponent {
   readonly themeStore = inject(ThemeStore);
   primaryColor = signal(this.getColor('--ion-color-primary'));
   secondaryColor = signal(this.getColor('--ion-color-secondary'));

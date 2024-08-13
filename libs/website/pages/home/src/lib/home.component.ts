@@ -3,7 +3,7 @@ import {
   ChangeDetectionStrategy,
   Component, computed,
   contentChild,
-  ElementRef, OnInit,
+  ElementRef, inject, OnInit, signal,
   viewChild
 } from '@angular/core';
 import {
@@ -22,6 +22,7 @@ import 'swiper/css/navigation';
 import { Navigation } from 'swiper/modules';
 import { FormsModule } from '@angular/forms';
 import { LogoComponent } from './logo.component';
+import { ThemeStore } from '@studiz/theme';
 
 Swiper.use([Navigation]);
 
@@ -44,28 +45,13 @@ Swiper.use([Navigation]);
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
-export class HomeComponent implements OnInit, AfterContentInit {
-  paletteToggle = false;
-  ngOnInit(): void {
-    const prefersDark = window.matchMedia('(prefers-color-scheme: dark)');
-    this.initializeDarkPalette(prefersDark.matches);
-    prefersDark.addEventListener('change', (mediaQuery) => this.initializeDarkPalette(mediaQuery.matches));
-  }
+export class HomeComponent implements AfterContentInit {
+  readonly themeStore = inject(ThemeStore);
+  paletteToggle = signal(false);
 
-  initializeDarkPalette(isDark: boolean) {
-    this.paletteToggle = isDark;
-    this.toggleDarkPalette(isDark);
+  toggleChange() {
+    this.themeStore.setTheme(this.paletteToggle() ? 'dark' : 'light');
   }
-
-  toggleChange(ev: any) {
-    this.toggleDarkPalette(ev.detail.checked);
-  }
-
-  // Add or remove the "ion-palette-dark" class on the html element
-  toggleDarkPalette(shouldAdd: boolean) {
-    document.documentElement.classList.toggle('ion-palette-dark', shouldAdd);
-  }
-
 
   swiperContainer = viewChild.required<ElementRef<HTMLDivElement>>('swiper');
   initializeSwiper = computed(() => new Swiper(this.swiperContainer().nativeElement, {
@@ -98,10 +84,6 @@ export class HomeComponent implements OnInit, AfterContentInit {
 
   ngAfterContentInit() {
     this.initializeSwiper();
-  }
-
-  toggleDarkMode() {
-
   }
 
 }

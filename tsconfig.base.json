@@ -15,6 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@studiz/theme": ["libs/shared/theme/src/index.ts"],
       "@studiz/website-home-page": ["libs/website/pages/home/src/index.ts"]
     }
   },

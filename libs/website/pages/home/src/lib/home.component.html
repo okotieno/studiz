@@ -3,7 +3,7 @@
     <ion-buttons slot="end">
       <ion-button color="primary">Home</ion-button>
       <ion-button color="primary">Contact Us</ion-button>
-      <ion-toggle color="primary" [(ngModel)]="paletteToggle" (ionChange)="toggleChange($event)" justify="space-between"
+      <ion-toggle color="primary" [(ngModel)]="paletteToggle" (ionChange)="toggleChange()" justify="space-between"
       >Dark Mode
       </ion-toggle
       >
@@ -11,7 +11,6 @@
   </ion-toolbar>
 </ion-header>
 <ion-content>
-
   <ion-row class="banner ion-justify-content-center ion-align-items-center">
     <ion-col sizeLg="4">
       <studiz-logo></studiz-logo>

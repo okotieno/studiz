@@ -11,7 +11,7 @@ import {
   IonButtons,
   IonCol,
   IonContent,
-  IonHeader, IonImg,
+  IonHeader, IonImg, IonPopover,
   IonRow,
   IonToggle,
   IonToolbar
@@ -23,6 +23,7 @@ import { Navigation } from 'swiper/modules';
 import { FormsModule } from '@angular/forms';
 import { LogoComponent } from './logo.component';
 import { ThemeStore } from '@studiz/theme';
+import { UserGear } from '@studiz/icons';
 
 Swiper.use([Navigation]);
 
@@ -39,7 +40,9 @@ Swiper.use([Navigation]);
     IonToggle,
     FormsModule,
     IonImg,
-    LogoComponent
+    LogoComponent,
+    UserGear,
+    IonPopover
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
@@ -47,10 +50,11 @@ Swiper.use([Navigation]);
 })
 export class HomeComponent implements AfterContentInit {
   readonly themeStore = inject(ThemeStore);
-  paletteToggle = signal(false);
+  // paletteToggle = signal(false);
 
-  toggleChange() {
-    this.themeStore.setTheme(this.paletteToggle() ? 'dark' : 'light');
+  toggleChange(checked: boolean) {
+    console.log(checked);
+    this.themeStore.setTheme(checked ? 'dark' : 'light');
   }
 
   swiperContainer = viewChild.required<ElementRef<HTMLDivElement>>('swiper');

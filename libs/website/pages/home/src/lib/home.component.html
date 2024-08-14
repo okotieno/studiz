@@ -3,10 +3,20 @@
     <ion-buttons slot="end">
       <ion-button color="primary">Home</ion-button>
       <ion-button color="primary">Contact Us</ion-button>
-      <ion-toggle color="primary" [(ngModel)]="paletteToggle" (ionChange)="toggleChange()" justify="space-between"
-      >Dark Mode
-      </ion-toggle
-      >
+
+      <ion-button id="user-settings-trigger">
+        <studiz-icon-user-gear slot="icon-only"></studiz-icon-user-gear>
+      </ion-button>
+      <ion-popover trigger="user-settings-trigger" triggerAction="click">
+        <ng-template>
+          <ion-content class="ion-padding">
+            <ion-toggle color="primary" [ngModel]="themeStore.currentTheme() === 'dark'"
+                        (ionChange)="toggleChange($event.detail.checked)" justify="space-between"
+            >Dark Mode
+            </ion-toggle>
+          </ion-content>
+        </ng-template>
+      </ion-popover>
     </ion-buttons>
   </ion-toolbar>
 </ion-header>
@@ -14,11 +24,14 @@
   <ion-row class="banner ion-justify-content-center ion-align-items-center">
     <ion-col sizeXl="4" sizeLg="5" sizeMd="6" sizeSm="7" sizeXs="10">
       <ion-row class="ion-justify-content-center">
-        <ion-col sizeMd="10"><studiz-logo></studiz-logo></ion-col>
+        <ion-col sizeMd="10">
+          <studiz-logo></studiz-logo>
+        </ion-col>
       </ion-row>
 
     </ion-col>
     <ion-col sizeXl="4" sizeLg="5" sizeMd="6">
+      <ion-button>Dorcas</ion-button>
       <div class="swiper" #swiper>
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">

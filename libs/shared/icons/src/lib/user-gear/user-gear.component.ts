@@ -2,12 +2,19 @@ import { Component, inject } from '@angular/core';
 import { ThemeStore } from '@studiz/theme';
 
 @Component({
+  selector: 'studiz-icon-user-gear',
   standalone: true,
-  selector: 'studiz-logo',
-  templateUrl: './logo.component.svg'
+  templateUrl: `./user-gear.component.svg`,
+  styles: [
+    `:host {
+      width: 32px;
+    }`
+  ]
 })
-export class LogoComponent {
-  readonly themeStore = inject(ThemeStore);
+
+export class UserGearComponent {
+  themeStore = inject(ThemeStore);
+
   primaryColor = this.themeStore.primaryColor;
   secondaryColor = this.themeStore.secondaryColor;
 }

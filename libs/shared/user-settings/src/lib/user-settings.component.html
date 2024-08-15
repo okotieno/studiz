@@ -1,0 +1,13 @@
+<ion-button color="primary" shape="round" fill="none" (click)="presentPopover($event)">
+  <studiz-icon-user-gear slot="icon-only"></studiz-icon-user-gear>
+</ion-button>
+<ion-popover [isOpen]="isPopoverOpen()" (didDismiss)="isPopoverOpen.set(false)">
+  <ng-template>
+    <ion-content class="ion-padding">
+      <ion-toggle color="primary" [ngModel]="themeStore.currentTheme() === 'dark'"
+                  (ionChange)="toggleChange($event.detail.checked)" justify="space-between"
+      >Dark Mode
+      </ion-toggle>
+    </ion-content>
+  </ng-template>
+</ion-popover>

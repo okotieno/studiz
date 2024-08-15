@@ -5,5 +5,17 @@ ion-header {
 
 }
 .banner {
-  min-height: 500px;
+}
+.swiper {
+  --swiper-pagination-color: var(--ion-color-primary);
+  height: 100%;
+}
+.swiper-wrapper {
+  height: 100%;
+}
+.swiper-slide {
+  font-size: 3rem;
+  display: flex;
+  background-image: radial-gradient(circle, #ffd41250, #f5a61150, #e17a1d50, #c5512650, #a32a2950);
+  min-height: 300px;
 }

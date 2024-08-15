@@ -1,27 +1,4 @@
-<ion-header [translucent]="true" class="ion-no-border">
-  <ion-toolbar>
-    <ion-buttons slot="end">
-      <ion-button color="primary">Home</ion-button>
-      <ion-button color="primary">Contact Us</ion-button>
-
-      <ion-button id="user-settings-trigger">
-        <studiz-icon-user-gear slot="icon-only"></studiz-icon-user-gear>
-      </ion-button>
-      <ion-popover trigger="user-settings-trigger" triggerAction="click">
-        <ng-template>
-          <ion-content class="ion-padding">
-            <ion-toggle color="primary" [ngModel]="themeStore.currentTheme() === 'dark'"
-                        (ionChange)="toggleChange($event.detail.checked)" justify="space-between"
-            >Dark Mode
-            </ion-toggle>
-          </ion-content>
-        </ng-template>
-      </ion-popover>
-    </ion-buttons>
-  </ion-toolbar>
-</ion-header>
-<ion-content>
-  <ion-row class="banner ion-justify-content-center ion-align-items-center">
+ <ion-row class="banner ion-justify-content-center ion-align-items-center">
     <ion-col sizeXl="4" sizeLg="5" sizeMd="6" sizeSm="7" sizeXs="10">
       <ion-row class="ion-justify-content-center">
         <ion-col sizeMd="10">
@@ -31,27 +8,32 @@
 
     </ion-col>
     <ion-col sizeXl="4" sizeLg="5" sizeMd="6">
-      <ion-button>Dorcas</ion-button>
       <div class="swiper" #swiper>
         <!-- Additional required wrapper -->
         <div class="swiper-wrapper">
           <!-- Slides -->
-          <div class="swiper-slide">Slide 1</div>
-          <div class="swiper-slide">Slide 2</div>
-          <div class="swiper-slide">
-            <div class="swiper-slide">
-              <ion-button fill="outline">Register</ion-button>
-            </div>
-          </div>
+          <ion-row class="swiper-slide ion-align-items-center ion-justify-content-center">
+            Simplicity
+          </ion-row>
+          <ion-row class="swiper-slide ion-align-items-center ion-justify-content-center">
+            Fulfilling
+          </ion-row>
+          <ion-row class="swiper-slide ion-align-items-center ion-justify-content-center">
+            Amazing
+          </ion-row>
+          <ion-row class="swiper-slide ion-align-items-center ion-justify-content-center">
+            <ion-button [routerLink]="['/get-started']" fill="outline">Get Started</ion-button>
+          </ion-row>
         </div>
-
-        <!-- If we need navigation buttons -->
-        <div class="swiper-button-prev"></div>
-        <div class="swiper-button-next"></div>
-
-        <!-- If we need scrollbar -->
-        <div class="swiper-scrollbar"></div>
+        <!-- If we need pagination -->
+        <div class="swiper-pagination"></div>
       </div>
     </ion-col>
+   <ion-col size="12">
+     <ion-row class="ion-justify-content-center ion-padding ion-margin">
+       <ion-button [routerLink]="['/get-started']" shape="round" size="large" class="ion-text-capitalize">
+         Get Started
+       </ion-button>
+     </ion-row>
+   </ion-col>
   </ion-row>
-</ion-content>

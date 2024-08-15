@@ -1,0 +1,5 @@
+.link-active {
+  color: var(--ion-color-primary);
+  border-bottom: 4px solid var(--ion-color-primary);
+  margin-top: 4px;
+}

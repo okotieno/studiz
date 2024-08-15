@@ -11,55 +11,48 @@ import {
   IonButtons,
   IonCol,
   IonContent,
-  IonHeader, IonImg, IonPopover,
+  IonHeader, IonImg,
   IonRow,
   IonToggle,
   IonToolbar
 } from '@ionic/angular/standalone';
 import Swiper from 'swiper';
 import 'swiper/css';
-import 'swiper/css/navigation';
-import { Navigation } from 'swiper/modules';
-import { FormsModule } from '@angular/forms';
+import 'swiper/css/pagination';
+import { Autoplay, Pagination, Keyboard } from 'swiper/modules';
 import { LogoComponent } from './logo.component';
-import { ThemeStore } from '@studiz/theme';
-import { UserGear } from '@studiz/icons';
+import { UserSettingsComponent } from '@studiz/user-setting';
+import { RouterLink } from '@angular/router';
 
-Swiper.use([Navigation]);
+Swiper.use([Autoplay, Pagination, Keyboard]);
 
 @Component({
   standalone: true,
   imports: [
-    IonContent,
-    IonHeader,
-    IonToolbar,
-    IonButtons,
-    IonButton,
     IonRow,
     IonCol,
-    IonToggle,
-    FormsModule,
-    IonImg,
     LogoComponent,
-    UserGear,
-    IonPopover
+    IonButton,
+    RouterLink
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',
   changeDetection: ChangeDetectionStrategy.OnPush
 })
 export class HomeComponent implements AfterContentInit {
-  readonly themeStore = inject(ThemeStore);
-  // paletteToggle = signal(false);
-
-  toggleChange(checked: boolean) {
-    console.log(checked);
-    this.themeStore.setTheme(checked ? 'dark' : 'light');
-  }
-
   swiperContainer = viewChild.required<ElementRef<HTMLDivElement>>('swiper');
   initializeSwiper = computed(() => new Swiper(this.swiperContainer().nativeElement, {
-
+    autoplay: {
+      pauseOnMouseEnter: true,
+      stopOnLastSlide: true
+    },
+    keyboard: {
+      enabled: true
+    },
+    pagination: {
+      clickable: true,
+      el: '.swiper-pagination',
+    },
     effect: 'creative',
     creativeEffect: {
       prev: {
@@ -74,16 +67,6 @@ export class HomeComponent implements AfterContentInit {
         rotate: [0, -100, 0]
       }
     },
-    // Navigation arrows
-    navigation: {
-      nextEl: '.swiper-button-next',
-      prevEl: '.swiper-button-prev'
-    },
-
-    // And if we need scrollbar
-    scrollbar: {
-      el: '.swiper-scrollbar'
-    }
   }));
 
   ngAfterContentInit() {

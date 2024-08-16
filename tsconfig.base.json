@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@studiz/backend/institution": ["libs/backend/institution/src/index.ts"],
+      "@studiz/db-backend": ["libs/backend/db/src/index.ts"],
+      "@studiz/graphql-backend": ["libs/backend/graphql/src/index.ts"],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
       "@studiz/theme": ["libs/shared/theme/src/index.ts"],
       "@studiz/user-setting": ["libs/shared/user-settings/src/index.ts"],

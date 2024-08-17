@@ -1,0 +1,132 @@
+{
+  "name": "admin-portal",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "projectType": "application",
+  "prefix": "app",
+  "sourceRoot": "apps/admin-portal/src",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/angular:application",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "plugins": ["apps/admin-portal/env-var-plugin.js"],
+        "outputPath": "dist/apps/admin-portal",
+        "index": "apps/admin-portal/src/index.html",
+        "browser": "apps/admin-portal/src/main.ts",
+        "polyfills": ["@angular/localize/init"],
+        "tsConfig": "apps/admin-portal/tsconfig.app.json",
+        "inlineStyleLanguage": "scss",
+        "assets": [
+          {
+            "glob": "**/*",
+            "input": "apps/admin-portal/public"
+          }
+        ],
+        "styles": [
+          {
+            "input": "node_modules/@ionic/angular/css/core.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/normalize.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/structure.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/typography.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/display.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/padding.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/float-elements.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/text-alignment.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/text-transformation.css",
+            "inject": true
+          },
+          {
+            "input": "node_modules/@ionic/angular/css/flex-utils.css",
+            "inject": true
+          },
+          {
+            "input": "libs/shared/theme/theme.css",
+            "inject": true
+          },
+          {
+            "input": "libs/shared/theme/variables.css",
+            "inject": true
+          },
+          "apps/admin-portal/src/styles.scss"
+        ],
+        "scripts": []
+      },
+      "configurations": {
+        "production": {
+          "budgets": [
+            {
+              "type": "initial",
+              "maximumWarning": "500kb",
+              "maximumError": "1mb"
+            },
+            {
+              "type": "anyComponentStyle",
+              "maximumWarning": "2kb",
+              "maximumError": "4kb"
+            }
+          ],
+          "outputHashing": "all"
+        },
+        "development": {
+          "optimization": false,
+          "extractLicenses": false,
+          "sourceMap": true
+        }
+      },
+      "defaultConfiguration": "production"
+    },
+    "serve": {
+      "executor": "@nx/angular:dev-server",
+      "configurations": {
+        "production": {
+          "buildTarget": "admin-portal:build:production"
+        },
+        "development": {
+          "buildTarget": "admin-portal:build:development"
+        }
+      },
+      "defaultConfiguration": "development"
+    },
+    "extract-i18n": {
+      "executor": "@angular-devkit/build-angular:extract-i18n",
+      "options": {
+        "buildTarget": "admin-portal:build"
+      }
+    },
+    "lint": {
+      "executor": "@nx/eslint:lint"
+    },
+    "test": {
+      "executor": "@nx/jest:jest",
+      "outputs": ["{workspaceRoot}/coverage/{projectRoot}"],
+      "options": {
+        "jestConfig": "apps/admin-portal/jest.config.ts"
+      }
+    }
+  }
+}

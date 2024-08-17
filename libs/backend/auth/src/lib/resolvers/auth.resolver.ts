@@ -1,9 +1,8 @@
-import { Args, Context, Mutation, Query, Resolver } from '@nestjs/graphql';
+import { Args, Mutation, Resolver } from '@nestjs/graphql';
 import { AuthServiceBackend } from '@studiz/backend/auth-service';
 import { UserModel } from '@studiz/backend/db';
+import { UnauthorizedException } from '@nestjs/common';
 import { UserBackendService } from '@studiz/backend/user-service';
-import { ExecutionContext, UnauthorizedException, UseGuards } from '@nestjs/common';
-import { JwtAuthGuard } from '../guards/jwt-auth.guard';
 
 @Resolver()
 export class AuthResolver {

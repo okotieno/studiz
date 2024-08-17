@@ -1,0 +1,53 @@
+# Common user fields fragment
+fragment UserFields on UserModel {
+  id
+  email
+  firstName
+  lastName
+  phone
+  createdAt
+  updatedAt
+  profilePhotoLink
+}
+
+fragment AuthDetails on LoginResponse {
+  accessToken
+  refreshToken
+  refreshTokenKey
+  user {
+    ...UserFields
+  }
+}
+
+
+# Mutation for login with Google token
+mutation GoogleSignIn($token: String!) {
+  signInWithGoogle(token: $token) {
+    ...AuthDetails
+  }
+}
+
+mutation LoginWithToken($token: String!) {
+  loginWithToken(token: $token) {
+    ...AuthDetails
+  }
+}
+
+mutation RequestAccessToken($refreshToken: String!) {
+  requestAccessToken(refreshToken: $refreshToken) {
+    accessToken
+  }
+}
+
+
+query AuthUserAssignedWarehouses {
+  authUserAssignedWarehouses {
+    items {
+      id
+      name
+    }
+    meta {
+      totalItems
+    }
+  }
+}

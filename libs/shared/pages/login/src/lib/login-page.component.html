@@ -1,0 +1,29 @@
+<ion-content>
+
+  <ion-grid>
+    <ion-row class="ion-justify-content-center">
+      <ion-col size-lg="6" size-md="9" size-xl="5" size-xs="12">
+        <ion-card>
+          <ion-card-header color="primary">
+            <ion-card-title>{{ appName }}</ion-card-title>
+            <ion-card-subtitle>Log me in</ion-card-subtitle>
+          </ion-card-header>
+          <ion-card-content class="ion-padding">
+            <ion-row class="login-button-container ion-align-items-center ion-justify-content-center">
+              <asl-google-signin-button
+                logo_alignment="center"
+                shape="circle"
+                size='large'
+                text="signin_with"
+                type='standard'
+              ></asl-google-signin-button>
+            </ion-row>
+          </ion-card-content>
+        </ion-card>
+      </ion-col>
+    </ion-row>
+  </ion-grid>
+
+</ion-content>
+
+

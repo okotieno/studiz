@@ -1,0 +1,50 @@
+type InstitutionRequestModel {
+  id: Int!
+  name: String!
+  adminEmail: String!
+}
+
+input CreateInstitutionRequestInput {
+  name: String
+}
+
+input RegisterInstitutionRequestInput {
+  institutionName: String!
+  adminEmail: String!
+}
+
+input UpdateInstitutionRequestInput {
+  name: String
+}
+
+type PaginatedInstitutionRequest {
+  items: [InstitutionRequestModel]
+  meta: Pagination
+}
+
+type CreateInstitutionRequestSuccessResponse {
+  message: String!
+  data: InstitutionRequestModel!
+}
+
+extend type Query {
+  institutionRequests(query: QueryParams): PaginatedInstitutionRequest!
+  institutionRequest(id: Int!): InstitutionRequestModel
+}
+
+extend type Mutation {
+  updateInstitutionRequest(
+    id: Int!
+    params: UpdateInstitutionRequestInput
+  ): CreateInstitutionRequestSuccessResponse
+
+  createInstitutionRequest(
+    input: CreateInstitutionInput
+  ): CreateInstitutionRequestSuccessResponse
+
+  registerInstitutionRequest(
+    input: RegisterInstitutionRequestInput!
+  ): CreateInstitutionRequestSuccessResponse
+
+  deleteInstitutionRequest(id: Int!): DeleteSuccessResponse
+}

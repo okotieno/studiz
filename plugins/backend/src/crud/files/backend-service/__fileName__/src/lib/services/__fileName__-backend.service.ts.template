@@ -1,5 +1,5 @@
 import { Injectable } from '@nestjs/common';
-import { CrudAbstractService } from '@studiz/crud-abstract-backend';
+import { CrudAbstractService } from '@studiz/backend/crud-abstract';
 import { <%= className %>Model } from '@studiz/backend/db';
 import { InjectModel } from '@nestjs/sequelize';
 

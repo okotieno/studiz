@@ -1,9 +1,11 @@
 import { Module } from '@nestjs/common';
-import { InstitutionResolver } from './institution.resolver';
+import { InstitutionModelEventsListener } from './listeners/institution-model-events-listener.service';
+import { InstitutionBackendServiceModule } from '@studiz/backend/institution-service';
+import { InstitutionResolver } from './resolvers/institution.resolver';
 
 @Module({
-  providers: [
-    InstitutionResolver
-  ],
+  imports: [InstitutionBackendServiceModule],
+  providers: [InstitutionResolver, InstitutionModelEventsListener],
+  exports: [],
 })
-export class InstitutionBackendModule {}
+export class InstitutionModule {}

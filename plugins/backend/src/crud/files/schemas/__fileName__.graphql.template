@@ -30,7 +30,7 @@ extend type Mutation {
   update<%= className %>(id: Int!, params: Update<%= className %>Input): Create<%= className %>SuccessResponse
 
   create<%= className %>(
-    name : String!
+    input: Create<%= className %>Input!
 
   ): Create<%= className %>SuccessResponse
 

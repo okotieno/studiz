@@ -1,7 +1,5 @@
 import { Module } from '@nestjs/common';
 
-import { AppController } from './app.controller';
-import { AppService } from './app.service';
 import { DbModule } from '@studiz/backend/db';
 import { GraphqlModule } from '@studiz/backend/graphql';
 
@@ -11,13 +9,19 @@ import { UserModule } from '@studiz/backend/user-backend';
 import { RoleModule } from '@studiz/backend/role';
 import { join } from 'path';
 import { EventEmitterModule } from '@nestjs/event-emitter';
+
 import {
   AcceptLanguageResolver,
   GraphQLWebsocketResolver,
   HeaderResolver,
   I18nModule,
-  QueryResolver
+  QueryResolver,
 } from 'nestjs-i18n';
+import { InstitutionModule } from '@studiz/backend/institution';
+
+import { AuthBackendModule } from '@studiz/backend/auth';
+import { InstitutionRequestModule } from '@studiz/backend/institution-request';
+import { TranslationModule } from '@studiz/backend/translation';
 
 @Module({
   imports: [
@@ -30,26 +34,16 @@ import {
       verboseMemoryLeak: false,
       ignoreErrors: false,
     }),
-    I18nModule.forRoot({
-      fallbackLanguage: 'en',
-      loaderOptions: {
-        path: join(__dirname, '/i18n/'),
-        watch: true,
-      },
-      resolvers: [
-        GraphQLWebsocketResolver,
-        { use: QueryResolver, options: ['lang'] },
-        AcceptLanguageResolver,
-        new HeaderResolver(['x-lang']),
-      ],
-    }),
+
+    TranslationModule,
     DbModule,
+    InstitutionRequestModule,
+    AuthBackendModule,
+    InstitutionModule,
     RoleModule,
     UserModule,
     PermissionModule,
-    GraphqlModule
-  ],
-  controllers: [AppController],
-  providers: [AppService],
+    GraphqlModule,
+  ]
 })
 export class AppModule {}

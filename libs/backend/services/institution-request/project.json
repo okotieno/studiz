@@ -1,0 +1,9 @@
+{
+  "name": "institution-request-backend-service",
+  "$schema": "../../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/services/institution-request/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project institution-request-backend-service --web",
+  "targets": {}
+}

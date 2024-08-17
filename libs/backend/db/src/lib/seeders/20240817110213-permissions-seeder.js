@@ -3,7 +3,14 @@
 module.exports = {
   async up(queryInterface) {
     try {
-      const items = ['permission', 'permission', 'user', 'role'];
+      const items = [
+        'permission',
+        'permission',
+        'user',
+        'role',
+        'institution',
+        'institution-request',
+      ];
       let currentIndex = 0;
       let permissionObjects = [
         ...items.flatMap((item) =>

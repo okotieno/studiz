@@ -1,0 +1,15 @@
+import { Column, Model, Table } from 'sequelize-typescript';
+
+@Table({
+  tableName: '<%= fileNamePlural %>',
+  underscored: true,
+  paranoid: true,
+  timestamps: true,
+  deletedAt: true
+})
+export class <%= className %>Model extends Model {
+
+  @Column
+  name?: string;
+
+}

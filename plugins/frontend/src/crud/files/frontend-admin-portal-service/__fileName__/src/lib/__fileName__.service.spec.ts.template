@@ -1,0 +1,108 @@
+import { TestBed } from '@angular/core/testing';
+import { of } from 'rxjs';
+import { <%= className %>Service } from './<%= fileName %>.service';
+import {
+  ICreate<%= className %>GQL,
+  IDelete<%= className %>ByIdGQL,
+  IGet<%= className %>ByIdGQL,
+  IGet<%= classNamePlural %>GQL,
+  IUpdate<%= className %>GQL
+} from './schemas/<%= fileName %>.generated';
+import { MutationResult } from 'apollo-angular';
+import { QueryResult } from '@apollo/client';
+
+const create<%= className %>GQLMock = {
+  mutate: jest.fn(() =>
+    of({
+      data: { create<%= className %>: { id: 1, name: 'Test <%= className %>' } }
+    } as MutationResult)
+  )
+};
+
+const delete<%= className %>ByIdGQLMock = {
+  mutate: jest.fn(() =>
+    of({
+      data: { delete<%= className %>: { message: 'Item deleted' } }
+    } as MutationResult)
+  )
+};
+const get<%= className %>ByIdGQLMock = {
+  fetch: jest.fn(() =>
+    of({ data: { <%= propertyName %>: { id: 1, name: '<%= className %> 1' } } } as QueryResult)
+  )
+};
+const get<%= classNamePlural %>GQLMock = {
+  fetch: jest.fn(() =>
+    of({
+      data: {
+        <%= propertyNamePlural %>: {
+          items: [{ id: 1, name: '<%= className %> 1' }],
+          meta: { totalItems: 1 }
+        }
+      }
+    } as QueryResult)
+  )
+};
+const update<%= className %>GQLMock = {
+  mutate: jest.fn(() =>
+    of({
+      data: { update<%= className %>: { message: 'Item deleted' } }
+    } as MutationResult)
+  )
+};
+
+describe('<%= className %>Service', () => {
+  let service: <%= className %>Service;
+
+  beforeEach(() => {
+
+    TestBed.configureTestingModule({
+      providers: [
+        <%= className %>Service,
+        { useValue: create<%= className %>GQLMock, provide: ICreate<%= className %>GQL },
+        { useValue: delete<%= className %>ByIdGQLMock, provide: IDelete<%= className %>ByIdGQL },
+        { useValue: get<%= className %>ByIdGQLMock, provide: IGet<%= className %>ByIdGQL },
+        { useValue: get<%= classNamePlural %>GQLMock, provide: IGet<%= classNamePlural %>GQL },
+        { useValue: update<%= className %>GQLMock, provide: IUpdate<%= className %>GQL }
+
+      ]
+    });
+    service = TestBed.inject(<%= className %>Service);
+  });
+
+  it('should be created', () => {
+    expect(service).toBeTruthy();
+  });
+
+  it('should create a <%= fileName %>', (done) => {
+    const <%= propertyName %>Details = { name: 'Test <%= className %>' };
+    service.createItem(<%= propertyName %>Details).subscribe({
+      next: (result) => {
+        expect(result).toEqual({ id: 1, name: 'Test <%= className %>' });
+        done();
+      }
+    });
+  });
+
+  it('should get <%= fileNamePlural %>', (done) => {
+    service.getItems({}).subscribe({
+      next: (result) => {
+        expect(result).toEqual({
+          meta: { totalItems: 1 },
+          items: [{ id: 1, name: '<%= className %> 1' }]
+        });
+        done();
+      }
+    });
+
+  });
+
+  it('should get <%= fileName %> by id', (done) => {
+    service.getItemWithId(1).subscribe({
+      next: (result) => {
+        expect(result).toEqual({ id: 1, name: '<%= className %> 1' });
+        done();
+      }
+    });
+  });
+});

@@ -19,6 +19,8 @@
       "@studiz/db-backend": ["libs/backend/db/src/index.ts"],
       "@studiz/graphql-backend": ["libs/backend/graphql/src/index.ts"],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
+      "@studiz/studiz-backend-generator": ["plugins/backend/src/index.ts"],
+      "@studiz/studiz-frontend-generator": ["plugins/frontend/src/index.ts"],
       "@studiz/theme": ["libs/shared/theme/src/index.ts"],
       "@studiz/user-setting": ["libs/shared/user-settings/src/index.ts"],
       "@studiz/website-get-started-page": [

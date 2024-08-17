@@ -1,0 +1,35 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title> Create <%= className %> </ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <studiz-user-button slot="end"></studiz-user-button>
+  </ion-toolbar>
+  <ion-breadcrumbs class="ion-padding-horizontal">
+    <ion-breadcrumb href="#home">
+      <ion-icon name="house"></ion-icon>
+    </ion-breadcrumb>
+    <ion-breadcrumb href="#<%= fileNamePlural %>">
+      <%= classNamePlural %>
+    </ion-breadcrumb>
+    <ion-breadcrumb>
+      @if (isEditingForm()) {
+        Edit
+      } @else {
+        Create
+      }
+    </ion-breadcrumb>
+  </ion-breadcrumbs>
+</ion-header>
+
+<ion-content class="ion-padding">
+  <studiz-stepper [(selectedIndex)]="selectedIndex" [linear]="true">
+    <cdk-step label="<%= className %> Details" editable="false">
+      <studiz-<%= fileName %>-details-form
+        [item]="item()"
+        (itemCreated)="itemCreated($event)"
+      ></studiz-<%= fileName %>-details-form>
+    </cdk-step>
+  </studiz-stepper>
+</ion-content>

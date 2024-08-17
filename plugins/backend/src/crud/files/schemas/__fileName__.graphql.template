@@ -1,0 +1,38 @@
+type <%= className %>Model {
+  id: Int!
+  name: String!
+}
+
+input Create<%= className %>Input {
+  name: String
+}
+
+input Update<%= className %>Input {
+  name: String
+}
+
+type Paginated<%= className %> {
+  items: [<%= className %>Model]
+  meta: Pagination
+}
+
+type Create<%= className %>SuccessResponse  {
+  message: String!
+  data: <%= className %>Model!
+}
+
+extend type Query {
+  <%= propertyNamePlural %>(query: QueryParams): Paginated<%= className %>!
+  <%= propertyName %>(id: Int!): <%= className %>Model
+}
+
+extend type Mutation {
+  update<%= className %>(id: Int!, params: Update<%= className %>Input): Create<%= className %>SuccessResponse
+
+  create<%= className %>(
+    name : String!
+
+  ): Create<%= className %>SuccessResponse
+
+  delete<%= className %>(id: Int!): DeleteSuccessResponse
+}

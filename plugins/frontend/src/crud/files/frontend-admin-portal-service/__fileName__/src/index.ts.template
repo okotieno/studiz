@@ -1,0 +1,4 @@
+export { <%= className %>Service as <%= className %>FrontendService } from './lib/<%= fileName %>.service';
+export { ICreate<%= className %>MutationVariables } from './lib/schemas/<%= fileName %>.generated';
+
+

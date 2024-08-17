@@ -1,0 +1,144 @@
+import * as Types from '@studiz/shared/types/frontend';
+
+import { gql } from 'apollo-angular';
+import { Injectable } from '@angular/core';
+import * as Apollo from 'apollo-angular';
+export type ICreate<%= className %>MutationVariables = Types.Exact<{
+  name: Types.Scalars['String']['input'];
+}>;
+
+
+export type ICreate<%= className %>Mutation = { create<%= className %>?: { message: string, data: { id: number } } | null };
+
+export type IGet<%= className %>ByIdQueryVariables = Types.Exact<{
+  id: Types.Scalars['Int']['input'];
+}>;
+
+
+export type IGet<%= className %>ByIdQuery = { <%= propertyName %>?: { id: number, name: string } | null };
+
+export type IGet<%= classNamePlural %>QueryVariables = Types.Exact<{
+  query?: Types.InputMaybe<Types.IQueryParams>;
+}>;
+
+
+export type IGet<%= classNamePlural %>Query = { <%= propertyNamePlural %>: { items?: Array<{ id: number, name: string } | null> | null, meta?: { totalItems: number } | null } };
+
+export type IDelete<%= className %>ByIdMutationVariables = Types.Exact<{
+  id: Types.Scalars['Int']['input'];
+}>;
+
+
+export type IDelete<%= className %>ByIdMutation = { delete<%= className %>?: { message: string } | null };
+
+export type IUpdate<%= className %>MutationVariables = Types.Exact<{
+  id: Types.Scalars['Int']['input'];
+  name: Types.Scalars['String']['input'];
+}>;
+
+
+export type IUpdate<%= className %>Mutation = { update<%= className %>?: { message: string, data: { id: number } } | null };
+
+export const Create<%= className %>Document = gql`
+    mutation Create<%= className %>($name: String!) {
+  create<%= className %>(name: $name) {
+    message
+    data {
+      id
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ICreate<%= className %>GQL extends Apollo.Mutation<ICreate<%= className %>Mutation, ICreate<%= className %>MutationVariables> {
+    override document = Create<%= className %>Document;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const Get<%= className %>ByIdDocument = gql`
+    query Get<%= className %>ById($id: Int!) {
+  <%= propertyName %>(id: $id) {
+    id
+    name
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class IGet<%= className %>ByIdGQL extends Apollo.Query<IGet<%= className %>ByIdQuery, IGet<%= className %>ByIdQueryVariables> {
+    override document = Get<%= className %>ByIdDocument;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const Get<%= classNamePlural %>Document = gql`
+    query Get<%= classNamePlural %>($query: QueryParams) {
+  <%= propertyNamePlural %>(query: $query) {
+    items {
+      id
+      name
+    }
+    meta {
+      totalItems
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class IGet<%= classNamePlural %>GQL extends Apollo.Query<IGet<%= classNamePlural %>Query, IGet<%= classNamePlural %>QueryVariables> {
+    override document = Get<%= classNamePlural %>Document;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const Delete<%= className %>ByIdDocument = gql`
+    mutation Delete<%= className %>ById($id: Int!) {
+  delete<%= className %>(id: $id) {
+    message
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class IDelete<%= className %>ByIdGQL extends Apollo.Mutation<IDelete<%= className %>ByIdMutation, IDelete<%= className %>ByIdMutationVariables> {
+    override document = Delete<%= className %>ByIdDocument;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const Update<%= className %>Document = gql`
+    mutation Update<%= className %>($id: Int!, $name: String!) {
+  update<%= className %>(id: $id, params: {name: $name}) {
+    message
+    data {
+      id
+    }
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class IUpdate<%= className %>GQL extends Apollo.Mutation<IUpdate<%= className %>Mutation, IUpdate<%= className %>MutationVariables> {
+    override document = Update<%= className %>Document;
+
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }

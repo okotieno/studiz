@@ -1,0 +1,17 @@
+import { Module } from '@nestjs/common';
+import { <%= className %>ModelEventsListener } from './listeners/<%= fileName %>-model-events-listener.service';
+import { <%= className %>BackendServiceModule } from '@studiz/backend/<%= fileName %>-backend-service';
+import { <%= className %>Resolver } from './resolvers/<%= fileName %>.resolver';
+
+@Module({
+  imports: [
+    <%= className %>BackendServiceModule
+  ],
+  providers: [
+    <%= className %>Resolver,
+    <%= className %>ModelEventsListener
+  ],
+  exports: [],
+})
+export class <%= className %>Module {
+}

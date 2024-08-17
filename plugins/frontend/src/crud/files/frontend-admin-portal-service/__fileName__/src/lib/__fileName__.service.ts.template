@@ -1,0 +1,33 @@
+import { Injectable } from '@angular/core';
+import {
+  ICreate<%= className %>GQL,
+  IDelete<%= className %>ByIdGQL,
+  IGet<%= className %>ByIdGQL,
+  IGet<%= classNamePlural %>GQL,
+  IUpdate<%= className %>GQL,
+} from './schemas/<%= fileName %>.generated';
+import { I<%= className %>Model } from '@studiz/shared/types/frontend';
+import { CrudService } from '@studiz/frontend/list-page';
+
+@Injectable({
+  providedIn: 'root',
+})
+export class <%= className %>Service extends CrudService<I<%= className %>Model> {
+  entity = '<%= fileName %>';
+
+  constructor(
+    get<%= classNamePlural %>GQL: IGet<%= classNamePlural %>GQL,
+    create<%= className %>GQL: ICreate<%= className %>GQL,
+    update<%= className %>GQL: IUpdate<%= className %>GQL,
+    get<%= className %>ByIdGQL: IGet<%= className %>ByIdGQL,
+    delete<%= className %>ByIdGQL: IDelete<%= className %>ByIdGQL
+  ) {
+    super(
+      get<%= classNamePlural %>GQL,
+      get<%= className %>ByIdGQL,
+      create<%= className %>GQL,
+      update<%= className %>GQL,
+      delete<%= className %>ByIdGQL
+    );
+  }
+}

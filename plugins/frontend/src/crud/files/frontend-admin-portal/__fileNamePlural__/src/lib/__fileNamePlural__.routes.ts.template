@@ -1,0 +1,45 @@
+import { ActivatedRouteSnapshot, Route } from '@angular/router';
+import { inject } from '@angular/core';
+import { <%= className %>FrontendService } from '@studiz/frontend/<%= fileName %>-frontend-service';
+import { FormExitGuardService, IHasUnsavedChanges } from '@studiz/form-exit-guard';
+
+const <%= propertyName %>Resolver = (route: ActivatedRouteSnapshot) =>
+  inject(<%= className %>FrontendService).getItemWithId(Number(route.params['<%= propertyName %>Id']));
+
+export const ADMIN_<%= constantName %>_ROUTES: Route[] = [
+  {
+    path: '',
+    pathMatch: 'full',
+    loadComponent: () => import('./<%= fileNamePlural %>.component').then(m => m.<%= classNamePlural %>Component)
+  },
+  {
+    path: 'create',
+    loadComponent: () => import('./manage-<%= fileName %>/manage-<%= fileName %>.component').then(m => m.Manage<%= className %>Component),
+    canDeactivate: [
+      (component: IHasUnsavedChanges) => inject(FormExitGuardService).hasUnsavedChanges(component)
+    ],
+  },
+  {
+    path: ':<%= propertyName %>Id',
+    children: [
+      {
+        path: '',
+        pathMatch: 'full',
+        loadComponent: () => import('./view-<%= fileName %>/view-<%= fileName %>.component').then(m => m.View<%= className %>Component),
+        resolve: {
+          <%= propertyName %>: <%= propertyName %>Resolver
+        }
+      },
+      {
+        path: 'edit',
+         loadComponent: () => import('./manage-<%= fileName %>/manage-<%= fileName %>.component').then(m => m.Manage<%= className %>Component),
+         canDeactivate: [
+           (component: IHasUnsavedChanges) => inject(FormExitGuardService).hasUnsavedChanges(component)
+        ],
+        resolve: {
+          <%= propertyName %>: <%= propertyName %>Resolver
+        }
+      }
+    ]
+  }
+];

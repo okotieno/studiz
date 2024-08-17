@@ -1,0 +1,42 @@
+mutation Create<%= className %>($name: String!) {
+  create<%= className %>(name: $name) {
+    message
+    data {
+      id
+    }
+  }
+}
+
+query Get<%= className %>ById($id: Int!) {
+  <%= propertyName %>(id: $id) {
+    id
+    name
+  }
+}
+
+query Get<%= classNamePlural %>($query: QueryParams) {
+  <%= propertyNamePlural %>(query: $query) {
+    items {
+      id
+      name
+    }
+    meta {
+      totalItems
+    }
+  }
+}
+
+mutation Delete<%= className %>ById($id: Int!) {
+  delete<%= className %>(id: $id) {
+    message
+  }
+}
+
+mutation Update<%= className %>($id: Int!, $params: Update<%= className %>Input!) {
+  update<%= className %>(id: $id, params: $params) {
+    message
+    data {
+      id
+    }
+  }
+}

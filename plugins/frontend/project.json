@@ -1,0 +1,41 @@
+{
+  "name": "studiz-frontend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/frontend/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/frontend",
+        "main": "plugins/frontend/src/index.ts",
+        "tsConfig": "plugins/frontend/tsconfig.lib.json",
+        "assets": [
+          "plugins/frontend/*.md",
+          {
+            "input": "./plugins/frontend/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./plugins/frontend/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./plugins/frontend",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./plugins/frontend",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

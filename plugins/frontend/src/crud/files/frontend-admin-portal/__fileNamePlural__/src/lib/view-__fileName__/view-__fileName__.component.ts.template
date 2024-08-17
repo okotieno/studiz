@@ -1,0 +1,83 @@
+import { Component, signal, ViewChild } from '@angular/core';
+import {
+  IonBreadcrumb,
+  IonBreadcrumbs,
+  IonButton,
+  IonButtons,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardSubtitle,
+  IonCardTitle,
+  IonContent,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList, IonListHeader,
+  IonMenuButton,
+  IonPopover,
+  IonSegment,
+  IonSegmentButton,
+  IonSkeletonText,
+  IonText,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
+import { ActivatedRoute, RouterLink } from '@angular/router';
+import { DatePipe, JsonPipe } from '@angular/common';
+import { I<%= className %>Model } from '@studiz/shared/types/frontend';
+import { UserButtonComponent } from '@studiz/frontend/side-nav';
+
+@Component({
+  standalone: true,
+  imports: [
+    IonHeader,
+    IonContent,
+    IonToolbar,
+    IonBreadcrumb,
+    IonBreadcrumbs,
+    IonButton,
+    IonIcon,
+    JsonPipe,
+    IonCard,
+    IonCardHeader,
+    IonLabel,
+    IonCardTitle,
+    IonCardSubtitle,
+    IonCardContent,
+    IonItem,
+    IonText,
+    IonSkeletonText,
+    DatePipe,
+    IonButtons,
+    IonMenuButton,
+    IonList,
+    IonPopover,
+    IonTitle,
+    IonSegment,
+    IonSegmentButton,
+    IonListHeader,
+    UserButtonComponent,
+    RouterLink
+  ],
+  templateUrl: './view-<%= fileName %>.component.html',
+  styleUrl: './view-<%= fileName %>.component.scss'
+})
+export class View<%= className %>Component {
+  @ViewChild('popover') popover?: IonPopover;
+  <%= propertyName %> = signal<I<%= className %>Model>({ name: '',id: 0 });
+
+  isOpen = false;
+  collapsedBreadcrumbs: HTMLIonBreadcrumbElement[] = [];
+  constructor(route: ActivatedRoute) {
+    this.<%= propertyName %>.set(route.snapshot.data['<%= propertyName %>']);
+  }
+  async presentPopover(e: Event) {
+    if (this.popover) {
+      this.collapsedBreadcrumbs = (e as CustomEvent).detail.collapsedBreadcrumbs;
+      this.popover.event = e;
+      this.isOpen = true;
+    }
+  }
+}

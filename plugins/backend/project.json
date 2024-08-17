@@ -1,0 +1,41 @@
+{
+  "name": "studiz-backend",
+  "$schema": "../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "plugins/backend/src",
+  "projectType": "library",
+  "tags": [],
+  "targets": {
+    "build": {
+      "executor": "@nx/js:tsc",
+      "outputs": ["{options.outputPath}"],
+      "options": {
+        "outputPath": "dist/plugins/backend",
+        "main": "plugins/backend/src/index.ts",
+        "tsConfig": "plugins/backend/tsconfig.lib.json",
+        "assets": [
+          "plugins/backend/*.md",
+          {
+            "input": "./plugins/backend/src",
+            "glob": "**/!(*.ts)",
+            "output": "./src"
+          },
+          {
+            "input": "./plugins/backend/src",
+            "glob": "**/*.d.ts",
+            "output": "./src"
+          },
+          {
+            "input": "./plugins/backend",
+            "glob": "generators.json",
+            "output": "."
+          },
+          {
+            "input": "./plugins/backend",
+            "glob": "executors.json",
+            "output": "."
+          }
+        ]
+      }
+    }
+  }
+}

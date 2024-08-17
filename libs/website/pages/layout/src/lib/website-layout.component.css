@@ -1,5 +1,7 @@
+.link {
+  border-bottom: 4px solid rgba(var(--ion-color-primary-rgb), 0.2);
+}
 .link-active {
   color: var(--ion-color-primary);
   border-bottom: 4px solid var(--ion-color-primary);
-  margin-top: 4px;
 }

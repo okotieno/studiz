@@ -1,0 +1,14 @@
+import { Injectable } from '@nestjs/common';
+import { CrudAbstractService } from '@studiz/backend/crud-abstract';
+import { <%= className %>Model } from '@studiz/backend/db';
+import { InjectModel } from '@nestjs/sequelize';
+
+@Injectable()
+
+export class <%= className %>BackendService extends CrudAbstractService<<%= className %>Model> {
+  constructor(
+    @InjectModel(<%= className %>Model) private <%= propertyName %>Model: typeof <%= className %>Model,
+  ) {
+    super(<%= propertyName %>Model);
+  }
+}

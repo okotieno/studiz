@@ -1,0 +1,64 @@
+import { Component, inject, OnInit } from '@angular/core';
+import {
+  IonBreadcrumb,
+  IonBreadcrumbs,
+  IonButtons,
+  IonContent,
+  IonFab,
+  IonFabButton,
+  IonHeader,
+  IonIcon,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonMenuButton,
+  IonPopover,
+  IonTitle,
+  IonToolbar
+} from '@ionic/angular/standalone';
+import { RouterLink } from '@angular/router';
+import { UserButtonComponent } from '@studiz/frontend/side-nav';
+import { <%= className %>FrontendService } from '@studiz/frontend/<%= fileName %>-frontend-service';
+import { CrudTableComponent, ITableColumn, ListPageComponent } from '@studiz/frontend/list-page';
+import { I<%= className %>Model } from '@studiz/shared/types/frontend';
+
+@Component({
+  selector: 'studiz-<%= fileNamePlural %>-admin-portal',
+  standalone: true,
+  imports: [
+    IonContent,
+    CrudTableComponent,
+    IonHeader,
+    UserButtonComponent,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonMenuButton,
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    IonIcon,
+    IonPopover,
+    IonList,
+    IonLabel,
+    IonFab,
+    IonFabButton,
+    RouterLink,
+    IonItem
+  ],
+  templateUrl: './<%= fileNamePlural %>.component.html',
+  styleUrl: './<%= fileNamePlural %>.component.scss'
+})
+export class <%= classNamePlural %>Component extends ListPageComponent<I<%= className %>Model> implements OnInit {
+  allColumns: ITableColumn<I<%= className %>Model>[] = [
+    { label: 'ID', key: 'id', fieldType: 'integer' },
+    { label: 'Name', key: 'name' }
+  ];
+
+  constructor() {
+    super();
+  }
+
+  <%= propertyName %>Service = inject(<%= className %>FrontendService);
+  getItemsFn = this.<%= propertyName %>Service.getItems.bind(this.<%= propertyName %>Service);
+  override deleteItemFn = this.<%= propertyName %>Service.deleteItem.bind(this.<%= propertyName %>Service);
+}

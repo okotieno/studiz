@@ -1,0 +1,12 @@
+import { IsInt } from 'class-validator';
+import { <%= className %>Model } from '@studiz/backend/db';
+import { Exists } from '@studiz/backend/validators';
+
+export class Delete<%= className %>InputDto {
+  @IsInt()
+  @Exists(<%= className %>Model, 'id', {
+    message: (validationArguments) =>
+      `<%= className %> with id  ${validationArguments.value}" not found`,
+  })
+  id = 0;
+}

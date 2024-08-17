@@ -1,0 +1,17 @@
+import { Module } from '@nestjs/common';
+import { <%= className %>BackendService } from './services/<%= fileName %>-backend.service';
+import { SequelizeModule } from '@nestjs/sequelize';
+import { <%= className %>Model } from '@studiz/backend/db';
+
+@Module({
+  imports: [
+    SequelizeModule.forFeature([<%= className %>Model])
+  ],
+  providers: [
+    <%= className %>BackendService
+  ],
+  exports: [
+    <%= className %>BackendService
+  ],
+})
+export class <%= className %>BackendServiceModule {}

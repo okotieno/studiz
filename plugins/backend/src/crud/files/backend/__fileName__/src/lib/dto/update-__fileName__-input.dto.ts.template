@@ -1,0 +1,16 @@
+import { IsInt, ValidateNested } from 'class-validator';
+import { Create<%= className %>InputDto } from './create-<%= fileName %>-input.dto';
+import { <%= className %>Model } from '@studiz/backend/db';
+import { Exists } from '@studiz/backend/validators';
+
+export class Update<%= className %>InputDto {
+  @IsInt()
+  @Exists(<%= className %>Model, 'id', {
+    message: (validationArguments) =>
+      `<%= className %> with id  ${validationArguments.value}" not found`,
+  })
+  id = 0;
+
+  @ValidateNested()
+  params: Create<%= className %>InputDto = { name: '' };
+}

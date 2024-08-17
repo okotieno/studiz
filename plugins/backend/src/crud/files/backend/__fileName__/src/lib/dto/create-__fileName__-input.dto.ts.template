@@ -1,0 +1,9 @@
+import { IsNotEmpty, IsString } from 'class-validator';
+
+export class Create<%= className %>InputDto {
+
+  @IsString()
+  @IsNotEmpty()
+  name = '';
+
+}

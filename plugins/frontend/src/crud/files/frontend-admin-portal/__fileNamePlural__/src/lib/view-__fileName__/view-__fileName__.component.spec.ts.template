@@ -1,0 +1,60 @@
+import { ComponentFixture, TestBed } from '@angular/core/testing';
+import { View<%= className %>Component } from './view-<%= fileName %>.component';
+import { provideIonicAngular } from '@ionic/angular/standalone';
+import { ActivatedRoute, provideRouter } from '@angular/router';
+import { <%= className %>FrontendService } from '@studiz/frontend/<%= fileName %>-frontend-service';
+import { AuthService } from '@studiz/frontend/auth';
+import { signal } from '@angular/core';
+import { addIcons } from 'ionicons';
+
+const <%= propertyName %>ServiceMock = {
+  getItems: jest.fn(),
+  getItemWithId: jest.fn(),
+  deleteItem: jest.fn(),
+};
+
+<%= propertyName %>ServiceMock.getItems.mockReturnValue({ items: [], meta: { totalItems: 0 }})
+<%= propertyName %>ServiceMock.getItemWithId.mockReturnValue({ message: 'Successfully deleted item'})
+
+const authUserService = {
+  user: signal({ email: 'test@example.com' })
+};
+describe('View<%= className %>Component', () => {
+  addIcons({
+    'house': '<svg></svg>',
+    'user-tie': '<svg></svg>'
+  })
+  let component: View<%= className %>Component;
+  let fixture: ComponentFixture<View<%= className %>Component>;
+
+  beforeEach(async () => {
+    await TestBed.configureTestingModule({
+      imports: [View<%= className %>Component],
+      providers: [
+        provideIonicAngular(),
+        provideRouter([]),
+        {
+          provide: <%= className %>FrontendService, useValue: <%= propertyName %>ServiceMock
+        },
+        {
+          provide: ActivatedRoute, useValue: {
+            snapshot:{
+              data: {
+                <%= propertyName %>: { name: 'test@example.com' }
+              }
+            }
+          }
+        },
+        { provide: AuthService, useValue: authUserService }
+      ]
+    }).compileComponents();
+
+    fixture = TestBed.createComponent(View<%= className %>Component);
+    component = fixture.componentInstance;
+    fixture.detectChanges();
+  });
+
+  it('should create', () => {
+    expect(component).toBeTruthy();
+  });
+});

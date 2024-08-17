@@ -1,0 +1,2 @@
+export * from './lib/<%= fileName %>-backend-service.module';
+export * from './lib/services/<%= fileName %>-backend.service';

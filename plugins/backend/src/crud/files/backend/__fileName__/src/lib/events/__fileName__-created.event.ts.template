@@ -1,0 +1,5 @@
+import { <%= className %>Model } from '@studiz/backend/db';
+
+export class <%= className %>CreatedEvent {
+  constructor(public <%= propertyName %>: <%= className %>Model) { }
+}

@@ -1,0 +1,57 @@
+import { Component, viewChild } from '@angular/core';
+import {
+  IonButtons,
+  IonContent,
+  IonHeader,
+  IonMenuButton,
+  IonTitle,
+  IonToolbar,
+  IonBreadcrumbs,
+  IonBreadcrumb,
+  IonIcon
+} from '@ionic/angular/standalone';
+import { StepperComponent } from '@studiz/stepper';
+import { CdkStep } from '@angular/cdk/stepper';
+import { <%= className %>DetailsComponent } from './<%= fileName %>-details.component';
+import { ManageItemPageComponent } from '@studiz/frontend/list-page';
+import { I<%= className %>Model } from '@studiz/shared/types/frontend';
+import { IHasUnsavedChanges } from '@studiz/form-exit-guard';
+import { UserButtonComponent } from '@studiz/frontend/side-nav';
+
+@Component({
+  selector: 'studiz-manage-<%= fileName %>',
+  standalone: true,
+  imports: [
+    IonBreadcrumb,
+    IonBreadcrumbs,
+    IonHeader,
+    IonIcon,
+    IonToolbar,
+    IonTitle,
+    IonButtons,
+    IonMenuButton,
+    IonContent,
+    IonBreadcrumbs,
+    IonBreadcrumb,
+    IonIcon,
+    StepperComponent,
+    CdkStep,
+    <%= className %>DetailsComponent,
+    UserButtonComponent
+  ],
+  templateUrl: './manage-<%= fileName %>.component.html',
+  styleUrl: './manage-<%= fileName %>.component.css'
+})
+export class Manage<%= className %>Component extends ManageItemPageComponent<I<%= className %>Model> implements IHasUnsavedChanges {
+
+  entity = '<%= fileName %>';
+  <%= propertyName %>DetailsComponent = viewChild(<%= className %>DetailsComponent);
+
+  get hasUnsavedChanges() {
+    return this.<%= propertyName %>DetailsComponent()?.hasUnsavedChanges || false;
+  }
+
+  constructor() {
+    super();
+  }
+}

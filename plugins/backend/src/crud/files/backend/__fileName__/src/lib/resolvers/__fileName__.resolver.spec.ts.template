@@ -1,0 +1,63 @@
+import { Test, TestingModule } from '@nestjs/testing';
+import { <%= className %>BackendService } from '@studiz/backend/<%= fileName %>-backend-service';
+import { Create<%= className %>InputDto } from '../dto/create-<%= fileName %>-input.dto';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { <%= className %>CreatedEvent } from '../events/<%= fileName %>-created.event';
+import { <%= className %>Model } from '@studiz/backend/db';
+import { I18nService } from 'nestjs-i18n';
+import { <%= className %>Resolver } from './<%= fileName %>.resolver';
+
+describe('<%= className %>Resolver', () => {
+  let resolver: <%= className %>Resolver;
+  let <%= propertyName %>Service: <%= className %>BackendService;
+  let eventEmitter: EventEmitter2;
+
+  beforeEach(async () => {
+    const module: TestingModule = await Test.createTestingModule({
+      providers: [
+        <%= className %>Resolver,
+        {
+          provide: I18nService,
+          useValue: {}
+        },
+        {
+          provide: <%= className %>BackendService,
+          useValue: {
+            create: jest.fn(),
+          },
+        },
+        {
+          provide: EventEmitter2,
+          useValue: {
+            emit: jest.fn(),
+          },
+        },
+      ],
+    }).compile();
+
+    resolver = module.get<<%= className %>Resolver>(<%= className %>Resolver);
+    <%= propertyName %>Service = module.get<<%= className %>BackendService>(<%= className %>BackendService);
+    eventEmitter = module.get<EventEmitter2>(EventEmitter2);
+  });
+
+  it('should be defined', () => {
+    expect(resolver).toBeDefined();
+  });
+
+  describe('create<%= className %>', () => {
+    it('should create a <%= fileName %> and emit event', async () => {
+      const create<%= className %>Input: Create<%= className %>InputDto = { name: 'john' } as Create<%= className %>InputDto;
+      const created<%= className %> = { id: 1, name: 'john' } as <%= className %>Model;
+      jest.spyOn(<%= propertyName %>Service, 'create').mockResolvedValueOnce(created<%= className %>);
+
+      const result = await resolver.create<%= className %>(create<%= className %>Input);
+
+      expect(result).toEqual({
+        message: 'Successfully created <%= fileName %>',
+        data: created<%= className %>,
+      });
+      expect(<%= propertyName %>Service.create).toHaveBeenCalledWith(create<%= className %>Input);
+      expect(eventEmitter.emit).toHaveBeenCalledWith('<%= fileName %>.created', expect.any(<%= className %>CreatedEvent));
+    });
+  });
+});

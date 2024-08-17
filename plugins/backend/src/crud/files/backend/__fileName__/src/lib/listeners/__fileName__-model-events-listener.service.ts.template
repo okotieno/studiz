@@ -1,0 +1,12 @@
+import { Injectable } from '@nestjs/common';
+import { OnEvent } from '@nestjs/event-emitter';
+import { <%= className %>CreatedEvent } from '../events/<%= fileName%>-created.event';
+
+@Injectable()
+export class <%= className %>ModelEventsListener {
+
+  @OnEvent('<%= fileName %>.created')
+  async handle<%= className %>Created($event: <%= className %>CreatedEvent) {
+    // console.log($event)
+  }
+}

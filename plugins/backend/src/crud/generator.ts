@@ -59,8 +59,9 @@ async function generateBackendService(tree: Tree, options: BackendGeneratorResol
   generateFiles(tree, path.join(__dirname, 'files', 'backend-service'), projectRoot, options);
   await formatFiles(tree);
 }
+
 async function generateSchema(tree: Tree, options: BackendGeneratorResolvedSchema) {
-  const projectRoot = `apps/${options.backendProjectName}/src/app/schemas`;
+  const projectRoot = `libs/${options.backendProjectName}/graphql/src/lib/schemas`;
 
   generateFiles(tree, path.join(__dirname, 'files', 'schemas'), projectRoot, options);
   await formatFiles(tree);

@@ -1,0 +1,35 @@
+type UserModel {
+  id: Int!
+  name: String!
+}
+
+input CreateUserInput {
+  name: String
+}
+
+input UpdateUserInput {
+  name: String
+}
+
+type PaginatedUser {
+  items: [UserModel]
+  meta: Pagination
+}
+
+type CreateUserSuccessResponse {
+  message: String!
+  data: UserModel!
+}
+
+extend type Query {
+  users(query: QueryParams): PaginatedUser!
+  user(id: Int!): UserModel
+}
+
+extend type Mutation {
+  updateUser(id: Int!, params: UpdateUserInput): CreateUserSuccessResponse
+
+  createUser(name: String!): CreateUserSuccessResponse
+
+  deleteUser(id: Int!): DeleteSuccessResponse
+}

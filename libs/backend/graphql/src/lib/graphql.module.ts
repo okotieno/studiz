@@ -8,8 +8,7 @@ import { GraphQLModule } from '@nestjs/graphql';
       driver: ApolloDriver,
       playground: process.env['STUDIZ_ENVIRONMENT'] === 'development',
       typePaths: [
-        'libs/backend/graphql/src/lib/schema/shared/*.graphql',
-        'libs/backend/graphql/src/lib/schema/client/*.graphql',
+        'libs/backend/graphql/src/lib/schemas/*.graphql',
       ],
       context: (ctx: any) => ctx,
       path: 'graphql',

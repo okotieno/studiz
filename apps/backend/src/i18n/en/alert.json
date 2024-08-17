@@ -1,0 +1,9 @@
+{
+  "deletionSuccess": "{itemName} successfully deleted",
+  "notAuthorised": "You are not authorised to perform this action",
+  "invalidLogin": "The credentials provided do not match our records, Please try again",
+  "unknownLoginError": "An error occurred while trying to authenticate you, It is not you, it is us. Please try again later",
+  "otpSentSuccess": "We have successfully send an OTP to {email}",
+  "emailNotFound": "The email ({email}) does not match our records",
+  "passwordChangeSuccess": "Your password has been successfully changed"
+}

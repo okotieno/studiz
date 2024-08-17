@@ -5,6 +5,17 @@
   "projectType": "application",
   "tags": [],
   "targets": {
+    "build": {
+      "options": {
+        "assets": [
+          {
+            "glob": "**/*.json",
+            "input": "apps/backend/src/i18n/",
+            "output": "i18n"
+          }
+        ]
+      }
+    },
     "serve": {
       "executor": "@nx/js:node",
       "defaultConfiguration": "development",

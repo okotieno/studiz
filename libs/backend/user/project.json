@@ -1,0 +1,9 @@
+{
+  "name": "user-backend",
+  "$schema": "../../../node_modules/nx/schemas/project-schema.json",
+  "sourceRoot": "libs/backend/user-backend/src",
+  "projectType": "library",
+  "tags": [],
+  "// targets": "to see all targets run: nx show project user-backend --web",
+  "targets": {}
+}

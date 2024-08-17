@@ -15,14 +15,33 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@studiz/backend/institution": ["libs/backend/institution/src/index.ts"],
-      "@studiz/db-backend": ["libs/backend/db/src/index.ts"],
-      "@studiz/graphql-backend": ["libs/backend/graphql/src/index.ts"],
+      "@studiz/backend-generator": ["plugins/backend/src/index.ts"],
+      "@studiz/backend/auth": ["libs/backend/auth/src/index.ts"],
+      "@studiz/backend/auth-service": [
+        "libs/backend/services/auth/src/index.ts"
+      ],
+      "@studiz/backend/crud-abstract": [
+        "libs/backend/services/crud-abstract/src/index.ts"
+      ],
+      "@studiz/backend/db": ["libs/backend/db/src/index.ts"],
+      "@studiz/backend/graphql": ["libs/backend/graphql/src/index.ts"],
+      "@studiz/backend/permission": ["libs/backend/permission/src/index.ts"],
+      "@studiz/backend/permission-service": [
+        "libs/backend/services/permission/src/index.ts"
+      ],
+      "@studiz/backend/role": ["libs/backend/role/src/index.ts"],
+      "@studiz/backend/role-service": [
+        "libs/backend/services/role/src/index.ts"
+      ],
+      "@studiz/backend/user-backend": ["libs/backend/user/src/index.ts"],
+      "@studiz/backend/user-service": [
+        "libs/backend/services/user/src/index.ts"
+      ],
+      "@studiz/frontend-generator": ["plugins/frontend/src/index.ts"],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
-      "@studiz/studiz-backend-generator": ["plugins/backend/src/index.ts"],
-      "@studiz/studiz-frontend-generator": ["plugins/frontend/src/index.ts"],
       "@studiz/theme": ["libs/shared/theme/src/index.ts"],
       "@studiz/user-setting": ["libs/shared/user-settings/src/index.ts"],
+      "@studiz/backend/validators": ["libs/backend/validators/src/index.ts"],
       "@studiz/website-get-started-page": [
         "libs/website/pages/get-started/src/index.ts"
       ],

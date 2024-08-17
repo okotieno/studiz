@@ -17,7 +17,7 @@ const updateAppModuleImports = async (tree: Tree, options: BackendGeneratorResol
   let result = tsquery.replace(contents, selector, (node) => {
 
     const toInsert = `
-    import { ${className}Module } from '@studiz/backend/${fileName}-backend';
+    import { ${className}Module } from '@studiz/backend/${fileName}';
     `;
     return node.getFullText() + toInsert;
   });

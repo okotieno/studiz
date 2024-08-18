@@ -1,0 +1,148 @@
+<div class="table-wrap">
+  <table class="table table-primary" cdk-table [dataSource]="items()">
+    <ng-container cdkColumnDef="applyFilter">
+      <th class="ion-text-end" [attr.colspan]="displayedColumns().length" cdk-header-cell *cdkHeaderCellDef>
+        <ion-button [disabled]="searchForm.pristine || searchForm.invalid" size="small" color="light"
+                    (click)="applyFilter()">
+
+          @if (filterApplied()) {
+            <span class="ion-padding-horizontal">Applied</span>
+            <ion-icon color="success" name="check-double"></ion-icon>
+          } @else {
+            <span class="ion-padding-horizontal">Apply Filter</span>
+          }
+        </ion-button>
+      </th>
+    </ng-container>
+    <ng-container cdkColumnDef="actions">
+      <th cdk-header-cell *cdkHeaderCellDef>
+        <ion-row class="ion-align-items-center ion-justify-content-between">
+          <ion-row class="ion-align-items-center">
+            Actions
+            <ion-button [disabled]="true" class="sort-button" shape="round" size="small" fill="clear">
+              <ion-icon color="light" slot="icon-only" name="arrow-up-arrow-down"></ion-icon>
+            </ion-button>
+          </ion-row>
+          <ion-button [disabled]="true" class="filter-button" shape="round" size="small"
+                      fill="clear">
+            <ion-icon color="light" slot="icon-only" name="filters"></ion-icon>
+          </ion-button>
+
+        </ion-row>
+      </th>
+      <td cdk-cell *cdkCellDef="let row">
+        @if (contentsLoading()) {
+          <ion-skeleton-text style="width: 20px" [animated]="true"></ion-skeleton-text>
+          <ion-skeleton-text style="width: 20px" [animated]="true"></ion-skeleton-text>
+        } @else {
+          @if (row['id']) {
+            <ion-button size="small" color="primary" fill="clear" shape="round" [routerLink]="[row['id']]">
+              <ion-icon slot="icon-only" name="eye"></ion-icon>
+            </ion-button>
+            <ion-button size="small" color="secondary" fill="clear" shape="round" [routerLink]="[row['id'], 'edit']">
+              <ion-icon slot="icon-only" name="pen-to-square"></ion-icon>
+            </ion-button>
+            <ion-button size="small" color="danger" fill="clear" shape="round" (click)="confirmDeleteItem(row['id'])">
+              <ion-icon slot="icon-only" name="trash-can"></ion-icon>
+            </ion-button>
+          }
+        }
+
+
+      </td>
+    </ng-container>
+    @for (column of this.columns(); track column.key; let index = $index) {
+      <ng-container [cdkColumnDef]="$any(column.key)" [formGroup]="searchForm">
+        <th cdk-header-cell *cdkHeaderCellDef [formGroupName]="$any(column.key)">
+          <ion-row class="ion-align-items-center ion-justify-content-between">
+            <ion-row class="ion-align-items-center">
+              {{ column.label }}
+              <ion-button [disabled]="searchForm.invalid" (click)="changeSort($any(column.key))" class="sort-button"
+                          [class.active]="column.key === sortBy()" shape="round" size="small" fill="clear">
+
+                @if (column.key === sortBy() && column.fieldType !== 'integer') {
+                  <ion-icon color="light" slot="icon-only"
+                            [name]="sortByDirection() === 'ASC' ? 'arrow-up-a-z': 'arrow-down-a-z'"></ion-icon>
+                } @else if (column.key === sortBy() && column.fieldType === 'integer') {
+                  <ion-icon color="light" slot="icon-only"
+                            [name]="sortByDirection() === 'ASC' ? 'arrow-up-1-9': 'arrow-down-1-9'"></ion-icon>
+                }@else {
+                  <ion-icon color="light" slot="icon-only" name="arrow-up-arrow-down"></ion-icon>
+                }
+
+
+              </ion-button>
+            </ion-row>
+            <ion-button
+              [disabled]="filtersTracker()[$any(column.key)] && filtersTracker()[$any(column.key)].length > 0"
+              (click)="addFilter($any(column.key))" class="filter-button" shape="round" size="small"
+              fill="clear" [class.active]="filtersTracker()[column.key] && filtersTracker()[column.key].length > 0">
+              <ion-icon color="light" slot="icon-only" name="filters"></ion-icon>
+            </ion-button>
+
+          </ion-row>
+          @if (filtersTracker()[column.key]) {
+            @for (filter of filtersTracker()[column.key]; track filter; let filterIndex = $index) {
+              <ion-row class="ion-justify-content-start" [formArrayName]="filterIndex">
+                <ion-select formControlName="operator" class="custom">
+                  @for (option of searchOptions; track option) {
+                    <ion-select-option [disabled]="option.value === 'CONTAINS' && column.fieldType === 'integer'"
+                                       [value]="option.value">{{ option.label }}
+                    </ion-select-option>
+                  }
+                </ion-select>
+                <ion-col class="ion-no-padding ion-no-margin">
+                  <ion-input [type]="column.fieldType === 'integer' ? 'number': 'text'" class="custom" fill="solid"
+                             formControlName="value">
+                    <ion-button (click)="confirmRemoveSearchField($any(column.key), filterIndex)" class="custom"
+                                slot="end" color="danger" fill="clear">
+                      <ion-icon slot="icon-only" name="circle-minus"></ion-icon>
+                    </ion-button>
+                  </ion-input>
+                </ion-col>
+              </ion-row>
+            }
+          }
+          @if (filtersTracker()[column.key] && filtersTracker()[column.key].length > 0) {
+
+            <ion-row class="ion-justify-content-end">
+              <ion-button (click)="addFilter($any(column.key))" color="light"
+                          fill="clear" shape="round">
+                <ion-icon slot="icon-only" name="circle-plus"></ion-icon>
+              </ion-button>
+            </ion-row>
+          }
+
+
+        </th>
+        @if (column.key === 'id') {
+          <th class="scope" cdk-header-cell *cdkCellDef="let row"> {{ row[column.key] }}</th>
+        } @else {
+          <td cdk-cell *cdkCellDef="let row">
+            @if (contentsLoading()) {
+              <ion-skeleton-text></ion-skeleton-text>
+            } @else {
+              {{ row[column.key] }}
+            }
+          </td>
+        }
+      </ng-container>
+    }
+    <!-- Header and Row Declarations -->
+    <tr cdk-header-row *cdkHeaderRowDef="this.displayedColumns()"></tr>
+    <tr cdk-header-row *cdkHeaderRowDef="extraColumns()"></tr>
+    <tr cdk-row *cdkRowDef="let row; columns: this.displayedColumns()"></tr>
+  </table>
+
+  <div class="ion-padding-horizontal">
+    @if (items().length < 1 && contentsLoading()) {
+      <ion-skeleton-text [animated]="true" style="padding-top: 10px; padding-bottom: 10px"></ion-skeleton-text>
+    }
+
+    <studiz-pagination
+      (paginationValueChange)="paginationValueChange($event)"
+      [paginationValue]="paginationValue"
+      [totalItems]="itemsCount()"
+    ></studiz-pagination>
+  </div>
+</div>

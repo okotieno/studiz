@@ -15,7 +15,7 @@ export const appRoutes: Route[] = [
         children: [
           {
             path: '',
-          //   title: `${$localize`:@@loco\:66597fba454e148b450c51b4:Furaha Admin Portal`} | ${$localize`:@@loco\:6659802094747a6b220fd162:Login`}`,
+            title: `${$localize`:@@loco\:66597fba454e148b450c51b4:Studiz Admin Portal`} | ${$localize`:@@loco\:6659802094747a6b220fd162:Login`}`,
             loadComponent: () => import('@studiz/frontend/login-page')
           }
         ]
@@ -32,7 +32,7 @@ export const appRoutes: Route[] = [
           },
           // {
           //   path: 'home',
-          //   title: `${$localize`:@@loco\:66597fba454e148b450c51b4:Furaha Admin Portal`} | ${$localize`:@@loco\:665aacc06ea4c57b570534c2:Home`}`,
+          //   title: `${$localize`:@@loco\:66597fba454e148b450c51b4:Studiz Admin Portal`} | ${$localize`:@@loco\:665aacc06ea4c57b570534c2:Home`}`,
           //   loadComponent: () => import('@furaha/admin-portal/home-page')
           // },
 

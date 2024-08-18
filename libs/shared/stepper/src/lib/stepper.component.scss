@@ -1,0 +1,45 @@
+header {
+  color: rgba(var(--ion-color-primary-rgb), 0.2);
+
+  .header-icon {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin-right: 8px;
+    flex: none;
+    width: 2rem;
+    height: 2rem;
+    border-radius: 50%;
+    background: rgba(var(--ion-color-primary-rgb), 0.2);
+    color: var(--ion-color-primary-contrast);
+    transition: background-color 225ms cubic-bezier(0.4, 0.0, 0.2, 1);
+  }
+
+  &.active {
+    color: var(--ion-color-primary);
+
+    .header-icon {
+      background: var(--ion-color-primary);
+      color: var(--ion-color-primary-contrast);
+      transition: background-color 225ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+  }
+
+  &.completed {
+    color: var(--ion-color-success);
+
+    .header-icon {
+      background: var(--ion-color-success);
+      color: var(--ion-color-success-contrast);
+      transition: background-color 225ms cubic-bezier(0.4, 0.0, 0.2, 1);
+    }
+  }
+}
+
+
+.stepper-body {
+  border-left: 5px solid rgba(var(--ion-color-primary-rgb), 0.5);
+  margin-left: calc(1rem - 2.5px);
+  margin-top: 10px;
+  margin-bottom: 10px;
+}

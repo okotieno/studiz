@@ -1,8 +1,15 @@
 type UserModel {
-  id: Int!
-  name: String!
+  id: Int
+  firstName: String
+  lastName: String
+  email: String
+  phone: String
+  emailVerifiedAt: String
+  phoneVerifiedAt: String
+  profilePhotoLink: String
+  createdAt: String
+  updatedAt: String
 }
-
 input CreateUserInput {
   name: String
 }

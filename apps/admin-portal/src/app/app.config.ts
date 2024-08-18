@@ -37,7 +37,7 @@ export const appConfig: ApplicationConfig = {
     provideSocialLogin(),
     {
       provide: APP_NAME,
-      useValue: 'Furaha Admin Portal'
+      useValue: 'Studiz Admin Portal'
     },
     {
       provide: MAP_TILER_KEY,

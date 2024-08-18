@@ -15,10 +15,7 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@studiz/frontend/login-page": ["libs/shared/pages/login/src/index.ts"],
-      "@studiz/frontend/constants": ["libs/shared/constants/src/index.ts"],
-      "@studiz/frontend/alert": ["libs/shared/alert/src/index.ts"],
-      "@studiz/frontend/auth": ["libs/shared/auth/src/index.ts"],
+      "@studiz/animations": ["libs/shared/animations/src/index.ts"],
       "@studiz/apollo-provider": ["libs/shared/providers/apollo/src/index.ts"],
       "@studiz/backend-generator": ["plugins/backend/src/index.ts"],
       "@studiz/backend/auth": ["libs/backend/auth/src/index.ts"],
@@ -55,17 +52,25 @@
       ],
       "@studiz/backend/validators": ["libs/backend/validators/src/index.ts"],
       "@studiz/frontend-generator": ["plugins/frontend/src/index.ts"],
+      "@studiz/frontend/alert": ["libs/shared/alert/src/index.ts"],
+      "@studiz/frontend/auth": ["libs/shared/auth/src/index.ts"],
+      "@studiz/frontend/constants": ["libs/shared/constants/src/index.ts"],
+      "@studiz/frontend/login-page": ["libs/shared/pages/login/src/index.ts"],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
+      "@studiz/pagination": ["libs/shared/pagination/src/index.ts"],
+      "@studiz/shared/types/frontend": [
+        "libs/shared/types/frontend/src/index.ts"
+      ],
+      "@studiz/stepper": ["libs/shared/stepper/src/index.ts"],
       "@studiz/theme": ["libs/shared/theme/src/index.ts"],
       "@studiz/user-setting": ["libs/shared/user-settings/src/index.ts"],
+      "@studiz/utils/plural": ["libs/shared/utils/plural/src/index.ts"],
       "@studiz/website-get-started-page": [
         "libs/website/pages/get-started/src/index.ts"
       ],
       "@studiz/website-home-page": ["libs/website/pages/home/src/index.ts"],
       "@studiz/website-layout": ["libs/website/pages/layout/src/index.ts"],
-      "@studiz/shared/types/frontend": [
-        "libs/shared/types/frontend/src/index.ts"
-      ]
+      "@studiz/frontend/list-page": ["libs/shared/list-page/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

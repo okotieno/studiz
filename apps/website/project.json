@@ -13,7 +13,7 @@
         "outputPath": "dist/apps/website",
         "index": "apps/website/src/index.html",
         "browser": "apps/website/src/main.ts",
-        "polyfills": ["zone.js"],
+        "polyfills": ["@angular/localize/init"],
         "tsConfig": "apps/website/tsconfig.app.json",
         "inlineStyleLanguage": "scss",
         "assets": [
@@ -73,12 +73,7 @@
           },
           "apps/website/src/styles.scss"
         ],
-        "scripts": [],
-        "server": "apps/website/src/main.server.ts",
-        "prerender": true,
-        "ssr": {
-          "entry": "apps/website/server.ts"
-        }
+        "scripts": []
       },
       "configurations": {
         "production": {

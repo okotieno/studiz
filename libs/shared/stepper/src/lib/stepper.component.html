@@ -1,0 +1,27 @@
+<section class="container">
+  @for (step of steps; track step.content; let index = $index) {
+    <header (click)="handleNavigation(index)" [class.active]="selectedIndex === index"
+            [class.completed]="selectedIndex > index">
+      <ion-row class="ion-justify-content-start ion-align-items-center">
+        <div class="header-icon">
+          @if (selectedIndex > index) {
+            <ion-icon name="check"></ion-icon>
+          } @else {
+            {{ index + 1 }}
+          }
+
+        </div>
+        <h2 class="ion-no-margin ion-no-padding">
+          {{ step.label }}
+        </h2>
+      </ion-row>
+    </header>
+    <ion-row
+      [style.pointer-events]="selectedIndex !== index ? 'none': 'all'"
+      class="stepper-body ion-padding"
+      [@openClose]="selectedIndex === index ? 'open' : 'closed'"
+    >
+      <ng-container [ngTemplateOutlet]="step?.content ?? null"></ng-container>
+    </ion-row>
+  }
+</section>

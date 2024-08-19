@@ -6,7 +6,6 @@ import {
   IGoogleSignInGQL,
   ILoginWithTokenGQL,
   IRequestAccessTokenGQL,
-  IAuthUserAssignedWarehousesGQL
 } from '../schemas/auth.generated';
 import { Preferences } from '@capacitor/preferences';
 
@@ -19,7 +18,6 @@ export class AuthService {
   googleSignInGQL = inject(IGoogleSignInGQL);
   requestAccessTokenGQL = inject(IRequestAccessTokenGQL);
   loginWithTokenGQL = inject(ILoginWithTokenGQL);
-  authUserAssignedWarehousesGQL = inject(IAuthUserAssignedWarehousesGQL);
   refreshTokenTimeInterval = computed(() => {
     let refreshTimeInterval = 60000;
     if (this.accessToken().length > 0) {
@@ -112,11 +110,5 @@ export class AuthService {
         this.loginDetails.set({ ...this.loginDetails(), accessToken });
       })
     ).subscribe();
-  }
-
-  getUseAssignedWarehouses() {
-    return this.authUserAssignedWarehousesGQL.fetch().pipe(
-      map((m) => m.data.authUserAssignedWarehouses.items)
-    );
   }
 }

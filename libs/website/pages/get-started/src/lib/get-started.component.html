@@ -11,16 +11,16 @@
       </ion-col>
     </ion-row>
 
-    <form class="ion-margin-top">
+    <form class="ion-margin-top" [formGroup]="form" (ngSubmit)="submit()">
       <ion-row>
         <ion-col size="12" class="ion-margin-bottom">
-          <ion-input fill="solid" labelPlacement="floating" label="Institution name"></ion-input>
+          <ion-input formControlName="institutionName" fill="solid" labelPlacement="floating" label="Institution name"></ion-input>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
-          <ion-input type="email" fill="solid" labelPlacement="floating" label="Admin Email"></ion-input>
+          <ion-input formControlName="adminEmail" type="email" fill="solid" labelPlacement="floating" label="Admin Email"></ion-input>
         </ion-col>
         <ion-col size="12" class="ion-margin-bottom">
-          <ion-button>Register Institution</ion-button>
+          <ion-button type="submit" [disabled]="form.invalid">Register Institution</ion-button>
         </ion-col>
       </ion-row>
 

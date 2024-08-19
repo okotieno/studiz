@@ -120,7 +120,7 @@ export type IMutationCreateInstitutionArgs = {
 
 
 export type IMutationCreateInstitutionRequestArgs = {
-  input?: InputMaybe<ICreateInstitutionInput>;
+  input?: InputMaybe<ICreateInstitutionRequestInput>;
 };
 
 

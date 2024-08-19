@@ -84,7 +84,7 @@
           @if (filtersTracker()[column.key]) {
             @for (filter of filtersTracker()[column.key]; track filter; let filterIndex = $index) {
               <ion-row class="ion-justify-content-start" [formArrayName]="filterIndex">
-                <ion-select formControlName="operator" class="custom">
+                <ion-select formControlName="operator" class="custom" fill="outline">
                   @for (option of searchOptions; track option) {
                     <ion-select-option [disabled]="option.value === 'CONTAINS' && column.fieldType === 'integer'"
                                        [value]="option.value">{{ option.label }}

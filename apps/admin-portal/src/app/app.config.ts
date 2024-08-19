@@ -33,7 +33,7 @@ export const appConfig: ApplicationConfig = {
         addAccessTokenInterceptor
       ])
     ),
-    provideApollo(),
+    ...provideApollo(),
     provideSocialLogin(),
     {
       provide: APP_NAME,

@@ -1,7 +1,7 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'apps/backend/src/app/schemas',
+  schema: 'libs/backend/graphql/src/lib/schemas',
   generates: {
     [`libs/shared/auth/src/lib/graphql/generated.ts`]: {
       documents: `libs/shared/auth/src/lib/**/*.gql`,

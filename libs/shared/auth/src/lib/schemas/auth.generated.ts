@@ -28,11 +28,6 @@ export type IRequestAccessTokenMutationVariables = Types.Exact<{
 
 export type IRequestAccessTokenMutation = { requestAccessToken?: { accessToken?: string | null } | null };
 
-export type IAuthUserAssignedWarehousesQueryVariables = Types.Exact<{ [key: string]: never; }>;
-
-
-export type IAuthUserAssignedWarehousesQuery = { authUserAssignedWarehouses: { items?: Array<{ id: number, name: string } | null> | null, meta?: { totalItems: number } | null } };
-
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UserModel {
   id
@@ -68,7 +63,7 @@ export const GoogleSignInDocument = gql`
   })
   export class IGoogleSignInGQL extends Apollo.Mutation<IGoogleSignInMutation, IGoogleSignInMutationVariables> {
     override document = GoogleSignInDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -86,7 +81,7 @@ export const LoginWithTokenDocument = gql`
   })
   export class ILoginWithTokenGQL extends Apollo.Mutation<ILoginWithTokenMutation, ILoginWithTokenMutationVariables> {
     override document = LoginWithTokenDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -104,31 +99,7 @@ export const RequestAccessTokenDocument = gql`
   })
   export class IRequestAccessTokenGQL extends Apollo.Mutation<IRequestAccessTokenMutation, IRequestAccessTokenMutationVariables> {
     override document = RequestAccessTokenDocument;
-
-    constructor(apollo: Apollo.Apollo) {
-      super(apollo);
-    }
-  }
-export const AuthUserAssignedWarehousesDocument = gql`
-    query AuthUserAssignedWarehouses {
-  authUserAssignedWarehouses {
-    items {
-      id
-      name
-    }
-    meta {
-      totalItems
-    }
-  }
-}
-    `;
-
-  @Injectable({
-    providedIn: 'root'
-  })
-  export class IAuthUserAssignedWarehousesGQL extends Apollo.Query<IAuthUserAssignedWarehousesQuery, IAuthUserAssignedWarehousesQueryVariables> {
-    override document = AuthUserAssignedWarehousesDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }

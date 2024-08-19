@@ -38,16 +38,3 @@ mutation RequestAccessToken($refreshToken: String!) {
     accessToken
   }
 }
-
-
-query AuthUserAssignedWarehouses {
-  authUserAssignedWarehouses {
-    items {
-      id
-      name
-    }
-    meta {
-      totalItems
-    }
-  }
-}

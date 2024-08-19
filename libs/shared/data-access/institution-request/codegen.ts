@@ -1,11 +1,11 @@
 import type { CodegenConfig } from '@graphql-codegen/cli';
 
 const config: CodegenConfig = {
-  schema: 'apps/backend/src/app/schemas',
+  schema: 'libs/backend/graphql/src/lib/schemas',
   generates: {
-    [`libs/shared/data-access/institution-request/src/lib/graphql/generated.ts`]:
+    [`libs/shared/data-access/institution-request/src/lib/generated.ts`]:
       {
-        documents: `libs/shared/data-access/institution-request/src/lib/**/*.gql`,
+        documents: `libs/shared/data-access/institution-request/src/lib/schemas/*.gql`,
         plugins: ['typescript-operations', 'typescript-apollo-angular'],
         preset: 'near-operation-file',
         presetConfig: {

@@ -25,7 +25,7 @@ jest.mock('@apollo/client/link/ws', () => ({
 describe('ApolloProvider', () => {
   it('should create Apollo options for HTTP', () => {
     const httpLink = new (jest.requireActual('apollo-angular/http').HttpLink)(null);
-    const apolloOptions = provideApollo().useFactory(httpLink);
+    const apolloOptions = (provideApollo()[1] as any).useFactory(httpLink);
     expect(apolloOptions.cache).toBeDefined();
     expect(apolloOptions.link).toBeDefined();
     // Add assertions for HTTP link options
@@ -33,7 +33,7 @@ describe('ApolloProvider', () => {
 
   it('should create Apollo options for WebSocket', () => {
     const httpLink = new (jest.requireActual('apollo-angular/http').HttpLink)(null);
-    const apolloOptions = provideApollo().useFactory(httpLink);
+    const apolloOptions = (provideApollo()[1] as any).useFactory(httpLink);
     expect(apolloOptions.cache).toBeDefined();
     expect(apolloOptions.link).toBeDefined();
     // Add assertions for WebSocket link options

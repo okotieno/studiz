@@ -39,7 +39,7 @@ extend type Mutation {
   ): CreateInstitutionRequestSuccessResponse
 
   createInstitutionRequest(
-    input: CreateInstitutionInput
+    input: CreateInstitutionRequestInput
   ): CreateInstitutionRequestSuccessResponse
 
   registerInstitutionRequest(

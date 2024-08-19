@@ -1,5 +1,5 @@
-mutation CreateInstitutionRequest($name: String!) {
-  createInstitutionRequest(name: $name) {
+mutation CreateInstitutionRequest($input: CreateInstitutionRequestInput!) {
+  createInstitutionRequest(input: $input) {
     message
     data {
       id
@@ -43,3 +43,13 @@ mutation UpdateInstitutionRequest(
     }
   }
 }
+
+mutation RegisterInstitutionRequest($input: RegisterInstitutionRequestInput!) {
+  registerInstitutionRequest(input: $input) {
+    message
+    data {
+      id
+    }
+  }
+}
+

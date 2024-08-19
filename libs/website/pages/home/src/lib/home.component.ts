@@ -17,7 +17,6 @@ import 'swiper/css/pagination';
 import { Autoplay, Pagination, Keyboard } from 'swiper/modules';
 import { LogoComponent } from './logo.component';
 import { RouterLink } from '@angular/router';
-import { DoneIllustration } from '@studiz/icons';
 
 Swiper.use([Autoplay, Pagination, Keyboard]);
 
@@ -28,8 +27,7 @@ Swiper.use([Autoplay, Pagination, Keyboard]);
     IonCol,
     LogoComponent,
     IonButton,
-    RouterLink,
-    DoneIllustration
+    RouterLink
   ],
   templateUrl: './home.component.html',
   styleUrl: './home.component.scss',

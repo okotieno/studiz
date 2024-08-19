@@ -15,7 +15,10 @@ export const appConfig: ApplicationConfig = {
   providers: [
     provideExperimentalZonelessChangeDetection(),
     provideRouter(appRoutes),
-    provideIonicAngular({ navAnimation: routingAnimation }),
+    provideIonicAngular({
+      navAnimation: routingAnimation,
+      useSetInputAPI: true
+    }),
     provideHttpClient(),
     ...provideApollo(),
   ],

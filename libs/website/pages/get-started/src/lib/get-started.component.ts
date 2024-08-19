@@ -1,4 +1,4 @@
-import { Component, inject } from '@angular/core';
+import { Component, effect, inject, input } from '@angular/core';
 import {
   IonButton,
   IonButtons,
@@ -6,15 +6,17 @@ import {
   IonContent,
   IonHeader,
   IonInput,
-  IonItem,
+  IonItem, IonNav,
   IonRow,
   IonText,
-  IonToolbar
+  IonToolbar, NavController
 } from '@ionic/angular/standalone';
 import { UserSettingsComponent } from '@studiz/user-setting';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IRegisterInstitutionRequestGQL } from '@studiz/frontend/institution-request-frontend-service';
 import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
+import { SuccessComponent } from './success.component';
+import { tap } from 'rxjs';
 
 @Component({
   selector: 'studiz-get-started',
@@ -37,6 +39,12 @@ import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/const
   styleUrl: './get-started.component.css'
 })
 export class GetStartedComponent {
+  ionNav = input.required<IonNav>();
+  testEffect = effect(() => {
+
+    console.log(this.ionNav());
+  })
+  navCtrl = inject(NavController);
   fb = inject(FormBuilder);
   registerInstitutionRequestGQL = inject(IRegisterInstitutionRequestGQL);
   form = this.fb.nonNullable.group({
@@ -49,9 +57,18 @@ export class GetStartedComponent {
   }
 
   submit() {
+
     this.registerInstitutionRequestGQL.mutate({
       input: this.formValue
     }, { context: { [SHOW_SUCCESS_MESSAGE]: true, [SHOW_ERROR_MESSAGE]: true } })
+      .pipe(
+        tap(res => {
+          this.ionNav().push(SuccessComponent, {
+            successMessage: res.data?.registerInstitutionRequest?.message
+          })
+
+        })
+      )
       .subscribe();
   }
 }

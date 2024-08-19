@@ -1,0 +1,51 @@
+<ion-header class="ion-no-border">
+  <ion-breadcrumbs
+    (ionCollapsedClick)="presentPopover($event)"
+    [maxItems]="3"
+    [itemsBeforeCollapse]="1"
+    class="ion-padding-horizontal"
+  >
+    <ion-breadcrumb href="#home">
+      <ion-icon name="house"></ion-icon>
+    </ion-breadcrumb>
+    <ion-breadcrumb>InstitutionRequests</ion-breadcrumb>
+    <ion-popover
+      #popover
+      [isOpen]="isBreadcrumbPopoverOpen()"
+      (didDismiss)="isBreadcrumbPopoverOpen.set(false)"
+    >
+      <ng-template>
+        <ion-content>
+          <ion-list>
+            @for (breadcrumb of collapsedBreadcrumbs; let isLast = $last; track
+            breadcrumb) {
+            <ion-item
+              (click)="popover.dismiss()"
+              [href]="breadcrumb.href"
+              [lines]="isLast ? 'none' : null"
+            >
+              <ion-label>{{ breadcrumb.textContent }}</ion-label>
+            </ion-item>
+            }
+          </ion-list>
+        </ion-content>
+      </ng-template>
+    </ion-popover>
+  </ion-breadcrumbs>
+  <ion-toolbar class="ion-padding-start">
+    <ion-label> {{ itemsCount() }} items </ion-label>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-no-padding ion-padding-horizontal">
+  <studiz-crud-table
+    [allColumns]="allColumns"
+    [getItemsFn]="getItemsFn"
+    [deleteItemFn]="deleteItemFn"
+  ></studiz-crud-table>
+
+  <ion-fab slot="fixed" vertical="bottom" horizontal="end">
+    <ion-fab-button [routerLink]="['create']">
+      <ion-icon name="plus"></ion-icon>
+    </ion-fab-button>
+  </ion-fab>
+</ion-content>

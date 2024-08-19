@@ -10,3 +10,16 @@ users-gear
 link
 user-pen
 bell
+backward-fast
+forward-fast
+forward-step
+backward-step
+plus
+arrow-up-arrow-down
+arrow-up-1-9
+arrow-down-1-9
+arrow-up-a-z
+arrow-down-a-z
+filters
+circle-plus
+circle-minus

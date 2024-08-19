@@ -15,11 +15,13 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@studiz/frontend/form-exit-guard": ["libs/shared/form-exit-guard/src/index.ts"],
       "@studiz/admin-portal/home-page": [
         "libs/admin-portal/pages/home/src/index.ts"
       ],
-      "@studiz/frontend/layout": ["libs/shared/layout/src/index.ts"],
-      "@studiz/frontend/side-nav": ["libs/shared/side-nav/src/index.ts"],
+      "@studiz/admin-portal/institution-requests-page": [
+        "libs/admin-portal/pages/institution-requests/src/index.ts"
+      ],
       "@studiz/animations": ["libs/shared/animations/src/index.ts"],
       "@studiz/apollo-provider": ["libs/shared/providers/apollo/src/index.ts"],
       "@studiz/backend-generator": ["plugins/backend/src/index.ts"],
@@ -60,7 +62,13 @@
       "@studiz/frontend/alert": ["libs/shared/alert/src/index.ts"],
       "@studiz/frontend/auth": ["libs/shared/auth/src/index.ts"],
       "@studiz/frontend/constants": ["libs/shared/constants/src/index.ts"],
+      "@studiz/frontend/institution-request-frontend-service": [
+        "libs/shared/data-access/institution-request/src/index.ts"
+      ],
+      "@studiz/frontend/layout": ["libs/shared/layout/src/index.ts"],
+      "@studiz/frontend/list-page": ["libs/shared/list-page/src/index.ts"],
       "@studiz/frontend/login-page": ["libs/shared/pages/login/src/index.ts"],
+      "@studiz/frontend/side-nav": ["libs/shared/side-nav/src/index.ts"],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
       "@studiz/pagination": ["libs/shared/pagination/src/index.ts"],
       "@studiz/shared/types/frontend": [
@@ -74,8 +82,7 @@
         "libs/website/pages/get-started/src/index.ts"
       ],
       "@studiz/website-home-page": ["libs/website/pages/home/src/index.ts"],
-      "@studiz/website-layout": ["libs/website/pages/layout/src/index.ts"],
-      "@studiz/frontend/list-page": ["libs/shared/list-page/src/index.ts"]
+      "@studiz/website-layout": ["libs/website/pages/layout/src/index.ts"]
     }
   },
   "exclude": ["node_modules", "tmp"]

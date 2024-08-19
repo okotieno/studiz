@@ -15,7 +15,7 @@ import { CdkStep } from '@angular/cdk/stepper';
 import { <%= className %>DetailsComponent } from './<%= fileName %>-details.component';
 import { ManageItemPageComponent } from '@studiz/frontend/list-page';
 import { I<%= className %>Model } from '@studiz/shared/types/frontend';
-import { IHasUnsavedChanges } from '@studiz/form-exit-guard';
+import { IHasUnsavedChanges } from '@studiz/frontend/form-exit-guard';
 import { UserButtonComponent } from '@studiz/frontend/side-nav';
 
 @Component({

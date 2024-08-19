@@ -1,0 +1,63 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar color="primary">
+    <ion-title>View InstitutionRequest</ion-title>
+    <ion-buttons slot="start">
+      <ion-menu-button></ion-menu-button>
+    </ion-buttons>
+    <studiz-user-button slot="end"></studiz-user-button>
+  </ion-toolbar>
+  <ion-breadcrumbs
+    (ionCollapsedClick)="presentPopover($event)"
+    [maxItems]="3"
+    [itemsBeforeCollapse]="1"
+    class="ion-padding-horizontal"
+  >
+    <ion-breadcrumb href="#home">
+      <ion-icon name="house"></ion-icon>
+    </ion-breadcrumb>
+    <ion-breadcrumb href="#institution-requests">
+      InstitutionRequest
+    </ion-breadcrumb>
+    <ion-breadcrumb>{{ institutionRequest().name }}</ion-breadcrumb>
+  </ion-breadcrumbs>
+  <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
+    <ng-template>
+      <ion-content>
+        <ion-list>
+          @for (breadcrumb of collapsedBreadcrumbs; let isLast = $last; track
+          breadcrumb) {
+          <ion-item
+            (click)="popover.dismiss()"
+            [href]="breadcrumb.href"
+            [lines]="isLast ? 'none' : null"
+          >
+            <ion-label>{{ breadcrumb.textContent }}</ion-label>
+          </ion-item>
+          }
+        </ion-list>
+      </ion-content>
+    </ng-template>
+  </ion-popover>
+</ion-header>
+<ion-content class="ion-padding-horizontal">
+  <ion-card>
+    <ion-card-header>
+      <ion-toolbar>
+        <ion-card-title>
+          {{ institutionRequest().name }}
+        </ion-card-title>
+        <ion-button
+          [routerLink]="['edit']"
+          slot="end"
+          fill="clear"
+          color="primary"
+          shape="round"
+        >
+          <ion-icon slot="icon-only" name="pen-to-square"></ion-icon>
+        </ion-button>
+      </ion-toolbar>
+    </ion-card-header>
+    <ion-card-content class="ion-no-padding ion-padding-bottom">
+    </ion-card-content>
+  </ion-card>
+</ion-content>

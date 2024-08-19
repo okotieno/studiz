@@ -17,7 +17,7 @@ import { RouterLink } from '@angular/router';
 import { tap } from 'rxjs';
 import { NgTemplateOutlet } from '@angular/common';
 import { ManageItemFormComponent } from '@studiz/frontend/list-page';
-import { IHasUnsavedChanges } from '@studiz/form-exit-guard';
+import { IHasUnsavedChanges } from '@studiz/frontend/form-exit-guard';
 import { I<%= className %>Model } from '@studiz/shared/types/frontend';
 import { UserButtonComponent } from '@studiz/frontend/side-nav';
 

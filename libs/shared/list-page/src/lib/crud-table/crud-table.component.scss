@@ -1,7 +1,7 @@
 ion-input.custom, ion-select.custom {
   margin-top: 10px;
-  --background: var(--ion-color-primary-contrast);
-  --color: var(--ion-color-dark);
+  //--background: var(--ion-color-primary-contrast);
+  //--color: var(--ion-color-dark);
   --placeholder-color: #ddd;
   --placeholder-opacity: 0.8;
 
@@ -29,7 +29,7 @@ ion-input.custom.md .input-bottom .counter {
 
 ion-select.custom {
   width: unset;
-  color: var(--ion-color-primary);
+  //color: var(--ion-color-primary);
   margin-right: -2px;
 }
 

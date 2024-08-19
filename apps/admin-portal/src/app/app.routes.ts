@@ -35,10 +35,10 @@ export const appRoutes: Route[] = [
             title: `${$localize`:@@loco\:66597fba454e148b450c51b4:Studiz Admin Portal`} | ${$localize`:@@loco\:665aacc06ea4c57b570534c2:Home`}`,
             loadComponent: () => import('@studiz/admin-portal/home-page')
           },
-          // {
-          //   path: 'institution-requests',
-          //   loadChildren: () => import('@studiz/admin-portal/')
-          // },
+          {
+            path: 'institution-requests',
+            loadChildren: () => import('@studiz/admin-portal/institution-requests-page')
+          },
 
         ]
       }

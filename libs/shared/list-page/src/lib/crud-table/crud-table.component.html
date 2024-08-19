@@ -2,7 +2,7 @@
   <table class="table table-primary" cdk-table [dataSource]="items()">
     <ng-container cdkColumnDef="applyFilter">
       <th class="ion-text-end" [attr.colspan]="displayedColumns().length" cdk-header-cell *cdkHeaderCellDef>
-        <ion-button [disabled]="searchForm.pristine || searchForm.invalid" size="small" color="light"
+        <ion-button [disabled]="searchForm.pristine || searchForm.invalid" size="small"
                     (click)="applyFilter()">
 
           @if (filterApplied()) {
@@ -20,12 +20,12 @@
           <ion-row class="ion-align-items-center">
             Actions
             <ion-button [disabled]="true" class="sort-button" shape="round" size="small" fill="clear">
-              <ion-icon color="light" slot="icon-only" name="arrow-up-arrow-down"></ion-icon>
+              <ion-icon slot="icon-only" name="arrow-up-arrow-down"></ion-icon>
             </ion-button>
           </ion-row>
           <ion-button [disabled]="true" class="filter-button" shape="round" size="small"
                       fill="clear">
-            <ion-icon color="light" slot="icon-only" name="filters"></ion-icon>
+            <ion-icon slot="icon-only" name="filters"></ion-icon>
           </ion-button>
 
         </ion-row>
@@ -61,13 +61,13 @@
                           [class.active]="column.key === sortBy()" shape="round" size="small" fill="clear">
 
                 @if (column.key === sortBy() && column.fieldType !== 'integer') {
-                  <ion-icon color="light" slot="icon-only"
+                  <ion-icon slot="icon-only"
                             [name]="sortByDirection() === 'ASC' ? 'arrow-up-a-z': 'arrow-down-a-z'"></ion-icon>
                 } @else if (column.key === sortBy() && column.fieldType === 'integer') {
-                  <ion-icon color="light" slot="icon-only"
+                  <ion-icon slot="icon-only"
                             [name]="sortByDirection() === 'ASC' ? 'arrow-up-1-9': 'arrow-down-1-9'"></ion-icon>
                 }@else {
-                  <ion-icon color="light" slot="icon-only" name="arrow-up-arrow-down"></ion-icon>
+                  <ion-icon slot="icon-only" name="arrow-up-arrow-down"></ion-icon>
                 }
 
 
@@ -77,7 +77,7 @@
               [disabled]="filtersTracker()[$any(column.key)] && filtersTracker()[$any(column.key)].length > 0"
               (click)="addFilter($any(column.key))" class="filter-button" shape="round" size="small"
               fill="clear" [class.active]="filtersTracker()[column.key] && filtersTracker()[column.key].length > 0">
-              <ion-icon color="light" slot="icon-only" name="filters"></ion-icon>
+              <ion-icon slot="icon-only" name="filters"></ion-icon>
             </ion-button>
 
           </ion-row>
@@ -92,7 +92,7 @@
                   }
                 </ion-select>
                 <ion-col class="ion-no-padding ion-no-margin">
-                  <ion-input [type]="column.fieldType === 'integer' ? 'number': 'text'" class="custom" fill="solid"
+                  <ion-input [type]="column.fieldType === 'integer' ? 'number': 'text'" class="custom" fill="outline"
                              formControlName="value">
                     <ion-button (click)="confirmRemoveSearchField($any(column.key), filterIndex)" class="custom"
                                 slot="end" color="danger" fill="clear">
@@ -106,7 +106,7 @@
           @if (filtersTracker()[column.key] && filtersTracker()[column.key].length > 0) {
 
             <ion-row class="ion-justify-content-end">
-              <ion-button (click)="addFilter($any(column.key))" color="light"
+              <ion-button (click)="addFilter($any(column.key))"
                           fill="clear" shape="round">
                 <ion-icon slot="icon-only" name="circle-plus"></ion-icon>
               </ion-button>

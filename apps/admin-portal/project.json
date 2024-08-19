@@ -65,11 +65,15 @@
             "inject": true
           },
           {
-            "input": "libs/shared/theme/theme.css",
+            "input": "libs/shared/theme/src/lib/theme.css",
             "inject": true
           },
           {
-            "input": "libs/shared/theme/variables.css",
+            "input": "libs/shared/theme/src/lib/variables.css",
+            "inject": true
+          },
+          {
+            "input": "libs/shared/theme/src/lib/table.scss",
             "inject": true
           },
           "apps/admin-portal/src/styles.scss"

@@ -65,7 +65,7 @@ export class CrudTableComponent extends ListPageComponent<{ [key: string | numbe
     items: any[]
   }>;
 
-  @Input({ required: true }) override deleteItemFn!: (id: number) => Observable<{
+  @Input({ required: true }) declare deleteItemFn: (id: number) => Observable<{
     message: string
   } | null | undefined>;
 

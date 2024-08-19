@@ -1,7 +1,7 @@
 import { ActivatedRouteSnapshot, Route } from '@angular/router';
 import { inject } from '@angular/core';
 import { <%= className %>FrontendService } from '@studiz/frontend/<%= fileName %>-frontend-service';
-import { FormExitGuardService, IHasUnsavedChanges } from '@studiz/form-exit-guard';
+import { FormExitGuardService, IHasUnsavedChanges } from '@studiz/frontend/form-exit-guard';
 
 const <%= propertyName %>Resolver = (route: ActivatedRouteSnapshot) =>
   inject(<%= className %>FrontendService).getItemWithId(Number(route.params['<%= propertyName %>Id']));

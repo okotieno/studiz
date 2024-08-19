@@ -11,6 +11,12 @@
       "options": {
         "jestConfig": "libs/backend/graphql/jest.config.ts"
       }
-    }
+    },
+    "graphql-codegen": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["graphql-codegen --config ./libs/backend/graphql/graphql-codegen.ts"]
+      }
+    },
   }
 }

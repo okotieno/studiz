@@ -1,0 +1,45 @@
+mutation CreateInstitutionRequest($name: String!) {
+  createInstitutionRequest(name: $name) {
+    message
+    data {
+      id
+    }
+  }
+}
+
+query GetInstitutionRequestById($id: Int!) {
+  institutionRequest(id: $id) {
+    id
+    name
+  }
+}
+
+query GetInstitutionRequests($query: QueryParams) {
+  institutionRequests(query: $query) {
+    items {
+      id
+      name
+    }
+    meta {
+      totalItems
+    }
+  }
+}
+
+mutation DeleteInstitutionRequestById($id: Int!) {
+  deleteInstitutionRequest(id: $id) {
+    message
+  }
+}
+
+mutation UpdateInstitutionRequest(
+  $id: Int!
+  $params: UpdateInstitutionRequestInput!
+) {
+  updateInstitutionRequest(id: $id, params: $params) {
+    message
+    data {
+      id
+    }
+  }
+}

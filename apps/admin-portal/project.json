@@ -127,6 +127,12 @@
       "options": {
         "jestConfig": "apps/admin-portal/jest.config.ts"
       }
+    },
+    "copy:icons": {
+      "executor": "nx:run-commands",
+      "options": {
+        "commands": ["./apps/admin-portal/copy-icons.sh"]
+      }
     }
   }
 }

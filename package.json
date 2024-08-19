@@ -5,8 +5,11 @@
   "scripts": {
     "serve:website": "nx serve website",
     "serve:backend": "nx serve backend",
-    "serve:admin-portal": "nx serve admin-portal",
-    "graphql:codegen": "nx run-many -t graphql-codegen"
+    "serve:admin-portal": "nx serve admin-portal -- --port 4201",
+    "grapnhql:codegen": "nx run-many -t graphql-codegen",
+    "db:seed:all": "nx run-many -t db:seed:all",
+    "db:seed:undo:all": "nx run-many -t db:seed:undo:all",
+    "copy:icons": "nx run-many -t copy:icons"
   },
   "private": true,
   "dependencies": {
@@ -54,6 +57,7 @@
     "reflect-metadata": "^0.1.13",
     "rxjs": "~7.8.0",
     "sequelize": "^6.37.3",
+    "sequelize-cli": "^6.6.2",
     "sequelize-typescript": "^2.1.6",
     "swiper": "^11.1.9",
     "tslib": "^2.3.0",

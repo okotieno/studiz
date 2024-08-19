@@ -8,20 +8,14 @@ import {
 } from '@angular/core';
 import {
   IonButton,
-  IonButtons,
   IonCol,
-  IonContent,
-  IonHeader, IonImg,
   IonRow,
-  IonToggle,
-  IonToolbar
 } from '@ionic/angular/standalone';
 import Swiper from 'swiper';
 import 'swiper/css';
 import 'swiper/css/pagination';
 import { Autoplay, Pagination, Keyboard } from 'swiper/modules';
 import { LogoComponent } from './logo.component';
-import { UserSettingsComponent } from '@studiz/user-setting';
 import { RouterLink } from '@angular/router';
 
 Swiper.use([Autoplay, Pagination, Keyboard]);

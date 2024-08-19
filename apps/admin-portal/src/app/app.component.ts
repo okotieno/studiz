@@ -1,9 +1,12 @@
 import { Component } from '@angular/core';
-import { RouterModule } from '@angular/router';
+import { IonApp, IonRouterOutlet } from '@ionic/angular/standalone';
 
 @Component({
   standalone: true,
-  imports: [RouterModule],
+  imports: [
+    IonApp,
+    IonRouterOutlet,
+  ],
   selector: 'studiz-root',
   templateUrl: './app.component.html',
   styleUrl: './app.component.scss'

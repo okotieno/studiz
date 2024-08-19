@@ -1,0 +1,11 @@
+<ion-button [color]="isPopoverOpen() ? 'primary' : null" (click)="openPopover($event)" [shape]="'round'" fill="clear">
+    <ion-icon slot="icon-only" name="bell"></ion-icon>
+</ion-button>
+
+<ion-popover (didDismiss)="isPopoverOpen.set(false)" [isOpen]="isPopoverOpen()" side="bottom" alignment="start">
+  <ng-template>
+    <ion-content class="ion-padding">
+       No new notifications
+    </ion-content>
+  </ng-template>
+</ion-popover>

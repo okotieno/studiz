@@ -5,7 +5,7 @@ import { IonCol, IonIcon, IonRow } from '@ionic/angular/standalone';
 import { animate, state, style, transition, trigger } from '@angular/animations';
 
 @Component({
-  selector: 'furaha-stepper',
+  selector: 'studiz-stepper',
   standalone: true,
   imports: [
     NgTemplateOutlet, IonRow, IonCol, IonIcon

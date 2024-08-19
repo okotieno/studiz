@@ -1,0 +1,33 @@
+<ion-split-pane content-id="main-content" when="lg">
+  <ion-menu content-id="main-content">
+    <ion-content class="ion-padding">
+      <ion-nav [root]="component"></ion-nav>
+    </ion-content>
+  </ion-menu>
+
+  <div class="ion-page" id="main-content">
+    <ion-header>
+      <ion-toolbar>
+        <ion-menu-toggle slot="start">
+          <ion-button shape="round" color="primary" fill="clear">
+            <ion-icon slot="icon-only" name="bars-staggered"></ion-icon>
+          </ion-button>
+        </ion-menu-toggle>
+        <ion-title>Dashboard</ion-title>
+        <ion-buttons slot="end">
+          <studiz-user-button></studiz-user-button>
+          <studiz-notification-button></studiz-notification-button>
+          <studiz-user-settings></studiz-user-settings>
+
+        </ion-buttons>
+
+      </ion-toolbar>
+    </ion-header>
+    <ion-content class="ion-padding">
+      <ion-router-outlet></ion-router-outlet>
+    </ion-content>
+
+
+
+  </div>
+</ion-split-pane>

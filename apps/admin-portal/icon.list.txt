@@ -1,0 +1,12 @@
+user-tie
+bars-staggered
+left-to-line
+caret-right
+user-tie-hair-long
+gear
+house
+arrow-left
+users-gear
+link
+user-pen
+bell

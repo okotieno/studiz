@@ -1,0 +1,61 @@
+<ion-header>
+  <ion-toolbar class="ion-no-border" color="primary">
+    <ion-buttons slot="start">
+      @if ($any(activeKey)() !== 'root') {
+        <ion-nav-link router-direction="root" [component]="component">
+          <ion-button fill="clear">
+            <ion-icon slot="icon-only" name="house"></ion-icon>
+          </ion-button>
+        </ion-nav-link>
+      }
+
+    </ion-buttons>
+    <ion-title>{{ activeMenu()?.title }}</ion-title>
+    <ion-buttons slot="end">
+      <ion-menu-button color="danger" menu="start">
+        <ion-icon name="left-to-line"></ion-icon>
+      </ion-menu-button>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content class="ion-padding">
+  @if ($any(activeKey)() !== 'root') {
+    <ion-nav-link class="ion-margin-horizontal" router-direction="back" [component]="component">
+      <ion-button fill="clear">
+        Back
+        <ion-icon color="primary" slot="start" name="arrow-left"></ion-icon>
+      </ion-button>
+    </ion-nav-link>
+  }
+
+  @for (menuItem of activeMenuOptions(); track menuItem.name) {
+    @if (menuItem && menuItem.nextPage) {
+      <ion-nav-link [class.active]="menuItem.isActive" router-direction="forward" [component]="component"
+                    [componentProps]="{ activeKey: menuItem.nextPage }">
+
+        <ion-item  [class.active]="menuItem.isActive" [detail]="true" detailIcon="caret-right" [button]="true">
+          @if (menuItem.icon) {
+            <ion-icon [name]="menuItem.icon"
+                      slot="start"></ion-icon>
+          }
+
+          {{ menuItem.name }}
+        </ion-item>
+      </ion-nav-link>
+    }
+    @if (menuItem && menuItem.link) {
+      <ion-menu-toggle autoHide="false" menu="start">
+        <ion-item [routerLink]="menuItem.link" routerLinkActive="active" [detail]="true" detailIcon="link"
+                  [button]="true">
+          <ion-icon slot="start" [name]="menuItem.icon"></ion-icon>
+          {{ menuItem.name }} {{ menuItem.isActive }}
+        </ion-item>
+      </ion-menu-toggle>
+    }
+
+    @if (menuItem.name === 'divider') {
+      <ion-item-divider mode="md"></ion-item-divider>
+    }
+
+  }
+</ion-content>

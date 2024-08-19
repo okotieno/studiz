@@ -1,5 +1,5 @@
 import { Component, inject, signal, viewChild } from '@angular/core';
-import { IonButton, IonContent, IonPopover, IonToggle } from '@ionic/angular/standalone';
+import { IonButton, IonContent, IonIcon, IonPopover, IonToggle } from '@ionic/angular/standalone';
 import { UserGear } from '@studiz/icons';
 import { FormsModule } from '@angular/forms';
 import { ThemeStore } from '@studiz/theme';
@@ -14,7 +14,8 @@ import { ThemeStore } from '@studiz/theme';
     IonPopover,
     IonContent,
     IonToggle,
-    FormsModule
+    FormsModule,
+    IonIcon
   ],
   templateUrl: './user-settings.component.html',
   styleUrl: './user-settings.component.css',

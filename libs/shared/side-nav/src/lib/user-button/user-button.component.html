@@ -1,0 +1,29 @@
+<ion-button class="ion-hide-md-up" (click)="openPopover($event)" [shape]="'round'" fill="clear">
+  @if (user()?.profilePhotoLink) {
+    <ion-avatar slot="icon-only">
+      <ion-img class="" [src]="user()?.profilePhotoLink"></ion-img>
+    </ion-avatar>
+  } @else {
+    <ion-icon slot="icon-only" name="user-tie"></ion-icon>
+  }
+</ion-button>
+
+<ion-button id="user-button" class="ion-hide-md-down ion-text-md-capitalize" (click)="openPopover($event)" fill="clear">
+  @if (user()?.profilePhotoLink) {
+    <ion-avatar slot="start">
+      <ion-img class="" [src]="user()?.profilePhotoLink"></ion-img>
+    </ion-avatar>
+  } @else {
+    <ion-icon slot="start" name="user-tie"></ion-icon>
+  }
+  <span>{{ (user()?.firstName ?? '') }} {{ (user()?.lastName ?? '') }}</span>
+</ion-button>
+
+<ion-popover (didDismiss)="isPopoverOpen.set(false)" [isOpen]="isPopoverOpen()" side="bottom" alignment="start">
+  <ng-template>
+    <ion-content class="ion-padding">
+
+       Email: {{ user()?.email }}
+    </ion-content>
+  </ng-template>
+</ion-popover>

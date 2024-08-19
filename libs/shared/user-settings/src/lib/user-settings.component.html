@@ -1,5 +1,5 @@
-<ion-button color="primary" shape="round" fill="none" (click)="presentPopover($event)">
-  <studiz-icon-user-gear slot="icon-only"></studiz-icon-user-gear>
+<ion-button [color]="isPopoverOpen() ? 'primary' : null" shape="round" fill="clear" (click)="presentPopover($event)">
+  <ion-icon slot="icon-only" name="gear"></ion-icon>
 </ion-button>
 <ion-popover [isOpen]="isPopoverOpen()" (didDismiss)="isPopoverOpen.set(false)">
   <ng-template>

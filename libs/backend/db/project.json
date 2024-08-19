@@ -11,6 +11,24 @@
       "options": {
         "jestConfig": "libs/backend/db/jest.config.ts"
       }
+    },
+    "db:seed:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "envFile": "./apps/backend/.env",
+        "commands": [
+          "sequelize-cli db:seed:all --config='libs/backend/db/sequelize.config.js' --seeders-path='libs/backend/db/src/lib/seeders'"
+        ]
+      }
+    },
+    "db:seed:undo:all": {
+      "executor": "nx:run-commands",
+      "options": {
+        "envFile": "./apps/backend/.env",
+        "commands": [
+          "sequelize-cli db:seed:undo:all --config='apps/backend/sequelize.config.js' --seeders-path='libs/backend/db/src/lib/seeders'"
+        ]
+      }
     }
   }
 }

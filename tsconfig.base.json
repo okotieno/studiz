@@ -15,6 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@studiz/admin-portal/home-page": [
+        "libs/admin-portal/pages/home/src/index.ts"
+      ],
+      "@studiz/frontend/layout": ["libs/shared/layout/src/index.ts"],
+      "@studiz/frontend/side-nav": ["libs/shared/side-nav/src/index.ts"],
       "@studiz/animations": ["libs/shared/animations/src/index.ts"],
       "@studiz/apollo-provider": ["libs/shared/providers/apollo/src/index.ts"],
       "@studiz/backend-generator": ["plugins/backend/src/index.ts"],

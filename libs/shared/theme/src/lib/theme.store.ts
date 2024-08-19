@@ -31,6 +31,10 @@ export const ThemeStore = signalStore(
         currentTheme();
         return getColor('--ion-color-secondary');
       }),
+      successColor: computed(() => {
+        currentTheme();
+        return getColor('--ion-color-success');
+      }),
     }
   }),
   withMethods((store) => {

@@ -7,6 +7,7 @@
   "emailNotFound": "The email ({email}) does not match our records",
   "passwordChangeSuccess": "Your password has been successfully changed",
   "institution": {
-    "register": "Request successfully, Please check your email for further instructions"
+    "register": "Request successfully, Please check your email for further instructions",
+    "alreadyPending": "A request with this details is currently pending. Please check your email for further instruction"
   }
 }

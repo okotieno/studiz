@@ -13,6 +13,10 @@ export const appRoutes: Route[] = [
       {
         path: 'get-started',
         loadComponent: () => import('@studiz/website-get-started-page')
+      },
+      {
+        path: 'get-started/:id',
+        loadComponent: () => import('@studiz-pro/website-complete-get-started')
       }
     ]
   }

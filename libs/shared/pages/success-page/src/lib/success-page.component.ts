@@ -1,5 +1,5 @@
-import { Component, input } from '@angular/core';
-import { IonButton, IonCol, IonNav, IonRow, IonText } from '@ionic/angular/standalone';
+import { Component, input, OnDestroy } from '@angular/core';
+import { IonButton, IonCol, IonNav, IonRow, IonText, ViewDidEnter, ViewDidLeave } from '@ionic/angular/standalone';
 import { RouterLink } from '@angular/router';
 import { DoneIllustration } from '@studiz/icons';
 
@@ -16,7 +16,7 @@ import { DoneIllustration } from '@studiz/icons';
     DoneIllustration
   ],
   templateUrl: './success-page.component.html',
-  styleUrl: './success-page.component.css',
+  styleUrl: './success-page.component.css'
 })
 export class SuccessPageComponent {
   successMessage = input('The operation was successful!');

@@ -11,4 +11,15 @@ export class InstitutionRequestBackendService extends CrudAbstractService<Instit
   ) {
     super(institutionRequestModel);
   }
+
+  async findPendingRequest(adminEmail: string, institutionName: string): Promise<InstitutionRequestModel | null> {
+    // Replace with your actual query logic
+    return this.repository.findOne({
+      where: {
+        adminEmail: adminEmail,
+        institutionName: institutionName,
+        status: 'PENDING'
+      },
+    });
+  }
 }

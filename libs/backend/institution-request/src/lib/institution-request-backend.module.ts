@@ -3,11 +3,13 @@ import { InstitutionRequestModelEventsListener } from './listeners/institution-r
 import { InstitutionRequestBackendServiceModule } from '@studiz/backend/institution-request-service';
 import { InstitutionRequestResolver } from './resolvers/institution-request.resolver';
 import { TranslationServiceModule } from '@studiz/backend/translation';
+import { EmailModule } from '@studiz/backend/email-service';
 
 @Module({
   imports: [
     InstitutionRequestBackendServiceModule,
-    TranslationServiceModule
+    TranslationServiceModule,
+    EmailModule
   ],
   providers: [
     InstitutionRequestResolver,

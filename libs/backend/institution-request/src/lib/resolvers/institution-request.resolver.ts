@@ -48,6 +48,17 @@ export class InstitutionRequestResolver {
   async registerInstitutionRequest(
     @Body('input', new ValidationPipe()) input: RegisterInstitutionInputDto
   ) {
+
+    // Check if a pending registration exists with the same adminEmail and institutionName
+    const existingRequest = await this.institutionRequestService.findPendingRequest(
+      input.adminEmail,
+      input.institutionName
+    );
+
+    if (existingRequest) {
+      throw new BadRequestException(this.translationService.getTranslation('alert.institution.alreadyPending'));
+    }
+
     const institutionRequest = await this.institutionRequestService.create({
       ...input,
     });

@@ -15,6 +15,9 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@studiz-pro/website-complete-get-started": [
+        "libs/website/pages/complete-get-started/src/index.ts"
+      ],
       "@studiz/admin-portal/home-page": [
         "libs/admin-portal/pages/home/src/index.ts"
       ],
@@ -32,6 +35,9 @@
         "libs/backend/services/crud-abstract/src/index.ts"
       ],
       "@studiz/backend/db": ["libs/backend/db/src/index.ts"],
+      "@studiz/backend/email-service": [
+        "libs/backend/services/email/src/index.ts"
+      ],
       "@studiz/backend/graphql": ["libs/backend/graphql/src/index.ts"],
       "@studiz/backend/institution": ["libs/backend/institution/src/index.ts"],
       "@studiz/backend/institution-request": [

@@ -22,6 +22,7 @@ import { InstitutionModule } from '@studiz/backend/institution';
 import { AuthBackendModule } from '@studiz/backend/auth';
 import { InstitutionRequestModule } from '@studiz/backend/institution-request';
 import { TranslationModule } from '@studiz/backend/translation';
+import { EmailModule } from '@studiz/backend/email-service';
 
 @Module({
   imports: [

@@ -58,10 +58,10 @@ export class GetStartedComponent {
     }, { context: { [SHOW_SUCCESS_MESSAGE]: true, [SHOW_ERROR_MESSAGE]: true } })
       .pipe(
         tap(async res => {
+          this.form.reset();
           await this.ionNav().push(SuccessPageComponent, {
             successMessage: res.data?.registerInstitutionRequest?.message
           })
-
         })
       )
       .subscribe();

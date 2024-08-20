@@ -1,5 +1,5 @@
 import { Component, viewChild } from '@angular/core';
-import { IonNav } from '@ionic/angular/standalone';
+import { IonNav, ViewDidLeave } from '@ionic/angular/standalone';
 import { GetStartedComponent } from './get-started.component';
 
 @Component({
@@ -11,7 +11,10 @@ import { GetStartedComponent } from './get-started.component';
     <ion-nav [root]="component" [rootParams]="{ ionNav: ionNav() }"></ion-nav>
   `
 })
-export class NavComponent {
+export class NavComponent implements ViewDidLeave {
   ionNav = viewChild.required(IonNav)
   component = GetStartedComponent;
+  async ionViewDidLeave() {
+    await this.ionNav().popToRoot();
+  }
 }

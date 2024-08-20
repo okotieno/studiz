@@ -1,6 +1,6 @@
 import { ApolloLink } from '@apollo/client/core';
-import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
-import { AlertController, ToastController } from '@ionic/angular/standalone';
+import { SHOW_ERROR_MESSAGE } from '@studiz/frontend/constants';
+import { AlertController } from '@ionic/angular/standalone';
 
 export const
   contextErrorAlert = (alertCtrl: AlertController) => new ApolloLink((operation, forward) => {
@@ -8,13 +8,15 @@ export const
   return forward(operation).map((response) => {
     const error = response.errors?.[0];
     const errorMessage = error?.message;
-    const originalError = error?.extensions?.['originalError'] as { message: string[] }
-    const message = [originalError?.['message']].join(', ')
+    const originalError = error?.extensions?.['originalError'] as { message: string[], error: string }
+    const originalErrorError = originalError?.error
+    const message = [originalError?.['message']].join(', ');
+
     if (showErrorMessage && errorMessage) {
       const presentAlert = async () => {
         const alert = await alertCtrl.create({
           cssClass: 'alert-error',
-          header: errorMessage,
+          header: originalErrorError ?? errorMessage,
           message,
           buttons: ['OK']
         });

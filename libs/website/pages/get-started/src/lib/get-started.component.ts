@@ -1,4 +1,4 @@
-import { Component, effect, inject, input } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import {
   IonButton,
   IonButtons,
@@ -9,14 +9,14 @@ import {
   IonItem, IonNav,
   IonRow,
   IonText,
-  IonToolbar, NavController
+  IonToolbar
 } from '@ionic/angular/standalone';
 import { UserSettingsComponent } from '@studiz/user-setting';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { IRegisterInstitutionRequestGQL } from '@studiz/frontend/institution-request-frontend-service';
 import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
-import { SuccessComponent } from './success.component';
 import { tap } from 'rxjs';
+import { SuccessPageComponent } from '@studiz/frontend/success-page';
 
 @Component({
   selector: 'studiz-get-started',
@@ -40,11 +40,6 @@ import { tap } from 'rxjs';
 })
 export class GetStartedComponent {
   ionNav = input.required<IonNav>();
-  testEffect = effect(() => {
-
-    console.log(this.ionNav());
-  })
-  navCtrl = inject(NavController);
   fb = inject(FormBuilder);
   registerInstitutionRequestGQL = inject(IRegisterInstitutionRequestGQL);
   form = this.fb.nonNullable.group({
@@ -62,8 +57,8 @@ export class GetStartedComponent {
       input: this.formValue
     }, { context: { [SHOW_SUCCESS_MESSAGE]: true, [SHOW_ERROR_MESSAGE]: true } })
       .pipe(
-        tap(res => {
-          this.ionNav().push(SuccessComponent, {
+        tap(async res => {
+          await this.ionNav().push(SuccessPageComponent, {
             successMessage: res.data?.registerInstitutionRequest?.message
           })
 

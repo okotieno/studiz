@@ -1,0 +1,26 @@
+<ion-row class="ion-justify-content-center ion-wrap">
+  <ion-col sizeXl="4" sizeLg="5" sizeMd="6" sizeXs="7" class="ion-padding">
+    <studiz-not-found-illustration></studiz-not-found-illustration>
+  </ion-col>
+  <ion-col sizeXl="4" sizeLg="5" sizeMd="6" sizeXs="12" class="ion-padding">
+    <ion-row style="height: 100%; align-content: center" class="ion-align-items-center">
+      <ion-col size="12">
+        <ion-text color="success">
+          {{ successMessage() }}
+        </ion-text>
+      </ion-col>
+      <ion-col size="12">
+        <ion-button [routerLink]="['/home']">
+          <span class="ion-padding-horizontal">Go Home</span>
+        </ion-button>
+        <ion-back-button>
+          <ion-button>
+            <span class="ion-padding-horizontal">Back</span>
+          </ion-button>
+        </ion-back-button>
+      </ion-col>
+
+    </ion-row>
+
+  </ion-col>
+</ion-row>

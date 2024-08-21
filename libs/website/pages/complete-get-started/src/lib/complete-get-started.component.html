@@ -1,1 +1,38 @@
-<p>website-complete-get-started works!</p>
+<form [formGroup]="form">
+  <ion-accordion-group value="systemAdminInfo">
+    <ion-accordion value="systemAdminInfo">
+      <ion-item slot="header">
+        <ion-label>System Admin info</ion-label>
+      </ion-item>
+      <ion-row class="ion-padding" slot="content" formGroupName="systemAdminInfo">
+        <ion-col size="12" sizeLg="4">
+          <ion-input formControlName="email" fill="solid" labelPlacement="floating" label="Email"></ion-input>
+        </ion-col>
+        <ion-col size="12" sizeLg="4">
+          <ion-input formControlName="firstName" fill="solid" labelPlacement="floating" label="First name"></ion-input>
+        </ion-col>
+        <ion-col size="12" sizeLg="4">
+          <ion-input formControlName="lastName" fill="solid" labelPlacement="floating" label="Last name"></ion-input>
+        </ion-col>
+        <ion-col>
+          <ion-row class="ion-justify-content-end">
+            <ion-button [disabled]="systemAdminInfoControl?.invalid" color="primary">Save &amp; Continue</ion-button>
+          </ion-row>
+        </ion-col>
+      </ion-row>
+    </ion-accordion>
+    <ion-accordion value="second">
+      <ion-item slot="header">
+        <ion-label>Second Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Second Content</div>
+    </ion-accordion>
+    <ion-accordion value="third">
+      <ion-item slot="header">
+        <ion-label>Third Accordion</ion-label>
+      </ion-item>
+      <div class="ion-padding" slot="content">Third Content</div>
+    </ion-accordion>
+  </ion-accordion-group>
+
+</form>

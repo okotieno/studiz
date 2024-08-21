@@ -80,6 +80,9 @@
       "@studiz/frontend/success-page": [
         "libs/shared/pages/success-page/src/index.ts"
       ],
+      "@studiz/frontend/not-found-page": [
+        "libs/shared/pages/not-found-page/src/index.ts"
+      ],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
       "@studiz/pagination": ["libs/shared/pagination/src/index.ts"],
       "@studiz/shared/types/frontend": [

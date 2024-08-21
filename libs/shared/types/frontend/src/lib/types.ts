@@ -80,8 +80,16 @@ export type IInstitutionModel = {
 export type IInstitutionRequestModel = {
   adminEmail: Scalars['String']['output'];
   id: Scalars['Int']['output'];
-  name: Scalars['String']['output'];
+  institutionName: Scalars['String']['output'];
+  progressData?: Maybe<Scalars['String']['output']>;
+  slug: Scalars['String']['output'];
+  status?: Maybe<IInstitutionRequestStatus>;
 };
+
+export enum IInstitutionRequestStatus {
+  Completed = 'COMPLETED',
+  Pending = 'PENDING'
+}
 
 export type ILoginResponse = {
   accessToken: Scalars['String']['output'];

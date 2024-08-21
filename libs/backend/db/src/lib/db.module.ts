@@ -19,12 +19,12 @@ import {
         InstitutionModel,
         InstitutionRequestModel
       ],
-      sync: {
-        force: process.env['STUDIZ_ENVIRONMENT'] === 'development',
-        alter: process.env['STUDIZ_ENVIRONMENT'] === 'development',
-      },
-      synchronize: process.env['STUDIZ_ENVIRONMENT'] === 'development',
-      autoLoadModels: process.env['STUDIZ_ENVIRONMENT'] === 'development',
+      // sync: {
+      //   force: process.env['STUDIZ_ENVIRONMENT'] === 'development',
+      //   alter: process.env['STUDIZ_ENVIRONMENT'] === 'development',
+      // },
+      // synchronize: process.env['STUDIZ_ENVIRONMENT'] === 'development',
+      // autoLoadModels: process.env['STUDIZ_ENVIRONMENT'] === 'development',
     }),
   ],
 })

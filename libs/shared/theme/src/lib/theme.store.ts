@@ -35,6 +35,10 @@ export const ThemeStore = signalStore(
         currentTheme();
         return getColor('--ion-color-success');
       }),
+      dangerColor: computed(() => {
+        currentTheme();
+        return getColor('--ion-color-danger');
+      }),
     }
   }),
   withMethods((store) => {

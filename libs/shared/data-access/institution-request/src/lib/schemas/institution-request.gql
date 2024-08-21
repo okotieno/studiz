@@ -10,7 +10,7 @@ mutation CreateInstitutionRequest($input: CreateInstitutionRequestInput!) {
 query GetInstitutionRequestById($id: Int!) {
   institutionRequest(id: $id) {
     id
-    name
+    institutionName
   }
 }
 
@@ -18,7 +18,11 @@ query GetInstitutionRequests($query: QueryParams) {
   institutionRequests(query: $query) {
     items {
       id
-      name
+      institutionName
+      adminEmail
+      slug
+      status
+      progressData
     }
     meta {
       totalItems

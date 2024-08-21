@@ -1,7 +1,15 @@
+enum InstitutionRequestStatus {
+  PENDING
+  COMPLETED
+}
 type InstitutionRequestModel {
   id: Int!
-  name: String!
+  institutionName: String!
   adminEmail: String!
+  slug: String!
+  status: InstitutionRequestStatus
+  progressData: String
+
 }
 
 input CreateInstitutionRequestInput {

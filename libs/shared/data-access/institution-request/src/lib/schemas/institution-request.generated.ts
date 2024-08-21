@@ -15,14 +15,14 @@ export type IGetInstitutionRequestByIdQueryVariables = Types.Exact<{
 }>;
 
 
-export type IGetInstitutionRequestByIdQuery = { institutionRequest?: { id: number, name: string } | null };
+export type IGetInstitutionRequestByIdQuery = { institutionRequest?: { id: number, institutionName: string } | null };
 
 export type IGetInstitutionRequestsQueryVariables = Types.Exact<{
   query?: Types.InputMaybe<Types.IQueryParams>;
 }>;
 
 
-export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, name: string } | null> | null, meta?: { totalItems: number } | null } };
+export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: string | null } | null> | null, meta?: { totalItems: number } | null } };
 
 export type IDeleteInstitutionRequestByIdMutationVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
@@ -71,7 +71,7 @@ export const GetInstitutionRequestByIdDocument = gql`
     query GetInstitutionRequestById($id: Int!) {
   institutionRequest(id: $id) {
     id
-    name
+    institutionName
   }
 }
     `;
@@ -91,7 +91,11 @@ export const GetInstitutionRequestsDocument = gql`
   institutionRequests(query: $query) {
     items {
       id
-      name
+      institutionName
+      adminEmail
+      slug
+      status
+      progressData
     }
     meta {
       totalItems

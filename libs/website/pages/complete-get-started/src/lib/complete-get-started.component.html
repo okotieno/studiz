@@ -1,38 +1,85 @@
-<form [formGroup]="form">
-  <ion-accordion-group value="systemAdminInfo">
-    <ion-accordion value="systemAdminInfo">
-      <ion-item slot="header">
-        <ion-label>System Admin info</ion-label>
-      </ion-item>
-      <ion-row class="ion-padding" slot="content" formGroupName="systemAdminInfo">
-        <ion-col size="12" sizeLg="4">
-          <ion-input formControlName="email" fill="solid" labelPlacement="floating" label="Email"></ion-input>
-        </ion-col>
-        <ion-col size="12" sizeLg="4">
-          <ion-input formControlName="firstName" fill="solid" labelPlacement="floating" label="First name"></ion-input>
-        </ion-col>
-        <ion-col size="12" sizeLg="4">
-          <ion-input formControlName="lastName" fill="solid" labelPlacement="floating" label="Last name"></ion-input>
-        </ion-col>
-        <ion-col>
-          <ion-row class="ion-justify-content-end">
-            <ion-button [disabled]="systemAdminInfoControl?.invalid" color="primary">Save &amp; Continue</ion-button>
-          </ion-row>
-        </ion-col>
-      </ion-row>
-    </ion-accordion>
-    <ion-accordion value="second">
-      <ion-item slot="header">
-        <ion-label>Second Accordion</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">Second Content</div>
-    </ion-accordion>
-    <ion-accordion value="third">
-      <ion-item slot="header">
-        <ion-label>Third Accordion</ion-label>
-      </ion-item>
-      <div class="ion-padding" slot="content">Third Content</div>
-    </ion-accordion>
-  </ion-accordion-group>
 
-</form>
+
+<ion-row class="ion-justify-content-center">
+  <ion-col sizeXl="8" sizeLg="10" sizeMd="12" sizeSm="12" sizeXs="12">
+    <ion-segment #segment [scrollable]="true" value="systemAdminInfo">
+      <ion-segment-button [disabled]="segment.value !== 'systemAdminInfo'" value="systemAdminInfo">
+        System Admin info
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary'" value="summary">
+        Summary 11111111111
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary1'" value="summary1">
+        Summary 2222222222
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary2'" value="summary2">
+        Summary 333333333
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary3'" value="summary3">
+        Summary 4444444
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary4'" value="summary4">
+        Summary 555555555
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary5'" value="summary5">
+        Summary
+      </ion-segment-button>
+      <ion-segment-button [disabled]="segment.value !== 'summary6'" value="summary6">
+        Summary 6
+      </ion-segment-button>
+    </ion-segment>
+    <ion-col>
+      <ion-button (click)="segment.value = 'systemAdminInfo'">Info</ion-button>
+      <ion-button (click)="segment.value = 'summary'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary1'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary2'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary3'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary4'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary5'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary6'">summary</ion-button>
+      <ion-button (click)="segment.value = 'summary6'">summary</ion-button>
+    </ion-col>
+  </ion-col>
+
+</ion-row>
+
+<!--<button (click)="currentStep.set('summary')">Summary</button>-->
+
+<!--<form [formGroup]="form">-->
+<!--  <ion-accordion-group value="systemAdminInfo">-->
+<!--    <ion-accordion value="systemAdminInfo">-->
+<!--      <ion-item slot="header">-->
+<!--        <ion-label>System Admin info</ion-label>-->
+<!--      </ion-item>-->
+<!--      <ion-row class="ion-padding" slot="content" formGroupName="systemAdminInfo">-->
+<!--        <ion-col size="12" sizeLg="4">-->
+<!--          <ion-input formControlName="email" fill="solid" labelPlacement="floating" label="Email"></ion-input>-->
+<!--        </ion-col>-->
+<!--        <ion-col size="12" sizeLg="4">-->
+<!--          <ion-input formControlName="firstName" fill="solid" labelPlacement="floating" label="First name"></ion-input>-->
+<!--        </ion-col>-->
+<!--        <ion-col size="12" sizeLg="4">-->
+<!--          <ion-input formControlName="lastName" fill="solid" labelPlacement="floating" label="Last name"></ion-input>-->
+<!--        </ion-col>-->
+<!--        <ion-col>-->
+<!--          <ion-row class="ion-justify-content-end">-->
+<!--            <ion-button [disabled]="systemAdminInfoControl?.invalid" color="primary">Save &amp; Continue</ion-button>-->
+<!--          </ion-row>-->
+<!--        </ion-col>-->
+<!--      </ion-row>-->
+<!--    </ion-accordion>-->
+<!--    <ion-accordion value="second">-->
+<!--      <ion-item slot="header">-->
+<!--        <ion-label>Second Accordion</ion-label>-->
+<!--      </ion-item>-->
+<!--      <div class="ion-padding" slot="content">Second Content</div>-->
+<!--    </ion-accordion>-->
+<!--    <ion-accordion value="third">-->
+<!--      <ion-item slot="header">-->
+<!--        <ion-label>Third Accordion</ion-label>-->
+<!--      </ion-item>-->
+<!--      <div class="ion-padding" slot="content">Third Content</div>-->
+<!--    </ion-accordion>-->
+<!--  </ion-accordion-group>-->
+
+<!--</form>-->

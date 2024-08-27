@@ -1,0 +1,62 @@
+<ion-content>
+  <!--  <pre>{{ currentInstitutionRequest() | json }}</pre>-->
+  <ion-content>
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>Institution Information</ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <ion-list lines="full">
+          <ion-item>
+            <ion-label>ID</ion-label>
+            <ion-text color="primary">{{ currentInstitutionRequest().slug }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Name</ion-label>
+            <ion-text color="primary">{{ currentInstitutionRequest().institutionName }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Admin Email</ion-label>
+            <ion-text color="primary">{{ currentInstitutionRequest().adminEmail }}</ion-text>
+          </ion-item>
+          <ion-item>
+            <ion-label>Status</ion-label>
+            <ion-text color="primary">{{ currentInstitutionRequest().status }}</ion-text>
+          </ion-item>
+        </ion-list>
+      </ion-card-content>
+    </ion-card>
+
+    @if ((currentInstitutionRequest()?.progressData?.adminInfos?.length ?? 0) > 0) {
+      <ion-card>
+        <ion-card-header>
+          <ion-card-title>Admin Information</ion-card-title>
+        </ion-card-header>
+
+        <ion-card-content>
+          <ion-list lines="full">
+            @for (admin of (currentInstitutionRequest().progressData?.adminInfos ?? []); track admin?.email) {
+              <ion-item lines="none">
+                <ion-label>Email</ion-label>
+                <ion-text color="primary">{{ admin?.email }}</ion-text>
+              </ion-item>
+              <ion-item>
+                <ion-label>Full Name</ion-label>
+                <ion-text color="primary">{{ admin?.firstName }} {{ admin?.lastName }}</ion-text>
+              </ion-item>
+            }
+
+          </ion-list>
+        </ion-card-content>
+      </ion-card>
+    }
+
+  </ion-content>
+</ion-content>
+<ion-footer slot="bottom" class="ion-no-border">
+  <ion-row class="ion-justify-content-start">
+    <ion-button (click)="createInstitution()" color="primary">Confirm</ion-button>
+  </ion-row>
+</ion-footer>
+

@@ -1,4 +1,4 @@
-import { Component, effect, inject, signal, untracked } from '@angular/core';
+import { Component, effect, inject, input, signal, untracked } from '@angular/core';
 import { InstitutionalRequestStore } from '../../store/institutional-request.store';
 
 import {
@@ -8,12 +8,13 @@ import {
   IonFooter,
   IonIcon,
   IonInput,
-  IonLabel,
+  IonLabel, IonNav,
   IonRow,
   IonText
 } from '@ionic/angular/standalone';
 import { FormArray, FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { SummaryComponent } from '../summary/summary.component';
 
 
 @Component({
@@ -36,6 +37,7 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './admin-info.component.scss'
 })
 export class AdminInfoComponent {
+  ionNav = input.required<IonNav>()
   fb = inject(FormBuilder);
   form = this.fb.nonNullable.group({
     adminInfos: this.fb.nonNullable.array([
@@ -114,6 +116,13 @@ export class AdminInfoComponent {
   }
 
   saveInfo() {
-    this.institutionalRequestStore.saveProgressData(this.form.value.adminInfos ?? []).subscribe();
+    this.institutionalRequestStore.saveProgressData(this.form.value.adminInfos ?? []).subscribe({
+      next: async () => {
+        await this.ionNav().push(SummaryComponent, {
+          ionNav: this.ionNav()
+        }, {});
+        this.institutionalRequestStore.updateCurrentStep('summary');
+      }
+    });
   }
 }

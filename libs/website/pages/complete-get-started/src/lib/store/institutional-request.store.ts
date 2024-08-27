@@ -12,10 +12,12 @@ import {
 import { map, tap } from 'rxjs';
 import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
 
+type ICurrentStep = 'systemAdminInfo' | 'summary';
 
 const initialState: {
+  currentStep: ICurrentStep,
   currentInstitutionRequest: IInstitutionRequestModel
-} = { currentInstitutionRequest: { adminEmail: '', id: 0, institutionName: '', slug: '' } };
+} = { currentInstitutionRequest: { adminEmail: '', id: 0, institutionName: '', slug: '' }, currentStep: 'systemAdminInfo' };
 
 
 export const InstitutionalRequestStore = signalStore(
@@ -34,6 +36,10 @@ export const InstitutionalRequestStore = signalStore(
       patchState(store, { currentInstitutionRequest });
     };
 
+    const updateCurrentStep = (currentStep: ICurrentStep) => {
+      patchState(store, { currentStep });
+    };
+
     const saveProgressData = (formValue: IInstitutionRequestProgressDataAdminsInfo[]) => {
       let currentInstitutionRequest = store.currentInstitutionRequest();
       currentInstitutionRequest = {
@@ -43,7 +49,6 @@ export const InstitutionalRequestStore = signalStore(
           adminInfos: formValue
         }
       }
-      console.log({ currentInstitutionRequest })
       updateCurrentInstitutionRequest(currentInstitutionRequest)
       return updateInstitutionRequestProgressGQL.mutate({
         id: store.currentInstitutionRequest.id(),
@@ -79,7 +84,7 @@ export const InstitutionalRequestStore = signalStore(
           }),
           map(res => res.items?.[0]?.progressData)
         );
-    return { getInstitutionRequestBySlug, saveProgressData };
+    return { getInstitutionRequestBySlug, saveProgressData, updateCurrentStep };
   }),
   withHooks((store) => ({
     async onInit() {

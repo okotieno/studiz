@@ -1,1 +1,6 @@
 gear
+pen
+check
+exclamation-triangle
+plus
+minus

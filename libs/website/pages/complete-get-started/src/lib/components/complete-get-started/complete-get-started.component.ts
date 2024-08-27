@@ -1,5 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
-import { IonButton, IonCol, IonIcon, IonRow, IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
+import { Component, effect, inject, signal } from '@angular/core';
+import { IonButton, IonCol, IonIcon, IonNav, IonRow, IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
+import { InstitutionalRequestStore } from '../../store/institutional-request.store';
+import { AdminInfoComponent } from '../admins-info/admin-info.component';
 // import { ActivatedRoute, ActivatedRouteSnapshot } from '@angular/router';
 // import {
 //   IonAccordion,
@@ -23,7 +25,8 @@ import { IonButton, IonCol, IonIcon, IonRow, IonSegment, IonSegmentButton } from
     IonIcon,
     IonCol,
     IonRow,
-    IonButton
+    IonButton,
+    IonNav
     // IonRow,
     // IonCol,
     // IonInput,
@@ -37,9 +40,13 @@ import { IonButton, IonCol, IonIcon, IonRow, IonSegment, IonSegmentButton } from
   ],
   templateUrl: './complete-get-started.component.html',
   styleUrl: './complete-get-started.component.css',
+  providers: []
 })
 export class CompleteGetStartedComponent {
-
+  institutionalRequestStore = inject(InstitutionalRequestStore);
+  institutionalRequestProgressDataEffect = effect(() => {
+    // console.log(this.institutionalRequestStore.progressData())
+  })
 
 
 
@@ -64,4 +71,5 @@ export class CompleteGetStartedComponent {
   //   console.log('CompleteGetStartedComponent', this.progressData);
   // }
   currentStep = signal<string>('systemAdminInfo');
+  component = AdminInfoComponent
 }

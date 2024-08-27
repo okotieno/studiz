@@ -2,13 +2,30 @@ enum InstitutionRequestStatus {
   PENDING
   COMPLETED
 }
+
+type InstitutionRequestProgressDataAdminsInfo {
+  email: String, firstName: String, lastName: String
+}
+
+input InstitutionRequestProgressDataAdminsInfoInput {
+  email: String, firstName: String, lastName: String
+}
+
+type InstitutionRequestProgressData {
+ adminInfos: [InstitutionRequestProgressDataAdminsInfo]
+}
+
+input InstitutionRequestProgressDataInput {
+  adminInfos: [InstitutionRequestProgressDataAdminsInfoInput]
+}
+
 type InstitutionRequestModel {
   id: Int!
   institutionName: String!
   adminEmail: String!
   slug: String!
   status: InstitutionRequestStatus
-  progressData: String
+  progressData: InstitutionRequestProgressData
 
 }
 
@@ -22,7 +39,11 @@ input RegisterInstitutionRequestInput {
 }
 
 input UpdateInstitutionRequestInput {
-  name: String
+  institutionName: String!
+  adminEmail: String!
+  slug: String!
+  status: InstitutionRequestStatus
+  progressData: InstitutionRequestProgressDataInput
 }
 
 type PaginatedInstitutionRequest {
@@ -45,6 +66,11 @@ extend type Mutation {
     id: Int!
     params: UpdateInstitutionRequestInput
   ): CreateInstitutionRequestSuccessResponse
+
+  updateInstitutionRequestProgress(
+    id: Int!
+    params: InstitutionRequestProgressDataInput
+  ): SuccessResponse
 
   createInstitutionRequest(
     input: CreateInstitutionRequestInput

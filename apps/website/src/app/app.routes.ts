@@ -1,8 +1,8 @@
 import { ActivatedRouteSnapshot, Route, UrlSegment } from '@angular/router';
-import { InstitutionRequestFrontendService } from '@studiz/frontend/institution-request-frontend-service';
 import { inject } from '@angular/core';
-import { map } from 'rxjs';
-import { IQueryOperatorEnum } from '@studiz/shared/types/frontend';
+import {
+  InstitutionalRequestStore
+} from '../../../../libs/website/pages/complete-get-started/src/lib/store/institutional-request.store';
 
 export const appRoutes: Route[] = [
   {
@@ -28,29 +28,13 @@ export const appRoutes: Route[] = [
           }
         ],
         resolve: {
-          institutionRequest: (route: ActivatedRouteSnapshot) => {
-            return inject(InstitutionRequestFrontendService)
-              .getItems({
-                pageSize: 1,
-                filters: [
-                  {
-                    field: "slug",
-                    operator: IQueryOperatorEnum.Equals,
-                    value: route.params['id'],
-                    values: []
-                  }
-                ]
-              })
-              .pipe(
-                map(res => res.items?.[0])
-              )
-          }
-
+          institutionRequest: (route: ActivatedRouteSnapshot) =>
+            inject(InstitutionalRequestStore).getInstitutionRequestBySlug(route.params['id'])
         }
       },
       {
         path: '**',
-        loadComponent: () => import('@studiz/frontend/not-found-page'),
+        loadComponent: () => import('@studiz/frontend/not-found-page')
       }
     ]
   }

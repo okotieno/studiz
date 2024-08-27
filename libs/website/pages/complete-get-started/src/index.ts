@@ -1,1 +1,1 @@
-export { CompleteGetStartedComponent as default } from './lib/complete-get-started.component';
+export { CompleteGetStartedComponent as default } from './lib/components/complete-get-started/complete-get-started.component';

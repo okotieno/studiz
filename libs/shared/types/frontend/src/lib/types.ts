@@ -81,9 +81,29 @@ export type IInstitutionRequestModel = {
   adminEmail: Scalars['String']['output'];
   id: Scalars['Int']['output'];
   institutionName: Scalars['String']['output'];
-  progressData?: Maybe<Scalars['String']['output']>;
+  progressData?: Maybe<IInstitutionRequestProgressData>;
   slug: Scalars['String']['output'];
   status?: Maybe<IInstitutionRequestStatus>;
+};
+
+export type IInstitutionRequestProgressData = {
+  adminInfos?: Maybe<Array<Maybe<IInstitutionRequestProgressDataAdminsInfo>>>;
+};
+
+export type IInstitutionRequestProgressDataAdminsInfo = {
+  email?: Maybe<Scalars['String']['output']>;
+  firstName?: Maybe<Scalars['String']['output']>;
+  lastName?: Maybe<Scalars['String']['output']>;
+};
+
+export type IInstitutionRequestProgressDataAdminsInfoInput = {
+  email?: InputMaybe<Scalars['String']['input']>;
+  firstName?: InputMaybe<Scalars['String']['input']>;
+  lastName?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type IInstitutionRequestProgressDataInput = {
+  adminInfos?: InputMaybe<Array<InputMaybe<IInstitutionRequestProgressDataAdminsInfoInput>>>;
 };
 
 export enum IInstitutionRequestStatus {
@@ -116,6 +136,7 @@ export type IMutation = {
   test?: Maybe<Scalars['String']['output']>;
   updateInstitution?: Maybe<ICreateInstitutionSuccessResponse>;
   updateInstitutionRequest?: Maybe<ICreateInstitutionRequestSuccessResponse>;
+  updateInstitutionRequestProgress?: Maybe<ISuccessResponse>;
   updatePermission?: Maybe<ICreatePermissionSuccessResponse>;
   updateRole?: Maybe<ICreateRoleSuccessResponse>;
   updateUser?: Maybe<ICreateUserSuccessResponse>;
@@ -201,6 +222,12 @@ export type IMutationUpdateInstitutionArgs = {
 export type IMutationUpdateInstitutionRequestArgs = {
   id: Scalars['Int']['input'];
   params?: InputMaybe<IUpdateInstitutionRequestInput>;
+};
+
+
+export type IMutationUpdateInstitutionRequestProgressArgs = {
+  id: Scalars['Int']['input'];
+  params?: InputMaybe<IInstitutionRequestProgressDataInput>;
 };
 
 
@@ -372,7 +399,11 @@ export type IUpdateInstitutionInput = {
 };
 
 export type IUpdateInstitutionRequestInput = {
-  name?: InputMaybe<Scalars['String']['input']>;
+  adminEmail: Scalars['String']['input'];
+  institutionName: Scalars['String']['input'];
+  progressData?: InputMaybe<IInstitutionRequestProgressDataInput>;
+  slug: Scalars['String']['input'];
+  status?: InputMaybe<IInstitutionRequestStatus>;
 };
 
 export type IUpdatePermissionInput = {

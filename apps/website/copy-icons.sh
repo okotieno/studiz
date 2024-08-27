@@ -7,4 +7,4 @@ rm -rf "$destination_folder"/*
 
 while IFS= read -r filename; do
     cp "$source_folder/${filename}.svg" "$destination_folder/"
-done < apps/admin-portal/icon.list.txt
+done < apps/website/icon.list.txt

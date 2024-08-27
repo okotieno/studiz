@@ -1,4 +1,4 @@
-import { Column, Model, Table } from 'sequelize-typescript';
+import { BeforeCreate, BeforeUpdate, Column, Model, Table } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
 
 @Table({
@@ -10,7 +10,7 @@ import { DataTypes } from 'sequelize';
 })
 export class InstitutionRequestModel extends Model {
   @Column({
-    allowNull: false,
+    allowNull: false
   })
   institutionName?: string;
 
@@ -25,7 +25,9 @@ export class InstitutionRequestModel extends Model {
   @Column({
     type: DataTypes.JSON
   })
-  progressData?: string;
+  progressData?: {
+    adminInfos: { email: string, firstName: string, lastName: string}[]
+  };
 
   @Column({
     type: DataTypes.UUID,
@@ -33,4 +35,15 @@ export class InstitutionRequestModel extends Model {
     allowNull: false,
   })
   slug?: string;
+
+  @BeforeCreate({})
+  @BeforeUpdate({})
+  static setProgressData(instance: InstitutionRequestModel) {
+    if(!instance.progressData) {
+      instance.progressData = { adminInfos: [] }
+    }
+   if(instance.progressData.adminInfos.length < 1 && instance.adminEmail) {
+     instance.progressData.adminInfos.push({ email: instance.adminEmail, firstName: '', lastName: '' });
+   }
+  }
 }

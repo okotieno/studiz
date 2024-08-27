@@ -23,7 +23,9 @@
   </ion-row>
 </ion-header>
 <ion-content>
-  <ion-router-outlet></ion-router-outlet>
+ <div class="custom-scrollable">
+   <ion-router-outlet></ion-router-outlet>
+ </div>
 </ion-content>
 <ion-popover [isOpen]="menuPopoverIsOpen()" (didDismiss)="menuPopoverIsOpen.set(false)">
   <ng-template>

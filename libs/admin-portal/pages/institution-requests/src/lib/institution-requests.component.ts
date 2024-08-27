@@ -58,7 +58,7 @@ export class InstitutionRequestsComponent
 {
   allColumns: ITableColumn<IInstitutionRequestModel>[] = [
     { label: 'ID', key: 'id', fieldType: 'integer' },
-    { label: 'Name', key: 'name' },
+    { label: 'Name', key: 'institutionName' },
   ];
 
   constructor() {

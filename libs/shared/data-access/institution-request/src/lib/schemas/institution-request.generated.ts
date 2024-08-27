@@ -22,7 +22,7 @@ export type IGetInstitutionRequestsQueryVariables = Types.Exact<{
 }>;
 
 
-export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: string | null } | null> | null, meta?: { totalItems: number } | null } };
+export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
 
 export type IDeleteInstitutionRequestByIdMutationVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
@@ -45,6 +45,14 @@ export type IRegisterInstitutionRequestMutationVariables = Types.Exact<{
 
 
 export type IRegisterInstitutionRequestMutation = { registerInstitutionRequest?: { message: string, data: { id: number } } | null };
+
+export type IUpdateInstitutionRequestProgressMutationVariables = Types.Exact<{
+  id: Types.Scalars['Int']['input'];
+  params: Types.IInstitutionRequestProgressDataInput;
+}>;
+
+
+export type IUpdateInstitutionRequestProgressMutation = { updateInstitutionRequestProgress?: { message: string } | null };
 
 export const CreateInstitutionRequestDocument = gql`
     mutation CreateInstitutionRequest($input: CreateInstitutionRequestInput!) {
@@ -95,7 +103,13 @@ export const GetInstitutionRequestsDocument = gql`
       adminEmail
       slug
       status
-      progressData
+      progressData {
+        adminInfos {
+          lastName
+          firstName
+          email
+        }
+      }
     }
     meta {
       totalItems
@@ -169,6 +183,24 @@ export const RegisterInstitutionRequestDocument = gql`
   })
   export class IRegisterInstitutionRequestGQL extends Apollo.Mutation<IRegisterInstitutionRequestMutation, IRegisterInstitutionRequestMutationVariables> {
     override document = RegisterInstitutionRequestDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const UpdateInstitutionRequestProgressDocument = gql`
+    mutation UpdateInstitutionRequestProgress($id: Int!, $params: InstitutionRequestProgressDataInput!) {
+  updateInstitutionRequestProgress(id: $id, params: $params) {
+    message
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class IUpdateInstitutionRequestProgressGQL extends Apollo.Mutation<IUpdateInstitutionRequestProgressMutation, IUpdateInstitutionRequestProgressMutationVariables> {
+    override document = UpdateInstitutionRequestProgressDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

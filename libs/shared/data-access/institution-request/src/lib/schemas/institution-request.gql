@@ -22,7 +22,13 @@ query GetInstitutionRequests($query: QueryParams) {
       adminEmail
       slug
       status
-      progressData
+      progressData {
+        adminInfos {
+          lastName
+          firstName
+          email
+        }
+      }
     }
     meta {
       totalItems
@@ -54,6 +60,15 @@ mutation RegisterInstitutionRequest($input: RegisterInstitutionRequestInput!) {
     data {
       id
     }
+  }
+}
+
+mutation UpdateInstitutionRequestProgress(
+  $id: Int!
+  $params: InstitutionRequestProgressDataInput!
+) {
+  updateInstitutionRequestProgress(id: $id, params: $params) {
+    message
   }
 }
 

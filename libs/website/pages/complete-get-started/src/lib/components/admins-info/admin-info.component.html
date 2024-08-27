@@ -1,0 +1,49 @@
+<ion-content>
+  <form [formGroup]="form">
+    <ion-col size="12">
+      <ion-text color="medium">
+        <p>System admin are responsible for setting up various functions in the system</p>
+      </ion-text>
+    </ion-col>
+    @for (adminInfo of systemAdminInfo(); track $index) {
+      <ion-row class="ion-padding-vertical" slot="content" formGroupName="adminInfos">
+        <ng-container [formGroupName]="$index">
+
+          <ion-col size="12" sizeLg="4">
+            <ion-input formControlName="email" fill="solid" labelPlacement="floating" label="Email"></ion-input>
+          </ion-col>
+          <ion-col size="12" sizeLg="3">
+            <ion-input formControlName="firstName" fill="solid" labelPlacement="floating"
+                       label="First name"></ion-input>
+          </ion-col>
+          <ion-col size="12" sizeLg="3">
+            <ion-input formControlName="lastName" fill="solid" labelPlacement="floating" label="Last name"></ion-input>
+          </ion-col>
+          <ion-col size="2">
+            <ion-row class="ion-justify-content-end">
+              <ion-button (click)="removeAdmin($index)" [disabled]="systemAdminInfo().length < 2" color="primary"
+                          shape="round" fill="clear">
+                <ion-icon slot="icon-only" name="minus"></ion-icon>
+              </ion-button>
+            </ion-row>
+          </ion-col>
+        </ng-container>
+      </ion-row>
+    }
+    <ion-col>
+      <ion-button (click)="addAdmin()" color="primary" shape="round" fill="clear">
+        <ion-icon slot="icon-only" name="plus"></ion-icon>
+      </ion-button>
+    </ion-col>
+
+  </form>
+
+</ion-content>
+<ion-footer slot="bottom" class="ion-no-border">
+  <ion-col>
+    <ion-row class="ion-justify-content-start">
+      <ion-button (click)="saveInfo()" [disabled]="form.invalid" color="primary">Save &amp; Continue</ion-button>
+    </ion-row>
+  </ion-col>
+</ion-footer>
+

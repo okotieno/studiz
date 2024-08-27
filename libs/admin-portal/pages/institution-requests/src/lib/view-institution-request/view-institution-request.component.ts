@@ -67,7 +67,7 @@ import { UserButtonComponent } from '@studiz/frontend/side-nav';
 })
 export class ViewInstitutionRequestComponent {
   @ViewChild('popover') popover?: IonPopover;
-  institutionRequest = signal<IInstitutionRequestModel>({ adminEmail: '', name: '', id: 0 });
+  institutionRequest = signal<IInstitutionRequestModel>({ slug: '', adminEmail: '', institutionName: '', id: 0 });
 
   isOpen = false;
   collapsedBreadcrumbs: HTMLIonBreadcrumbElement[] = [];

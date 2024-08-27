@@ -18,7 +18,7 @@
     <ion-breadcrumb href="#institution-requests">
       InstitutionRequest
     </ion-breadcrumb>
-    <ion-breadcrumb>{{ institutionRequest().name }}</ion-breadcrumb>
+    <ion-breadcrumb>{{ institutionRequest().institutionName }}</ion-breadcrumb>
   </ion-breadcrumbs>
   <ion-popover #popover [isOpen]="isOpen" (didDismiss)="isOpen = false">
     <ng-template>
@@ -44,7 +44,7 @@
     <ion-card-header>
       <ion-toolbar>
         <ion-card-title>
-          {{ institutionRequest().name }}
+          {{ institutionRequest().institutionName }}
         </ion-card-title>
         <ion-button
           [routerLink]="['edit']"

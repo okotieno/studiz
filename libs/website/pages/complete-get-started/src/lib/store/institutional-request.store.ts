@@ -6,13 +6,16 @@ import {
 } from '@studiz/frontend/institution-request-frontend-service';
 import {
   IInstitutionRequestModel,
-  IInstitutionRequestProgressDataAdminsInfo,
+  IInstitutionRequestProgressDataAdminsInfo, IInstitutionRequestStatus,
   IQueryOperatorEnum
 } from '@studiz/shared/types/frontend';
 import { map, tap } from 'rxjs';
 import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
+import {
+  ICompleteInstitutionRequestGQL
+} from '@studiz/frontend/institution-request-frontend-service';
 
-type ICurrentStep = 'systemAdminInfo' | 'summary';
+type ICurrentStep = 'systemAdminInfo' | 'summary' | 'success';
 
 const initialState: {
   currentStep: ICurrentStep,
@@ -30,6 +33,7 @@ export const InstitutionalRequestStore = signalStore(
     };
   }),
   withMethods((store) => {
+    const completeInstitutionRequestGQL = inject(ICompleteInstitutionRequestGQL)
 
     const updateInstitutionRequestProgressGQL = inject(IUpdateInstitutionRequestProgressGQL);
     const updateCurrentInstitutionRequest = (currentInstitutionRequest: IInstitutionRequestModel) => {
@@ -39,6 +43,15 @@ export const InstitutionalRequestStore = signalStore(
     const updateCurrentStep = (currentStep: ICurrentStep) => {
       patchState(store, { currentStep });
     };
+
+    const completeInstitutionRegistration = () => {
+      return completeInstitutionRequestGQL.mutate({
+        id: store.currentInstitutionRequest.slug()
+      }, {context: {
+        [SHOW_ERROR_MESSAGE]: true,
+          [SHOW_SUCCESS_MESSAGE]: true
+        }})
+    }
 
     const saveProgressData = (formValue: IInstitutionRequestProgressDataAdminsInfo[]) => {
       let currentInstitutionRequest = store.currentInstitutionRequest();
@@ -73,6 +86,12 @@ export const InstitutionalRequestStore = signalStore(
               operator: IQueryOperatorEnum.Equals,
               value: slug,
               values: []
+            },
+            {
+              field: 'status',
+              operator: IQueryOperatorEnum.Equals,
+              value: IInstitutionRequestStatus.Pending,
+              values: []
             }
           ]
         })
@@ -84,7 +103,12 @@ export const InstitutionalRequestStore = signalStore(
           }),
           map(res => res.items?.[0]?.progressData)
         );
-    return { getInstitutionRequestBySlug, saveProgressData, updateCurrentStep };
+    return {
+      getInstitutionRequestBySlug,
+      saveProgressData,
+      updateCurrentStep,
+      completeInstitutionRegistration
+    };
   }),
   withHooks((store) => ({
     async onInit() {

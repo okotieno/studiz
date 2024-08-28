@@ -1,19 +1,23 @@
-import { Component, effect, inject, input, signal, untracked } from '@angular/core';
+import { Component, inject, input } from '@angular/core';
 import { InstitutionalRequestStore } from '../../store/institutional-request.store';
 
 import {
-  IonButton, IonCard, IonCardContent, IonCardHeader, IonCardTitle,
-  IonCol,
+  IonButton,
+  IonCard,
+  IonCardContent,
+  IonCardHeader,
+  IonCardTitle,
   IonContent,
   IonFooter,
-  IonIcon,
-  IonInput, IonItem,
-  IonLabel, IonList, IonNav,
+  IonItem,
+  IonLabel,
+  IonList,
+  IonNav,
   IonRow,
   IonText
 } from '@ionic/angular/standalone';
-import { ReactiveFormsModule } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { SuccessPageComponent } from '@studiz/frontend/success-page';
 
 
 @Component({
@@ -38,10 +42,18 @@ import { JsonPipe } from '@angular/common';
   styleUrl: './summary.component.scss'
 })
 export class SummaryComponent {
-  currentInstitutionRequest = inject(InstitutionalRequestStore).currentInstitutionRequest;
-  ionNav = input.required<IonNav>()
+  institutionalRequestStore = inject(InstitutionalRequestStore);
+  currentInstitutionRequest = this.institutionalRequestStore.currentInstitutionRequest;
+  ionNav = input.required<IonNav>();
 
   createInstitution() {
-    console.log({ Res: 'creating...' })
+    this.institutionalRequestStore.completeInstitutionRegistration().subscribe({
+      next: async (res) => {
+        this.institutionalRequestStore.updateCurrentStep('success');
+        await this.ionNav().push(SuccessPageComponent, {
+          successMessage: res.data?.completeRequestRegistration?.message
+        });
+      }
+    });
   }
 }

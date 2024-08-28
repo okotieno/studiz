@@ -119,6 +119,7 @@ export type ILoginResponse = {
 };
 
 export type IMutation = {
+  completeRequestRegistration?: Maybe<ISuccessResponse>;
   createInstitution?: Maybe<ICreateInstitutionSuccessResponse>;
   createInstitutionRequest?: Maybe<ICreateInstitutionRequestSuccessResponse>;
   createPermission?: Maybe<ICreatePermissionSuccessResponse>;
@@ -140,6 +141,11 @@ export type IMutation = {
   updatePermission?: Maybe<ICreatePermissionSuccessResponse>;
   updateRole?: Maybe<ICreateRoleSuccessResponse>;
   updateUser?: Maybe<ICreateUserSuccessResponse>;
+};
+
+
+export type IMutationCompleteRequestRegistrationArgs = {
+  input?: InputMaybe<ISelectCategoryString>;
 };
 
 
@@ -383,6 +389,10 @@ export type IRoleModel = {
 
 export type ISelectCategory = {
   id: Scalars['Int']['input'];
+};
+
+export type ISelectCategoryString = {
+  id: Scalars['String']['input'];
 };
 
 export enum ISortByEnum {

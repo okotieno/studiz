@@ -19,4 +19,5 @@ export enum PermissionsEnum {
   CreateInstitutionRequest = 'create institution-request',
   DeleteInstitutionRequest = 'delete institution-request',
   UpdateInstitutionRequest = 'update institution-request',
+  CompleteInstitutionRequest = 'complete institution-request',
 }

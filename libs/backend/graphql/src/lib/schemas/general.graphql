@@ -44,6 +44,10 @@ input SelectCategory {
   id: Int!
 }
 
+input SelectCategoryString {
+  id: String!
+}
+
 type Pagination {
   totalItems: Int!
 }

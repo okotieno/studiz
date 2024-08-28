@@ -2,3 +2,4 @@ export { InstitutionRequestService as InstitutionRequestFrontendService } from '
 export { ICreateInstitutionRequestMutationVariables } from './lib/schemas/institution-request.generated';
 export { IRegisterInstitutionRequestGQL } from './lib/schemas/institution-request.generated';
 export { IUpdateInstitutionRequestProgressGQL } from './lib/schemas/institution-request.generated';
+export { ICompleteInstitutionRequestGQL } from './lib/schemas/institution-request.generated';

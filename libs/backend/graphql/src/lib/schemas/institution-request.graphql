@@ -80,5 +80,7 @@ extend type Mutation {
     input: RegisterInstitutionRequestInput!
   ): CreateInstitutionRequestSuccessResponse
 
+  completeRequestRegistration(input: SelectCategoryString): SuccessResponse
+
   deleteInstitutionRequest(id: Int!): DeleteSuccessResponse
 }

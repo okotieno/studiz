@@ -54,6 +54,13 @@ export type IUpdateInstitutionRequestProgressMutationVariables = Types.Exact<{
 
 export type IUpdateInstitutionRequestProgressMutation = { updateInstitutionRequestProgress?: { message: string } | null };
 
+export type ICompleteInstitutionRequestMutationVariables = Types.Exact<{
+  id: Types.Scalars['String']['input'];
+}>;
+
+
+export type ICompleteInstitutionRequestMutation = { completeRequestRegistration?: { message: string } | null };
+
 export const CreateInstitutionRequestDocument = gql`
     mutation CreateInstitutionRequest($input: CreateInstitutionRequestInput!) {
   createInstitutionRequest(input: $input) {
@@ -201,6 +208,24 @@ export const UpdateInstitutionRequestProgressDocument = gql`
   })
   export class IUpdateInstitutionRequestProgressGQL extends Apollo.Mutation<IUpdateInstitutionRequestProgressMutation, IUpdateInstitutionRequestProgressMutationVariables> {
     override document = UpdateInstitutionRequestProgressDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const CompleteInstitutionRequestDocument = gql`
+    mutation CompleteInstitutionRequest($id: String!) {
+  completeRequestRegistration(input: {id: $id}) {
+    message
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class ICompleteInstitutionRequestGQL extends Apollo.Mutation<ICompleteInstitutionRequestMutation, ICompleteInstitutionRequestMutationVariables> {
+    override document = CompleteInstitutionRequestDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

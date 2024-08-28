@@ -72,3 +72,10 @@ mutation UpdateInstitutionRequestProgress(
   }
 }
 
+mutation CompleteInstitutionRequest(
+  $id: String!
+) {
+  completeRequestRegistration(input: {id: $id}) {
+    message
+  }
+}

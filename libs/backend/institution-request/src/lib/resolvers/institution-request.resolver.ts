@@ -22,6 +22,7 @@ import { DeleteInstitutionRequestInputDto } from '../dto/delete-institution-requ
 import { InstitutionRequestDeletedEvent } from '../events/institution-request-deleted.event';
 import { RegisterInstitutionInputDto } from '../dto/register-institution-input.dto';
 import { TranslationService } from '@studiz/backend/translation';
+import { CompleteInstitutionRequestInputDto } from '../dto/complete-institution-request-input.dto';
 
 @Resolver()
 export class InstitutionRequestResolver {
@@ -118,6 +119,16 @@ export class InstitutionRequestResolver {
       };
     }
     throw new BadRequestException('No institution-request found');
+  }
+
+  @Mutation()
+  // @UseGuards(JwtAuthGuard)
+  async completeRequestRegistration(
+    @Body('input',new ValidationPipe()) params: CompleteInstitutionRequestInputDto
+  ) {
+    return {
+      message: 'Institution registration complete successfully, We have sent an email to all admins provided on next steps',
+    };
   }
 
   @Mutation()

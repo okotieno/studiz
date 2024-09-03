@@ -4,3 +4,4 @@ check
 exclamation-triangle
 plus
 minus
+upload

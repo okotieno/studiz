@@ -15,6 +15,7 @@ import {
 } from '@ionic/angular/standalone';
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
+import { FileUploadComponent } from '@studiz/file-upload';
 
 
 @Component({
@@ -30,7 +31,8 @@ import { JsonPipe } from '@angular/common';
     IonIcon,
     IonText,
     IonFooter,
-    IonContent
+    IonContent,
+    FileUploadComponent
   ],
   templateUrl: './institution-info.component.html',
   styleUrl: './institution-info.component.scss'

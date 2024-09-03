@@ -69,6 +69,10 @@
             "inject": true
           },
           {
+            "input": "libs/shared/file-upload/src/lib/file-upload.scss",
+            "inject": true
+          },
+          {
             "input": "libs/shared/theme/src/lib/variables.css",
             "inject": true
           },

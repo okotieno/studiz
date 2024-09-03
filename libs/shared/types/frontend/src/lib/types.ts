@@ -12,6 +12,7 @@ export type Scalars = {
   Boolean: { input: boolean; output: boolean; }
   Int: { input: number; output: number; }
   Float: { input: number; output: number; }
+  Upload: { input: any; output: any; }
 };
 
 export type IAccessToken = {
@@ -70,6 +71,15 @@ export type ICreateUserSuccessResponse = {
 
 export type IDeleteSuccessResponse = {
   message: Scalars['String']['output'];
+};
+
+export type IFileUploadModel = {
+  id: Scalars['Int']['output'];
+  mimetype?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
+  originalName?: Maybe<Scalars['String']['output']>;
+  size?: Maybe<Scalars['Int']['output']>;
+  url?: Maybe<Scalars['String']['output']>;
 };
 
 export type IInstitutionModel = {
@@ -147,6 +157,7 @@ export type IMutation = {
   updatePermission?: Maybe<ICreatePermissionSuccessResponse>;
   updateRole?: Maybe<ICreateRoleSuccessResponse>;
   updateUser?: Maybe<ICreateUserSuccessResponse>;
+  uploadSingleFile: IUploadSuccessResponse;
 };
 
 
@@ -260,6 +271,16 @@ export type IMutationUpdateUserArgs = {
   params?: InputMaybe<IUpdateUserInput>;
 };
 
+
+export type IMutationUploadSingleFileArgs = {
+  file: Scalars['Upload']['input'];
+};
+
+export type IPaginatedFileUpload = {
+  items?: Maybe<Array<Maybe<IFileUploadModel>>>;
+  meta?: Maybe<IPagination>;
+};
+
 export type IPaginatedInstitution = {
   items?: Maybe<Array<Maybe<IInstitutionModel>>>;
   meta?: Maybe<IPagination>;
@@ -295,6 +316,7 @@ export type IPermissionModel = {
 };
 
 export type IQuery = {
+  fileUploads: IPaginatedFileUpload;
   institution?: Maybe<IInstitutionModel>;
   institutionRequest?: Maybe<IInstitutionRequestModel>;
   institutionRequests: IPaginatedInstitutionRequest;
@@ -306,6 +328,11 @@ export type IQuery = {
   test?: Maybe<Scalars['String']['output']>;
   user?: Maybe<IUserModel>;
   users: IPaginatedUser;
+};
+
+
+export type IQueryFileUploadsArgs = {
+  query?: InputMaybe<IQueryParams>;
 };
 
 
@@ -432,6 +459,11 @@ export type IUpdateRoleInput = {
 
 export type IUpdateUserInput = {
   name?: InputMaybe<Scalars['String']['input']>;
+};
+
+export type IUploadSuccessResponse = {
+  data?: Maybe<IFileUploadModel>;
+  message?: Maybe<Scalars['String']['output']>;
 };
 
 export type IUserModel = {

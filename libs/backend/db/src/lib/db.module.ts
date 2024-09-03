@@ -5,7 +5,7 @@ import { dbConfig } from './config/db.config';
 import {
   PermissionModel,
   UserModel,
-  RoleModel, InstitutionModel, InstitutionRequestModel
+  RoleModel, InstitutionModel, InstitutionRequestModel, FileUploadModel
 } from './models';
 @Module({
   imports: [
@@ -17,7 +17,8 @@ import {
         RoleModel,
         UserModel,
         InstitutionModel,
-        InstitutionRequestModel
+        InstitutionRequestModel,
+        FileUploadModel
       ],
       // sync: {
       //   force: process.env['STUDIZ_ENVIRONMENT'] === 'development',

@@ -29,14 +29,14 @@ describe('WelcomeEmailService', () => {
 
   it('should send welcome email', async () => {
     const email = 'recipient@example.com';
-    await service.send(email);
+    await service.send({ to: email, slug: '' });
 
     // Check if the sendMail method was called with the correct parameters
     expect(mockEmailTransporter.transporter.sendMail).toHaveBeenCalledWith({
       from: mockEmailTransporter.defaultFromEmail,
       to: email,
-      subject: 'Welcome to Furahafy!',
-      text: 'You have successfully created an account with Furahafy',
+      subject: 'Welcome to Studiz!',
+      text: 'You have successfully created an account with Studiz',
     });
   });
 });

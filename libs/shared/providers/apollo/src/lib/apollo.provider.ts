@@ -4,7 +4,7 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { ApolloLink, InMemoryCache, split } from '@apollo/client/core';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { OperationDefinitionNode } from 'graphql/language';
-import { importProvidersFrom, inject } from '@angular/core';
+import { EnvironmentProviders, importProvidersFrom, inject, InjectionToken } from '@angular/core';
 import { contextSuccessAlert } from './success-alert.context';
 import { multipartFormContext } from './multipart-form.context';
 
@@ -14,7 +14,11 @@ import { AlertController, ToastController } from '@ionic/angular/standalone';
 import { contextErrorAlert } from './error-alert.context';
 
 
-export const provideApollo = () => [
+export const provideApollo: () => [EnvironmentProviders, {
+  provide: InjectionToken<any>;
+  useFactory(httpLink: HttpLink): { cache: InMemoryCache; link: ApolloLink };
+  deps: HttpLink[]
+}] = () => [
   importProvidersFrom([
     ApolloModule
   ]),
@@ -41,7 +45,7 @@ export const provideApollo = () => [
           return kind === 'OperationDefinition' && operation === 'subscription';
         },
         ws,
-        http
+        http as any
       );
 
       const combinedLink = ApolloLink.from([
@@ -56,6 +60,6 @@ export const provideApollo = () => [
         link: combinedLink
       };
     },
-    deps: [HttpLink]
+    deps: [HttpLink as any]
   }
 ];

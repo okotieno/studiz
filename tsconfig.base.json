@@ -15,6 +15,11 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
+      "@studiz/backend/file-upload": ["libs/backend/file-upload/src/index.ts"],
+      "@studiz/file-upload": ["libs/shared/file-upload/src/index.ts"],
+      "@studiz/frontend/file-upload-frontend-service": [
+        "libs/shared/data-access/file-upload/src/index.ts"
+      ],
       "@studiz-pro/website-complete-get-started": [
         "libs/website/pages/complete-get-started/src/index.ts"
       ],

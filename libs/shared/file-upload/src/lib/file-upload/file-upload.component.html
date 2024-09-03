@@ -1,3 +1,5 @@
+<!--{{ fileUploadsWithIcons() | json }}-->
+
 <ion-input
   [multiple]="multiple()"
   (change)="handleChange($event)"
@@ -26,35 +28,35 @@
   </ion-button>
 </ion-input>
 
-@if (fileUploadInfoWithIcons().length > 0 || !isUploadingCompleted()) {
+@if (fileUploadsWithIcons().length > 0) {
   <ion-list class="ion-no-margin ion-margin-top">
-    @for (fileUpload of fileUploadInfoWithIcons(); track fileUpload.id) {
+    @for (file of fileUploadsWithIcons(); track file.fileUpload?.id) {
       <ion-item [lines]="$last ? 'none': null">
         <ion-avatar slot="start" style="width: 70px; height: 70px">
-          <ion-img [src]="fileUrls()[$index]"></ion-img>
+          <ion-img [src]="file.url ?? file.fileUpload?.url"></ion-img>
         </ion-avatar>
         <ion-label>
           <ion-row class="ion-align-items-center ion-no-margin ion-no-padding">
             <ion-col class="ion-no-margin ion-no-padding" style="width: 30px; max-width: 30px">
-              <ion-icon style="font-size: 20px" class="" [name]="fileUpload.icon"></ion-icon>
+              <ion-icon style="font-size: 20px" class="" [name]="file.icon"></ion-icon>
             </ion-col>
             <ion-col class="ion-no-margin ion-no-padding">
               <ion-row class="ion-no-padding ion-no-margin ion-justify-content-between">
                 <ion-text>
-                  {{ fileUpload.originalName }}
+                  {{ file.file?.name ?? file.fileUpload?.originalName }}
                 </ion-text>
                 <ion-text style="display: inline-flex; align-items: center">
-                  100%
+                  {{ file.progress }}%
                   <ion-icon class="ion-margin-start" color="success" name="circle-check"></ion-icon>
                 </ion-text>
               </ion-row>
               <ion-text>
-                <small>{{ fileUpload.size | fileSize }}</small>
+                <small>{{ (file.file?.size ?? file.fileUpload?.size ?? 0) * ((file?.progress ?? 0) / 100) | fileSize }}</small>
               </ion-text>
             </ion-col>
           </ion-row>
-          <ion-progress-bar style="height: 14px" color="success" class="ion-margin-vertical"
-                            [value]="100"></ion-progress-bar>
+          <ion-progress-bar style="height: 14px" [color]="file.hasError ? 'danger': 'success'" class="ion-margin-vertical"
+                            [value]="(file.progress ?? 0) / 100"></ion-progress-bar>
         </ion-label>
         <ion-buttons slot="end">
           <ion-button (click)="handleRemovesFile($index)" shape="round" color="danger" fill="clear">
@@ -63,41 +65,41 @@
         </ion-buttons>
       </ion-item>
     }
-    @if (!isUploadingCompleted()) {
-      <ion-item>
-        <ion-avatar slot="start" style="width: 70px; height: 70px">
-          <ion-img [src]="currentUploadingFileUrl()"></ion-img>
-        </ion-avatar>
-        <ion-label>
-          <ion-row class="ion-align-items-center ion-no-margin ion-no-padding">
-            <ion-col class="ion-no-margin ion-no-padding" style="width: 30px; max-width: 30px">
-              <ion-icon style="font-size: 20px" class="" [name]="currentUploadingFileUrlIcon()"></ion-icon>
-            </ion-col>
-            <ion-col class="ion-no-margin ion-no-padding">
-              <ion-row class="ion-no-padding ion-no-margin ion-justify-content-between">
-                <ion-text>
-                  {{ currentUploadingFile()?.name }}
-                </ion-text>
-                <ion-text style="display: inline-flex; align-items: center">
-                  {{ uploadProgress() }}%
-                  <ion-icon class="ion-margin-start" color="success" name="circle-check"></ion-icon>
-                </ion-text>
-              </ion-row>
-              <ion-text>
-                <small>{{ currentUploadingFile()?.size | fileSize }}</small>
-              </ion-text>
-            </ion-col>
-          </ion-row>
-          <ion-progress-bar style="height: 14px" color="success" class="ion-margin-vertical"
-                            [value]="uploadProgress()/100"></ion-progress-bar>
-        </ion-label>
-        <ion-buttons slot="end">
-          <ion-button [disabled]="true" shape="round" color="danger" fill="clear">
-            <ion-icon name="circle-xmark"></ion-icon>
-          </ion-button>
-        </ion-buttons>
-      </ion-item>
-    }
+    <!--    @if (!isUploadingCompleted()) {-->
+    <!--      <ion-item>-->
+    <!--        <ion-avatar slot="start" style="width: 70px; height: 70px">-->
+    <!--          <ion-img [src]="currentUploadingFileUrl()"></ion-img>-->
+    <!--        </ion-avatar>-->
+    <!--        <ion-label>-->
+    <!--          <ion-row class="ion-align-items-center ion-no-margin ion-no-padding">-->
+    <!--            <ion-col class="ion-no-margin ion-no-padding" style="width: 30px; max-width: 30px">-->
+    <!--              <ion-icon style="font-size: 20px" class="" [name]="currentUploadingFileUrlIcon()"></ion-icon>-->
+    <!--            </ion-col>-->
+    <!--            <ion-col class="ion-no-margin ion-no-padding">-->
+    <!--              <ion-row class="ion-no-padding ion-no-margin ion-justify-content-between">-->
+    <!--                <ion-text>-->
+    <!--                  {{ currentUploadingFile()?.name }}-->
+    <!--                </ion-text>-->
+    <!--                <ion-text style="display: inline-flex; align-items: center">-->
+    <!--                  {{ uploadProgress() }}%-->
+    <!--                  <ion-icon class="ion-margin-start" color="success" name="circle-check"></ion-icon>-->
+    <!--                </ion-text>-->
+    <!--              </ion-row>-->
+    <!--              <ion-text>-->
+    <!--                <small>{{ currentUploadingFile()?.size | fileSize }}</small>-->
+    <!--              </ion-text>-->
+    <!--            </ion-col>-->
+    <!--          </ion-row>-->
+    <!--          <ion-progress-bar style="height: 14px" color="success" class="ion-margin-vertical"-->
+    <!--                            [value]="uploadProgress()/100"></ion-progress-bar>-->
+    <!--        </ion-label>-->
+    <!--        <ion-buttons slot="end">-->
+    <!--          <ion-button [disabled]="true" shape="round" color="danger" fill="clear">-->
+    <!--            <ion-icon name="circle-xmark"></ion-icon>-->
+    <!--          </ion-button>-->
+    <!--        </ion-buttons>-->
+    <!--      </ion-item>-->
+    <!--    }-->
   </ion-list>
 
 }

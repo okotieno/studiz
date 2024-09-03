@@ -12,9 +12,25 @@ import {
   NestFastifyApplication
 } from '@nestjs/platform-fastify';
 
+const processRequest = require('graphql-upload/processRequest.js')
+
+function fastifyGraphQLUpload(fastify) {
+  fastify.addContentTypeParser('multipart', (req, body, done) => {
+    req.isMultipart = true
+    done()
+  })
+
+  fastify.addHook('preValidation', async function(request, reply) {
+    if (!request.isMultipart) {
+      return
+    }
+    request.body = await processRequest(request.raw, reply.raw)
+  })
+}
+
 async function bootstrap() {
   const fastifyAdapter = new FastifyAdapter();
-  // fastifyGraphQLUpload(fastifyAdapter.getInstance());
+  fastifyGraphQLUpload(fastifyAdapter.getInstance());
 
   const app = await NestFactory.create<NestFastifyApplication>(
     AppModule,

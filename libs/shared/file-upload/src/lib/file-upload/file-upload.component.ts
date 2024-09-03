@@ -34,6 +34,7 @@ import { BACKEND_URL } from '@studiz/frontend/constants';
 import { FileSizePipe } from './file-size.pipe';
 import { catchError, concatAll, from, of, switchMap, takeWhile, tap, throwError, timer } from 'rxjs';
 import { FileUploadFrontendService } from '@studiz/frontend/file-upload-frontend-service';
+import FileUploadStore from './file-uploads.store';
 
 const ALLOWED_FILE_TYPES = [
   'image/jpeg',
@@ -67,9 +68,14 @@ const ALLOWED_FILE_TYPES = [
   ],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.css',
-  changeDetection: ChangeDetectionStrategy.OnPush
+  changeDetection: ChangeDetectionStrategy.OnPush,
+  providers: [FileUploadStore]
 })
 export class FileUploadComponent implements ControlValueAccessor {
+  uploadedFilesStore = inject(FileUploadStore);
+  fileUploadsWithIcons = this.uploadedFilesStore.fileUploadsWithIcons
+
+
   ionInput = viewChild.required(IonInput);
   fileIcons: Record<string, string> = {
     'default': 'file',
@@ -162,20 +168,23 @@ export class FileUploadComponent implements ControlValueAccessor {
   handleChange(event: any) {
     this.onTouched?.();
     const files = event.target.files as FileList;
-    this.selectedFiles = Array.from(files) as File[];
+    // this.selectedFiles = Array.from(files) as File[];
+    this.uploadedFilesStore.addFiles(files);
     event.target.value = null;
 
-    this.fileUrls.update((fileUrls) => [
-        ...fileUrls,
-        ...this.selectedFiles?.map((selectedFile) => URL.createObjectURL(selectedFile)) ?? []
-      ]
-    );
 
-    this.uploadFiles.set(
-      [...this.uploadFiles(), ...this.selectedFiles]
-    );
 
-    this.handleUploadFile();
+    // this.fileUrls.update((fileUrls) => [
+    //     ...fileUrls,
+    //     ...this.selectedFiles?.map((selectedFile) => URL.createObjectURL(selectedFile)) ?? []
+    //   ]
+    // );
+    //
+    // this.uploadFiles.set(
+    //   [...this.uploadFiles(), ...this.selectedFiles]
+    // );
+    //
+    // this.handleUploadFile();
   }
 
 

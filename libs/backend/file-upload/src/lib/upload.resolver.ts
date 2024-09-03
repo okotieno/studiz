@@ -32,6 +32,7 @@ export class FileUploadResolver {
     @Body('file') fileObject: any
   ) {
     const file = await fileObject.file;
+    console.log(file);
     const { createReadStream, filename: originalName, mimetype, encoding } = file;
     const buffer = await new Promise<Buffer>((resolve, reject) => {
       const chunks: Buffer[] = [];

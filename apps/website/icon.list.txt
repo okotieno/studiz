@@ -5,3 +5,7 @@ exclamation-triangle
 plus
 minus
 upload
+circle-check
+circle-xmark
+file
+file-png

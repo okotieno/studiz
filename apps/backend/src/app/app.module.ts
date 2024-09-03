@@ -7,22 +7,13 @@ import { PermissionModule } from '@studiz/backend/permission';
 
 import { UserModule } from '@studiz/backend/user-backend';
 import { RoleModule } from '@studiz/backend/role';
-import { join } from 'path';
 import { EventEmitterModule } from '@nestjs/event-emitter';
-
-import {
-  AcceptLanguageResolver,
-  GraphQLWebsocketResolver,
-  HeaderResolver,
-  I18nModule,
-  QueryResolver,
-} from 'nestjs-i18n';
 import { InstitutionModule } from '@studiz/backend/institution';
 
 import { AuthBackendModule } from '@studiz/backend/auth';
 import { InstitutionRequestModule } from '@studiz/backend/institution-request';
 import { TranslationModule } from '@studiz/backend/translation';
-import { EmailModule } from '@studiz/backend/email-service';
+import { FileUploadModule } from '@studiz/backend/file-upload';
 
 @Module({
   imports: [
@@ -45,6 +36,7 @@ import { EmailModule } from '@studiz/backend/email-service';
     UserModule,
     PermissionModule,
     GraphqlModule,
+    FileUploadModule
   ]
 })
 export class AppModule {}

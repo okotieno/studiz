@@ -88,6 +88,7 @@ export type IInstitutionRequestModel = {
 
 export type IInstitutionRequestProgressData = {
   adminInfos?: Maybe<Array<Maybe<IInstitutionRequestProgressDataAdminsInfo>>>;
+  institutionInfo?: Maybe<IInstitutionRequestProgressDataInstitutionInfo>;
 };
 
 export type IInstitutionRequestProgressDataAdminsInfo = {
@@ -104,6 +105,11 @@ export type IInstitutionRequestProgressDataAdminsInfoInput = {
 
 export type IInstitutionRequestProgressDataInput = {
   adminInfos?: InputMaybe<Array<InputMaybe<IInstitutionRequestProgressDataAdminsInfoInput>>>;
+};
+
+export type IInstitutionRequestProgressDataInstitutionInfo = {
+  logoUrl?: Maybe<Scalars['String']['output']>;
+  name: Scalars['String']['output'];
 };
 
 export enum IInstitutionRequestStatus {

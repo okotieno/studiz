@@ -1,6 +1,10 @@
 <ion-row class="ion-justify-content-center">
   <ion-col sizeXl="8" sizeLg="10" sizeMd="12" sizeSm="12" sizeXs="12">
     <ion-segment #segment [scrollable]="true" [value]="currentStep()">
+      <ion-segment-button layout="icon-end" [disabled]="segment.value !== 'institutionInfo'" value="institutionInfo">
+        Institution info
+        <ion-icon name="pen"></ion-icon>
+      </ion-segment-button>
       <ion-segment-button layout="icon-end" [disabled]="segment.value !== 'systemAdminInfo'" value="systemAdminInfo">
         System Admin info
         <ion-icon name="pen"></ion-icon>
@@ -11,7 +15,7 @@
     </ion-segment>
     <ion-row>
       <ion-col size="12">
-        <ion-nav (ionNavDidChange)="setActiveSegment($event)" #ionNav [root]="component" [rootParams]="{ionNav: ionNav}"></ion-nav>
+        <ion-nav #ionNav [root]="component" [rootParams]="{ionNav: ionNav}"></ion-nav>
       </ion-col>
     </ion-row>
   </ion-col>

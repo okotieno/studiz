@@ -1,7 +1,7 @@
-import { Component, inject, signal } from '@angular/core';
+import { Component, inject } from '@angular/core';
 import { IonButton, IonCol, IonIcon, IonNav, IonRow, IonSegment, IonSegmentButton } from '@ionic/angular/standalone';
-import { AdminInfoComponent } from '../admins-info/admin-info.component';
 import { InstitutionalRequestStore } from '../../store/institutional-request.store';
+import { InstitutionInfoComponent } from '../institution-info/institution-info.component';
 
 @Component({
   selector: 'studiz-complete-get-started',
@@ -22,9 +22,5 @@ import { InstitutionalRequestStore } from '../../store/institutional-request.sto
 export class CompleteGetStartedComponent {
 
   currentStep = inject(InstitutionalRequestStore).currentStep;
-  component = AdminInfoComponent
-
-  setActiveSegment($event: any) {
-    console.log({$event})
-  }
+  component = InstitutionInfoComponent
 }

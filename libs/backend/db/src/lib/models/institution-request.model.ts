@@ -6,7 +6,7 @@ import { DataTypes } from 'sequelize';
   underscored: true,
   paranoid: true,
   timestamps: true,
-  deletedAt: true,
+  deletedAt: true
 })
 export class InstitutionRequestModel extends Model {
   @Column({
@@ -15,7 +15,7 @@ export class InstitutionRequestModel extends Model {
   institutionName?: string;
 
   @Column({
-    allowNull: false,
+    allowNull: false
   })
   adminEmail?: string;
 
@@ -26,24 +26,30 @@ export class InstitutionRequestModel extends Model {
     type: DataTypes.JSON
   })
   progressData?: {
-    adminInfos: { email: string, firstName: string, lastName: string}[]
+    institutionInfo: { name: string, logoUrl: string },
+    adminInfos: { email: string, firstName: string, lastName: string }[]
   };
 
   @Column({
     type: DataTypes.UUID,
     defaultValue: DataTypes.UUIDV4,
-    allowNull: false,
+    allowNull: false
   })
   slug?: string;
 
   @BeforeCreate({})
   @BeforeUpdate({})
   static setProgressData(instance: InstitutionRequestModel) {
-    if(!instance.progressData) {
-      instance.progressData = { adminInfos: [] }
+    if (!instance.progressData) {
+      instance.progressData = {
+        institutionInfo: { name: String(instance.institutionName), logoUrl: '' },
+        adminInfos: []
+      };
     }
-   if(instance.progressData.adminInfos.length < 1 && instance.adminEmail) {
-     instance.progressData.adminInfos.push({ email: instance.adminEmail, firstName: '', lastName: '' });
-   }
+    if (instance.progressData.adminInfos.length < 1 && instance.adminEmail) {
+      instance.progressData.adminInfos.push({ email: instance.adminEmail, firstName: '', lastName: '' });
+    }
+
+
   }
 }

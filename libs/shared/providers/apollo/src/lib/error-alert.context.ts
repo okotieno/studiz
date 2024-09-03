@@ -7,10 +7,15 @@ export const
   const showErrorMessage = operation.getContext()[SHOW_ERROR_MESSAGE];
   return forward(operation).map((response) => {
     const error = response.errors?.[0];
-    const errorMessage = error?.message;
+    let errorMessage = error?.message;
     const originalError = error?.extensions?.['originalError'] as { message: string[], error: string }
     const originalErrorError = originalError?.error
     const message = [originalError?.['message']].join(', ');
+
+    if(error?.extensions?.['code'] === 'INTERNAL_SERVER_ERROR') {
+      console.log(error?.extensions);
+      errorMessage = (error?.extensions?.['stacktrace'] as string [])?.[0] ?? ''
+    }
 
     if (showErrorMessage && errorMessage) {
       const presentAlert = async () => {

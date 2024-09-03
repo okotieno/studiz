@@ -22,7 +22,7 @@ export type IGetInstitutionRequestsQueryVariables = Types.Exact<{
 }>;
 
 
-export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
+export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { institutionInfo?: { name: string, logoUrl?: string | null } | null, adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
 
 export type IDeleteInstitutionRequestByIdMutationVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
@@ -111,6 +111,10 @@ export const GetInstitutionRequestsDocument = gql`
       slug
       status
       progressData {
+        institutionInfo {
+          name
+          logoUrl
+        }
         adminInfos {
           lastName
           firstName

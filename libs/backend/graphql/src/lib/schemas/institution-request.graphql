@@ -11,8 +11,14 @@ input InstitutionRequestProgressDataAdminsInfoInput {
   email: String, firstName: String, lastName: String
 }
 
+type InstitutionRequestProgressDataInstitutionInfo {
+  name: String!
+  logoUrl: String
+}
+
 type InstitutionRequestProgressData {
- adminInfos: [InstitutionRequestProgressDataAdminsInfo]
+  adminInfos: [InstitutionRequestProgressDataAdminsInfo]
+  institutionInfo: InstitutionRequestProgressDataInstitutionInfo
 }
 
 input InstitutionRequestProgressDataInput {

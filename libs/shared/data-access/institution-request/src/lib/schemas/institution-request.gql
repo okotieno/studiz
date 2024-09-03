@@ -23,6 +23,10 @@ query GetInstitutionRequests($query: QueryParams) {
       slug
       status
       progressData {
+        institutionInfo {
+          name
+          logoUrl
+        }
         adminInfos {
           lastName
           firstName

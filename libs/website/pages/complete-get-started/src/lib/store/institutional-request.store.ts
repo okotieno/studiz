@@ -15,12 +15,12 @@ import {
   ICompleteInstitutionRequestGQL
 } from '@studiz/frontend/institution-request-frontend-service';
 
-type ICurrentStep = 'systemAdminInfo' | 'summary' | 'success';
+type ICurrentStep = 'institutionInfo' | 'systemAdminInfo' | 'summary' | 'success';
 
 const initialState: {
   currentStep: ICurrentStep,
   currentInstitutionRequest: IInstitutionRequestModel
-} = { currentInstitutionRequest: { adminEmail: '', id: 0, institutionName: '', slug: '' }, currentStep: 'systemAdminInfo' };
+} = { currentInstitutionRequest: { adminEmail: '', id: 0, institutionName: '', slug: '' }, currentStep: 'institutionInfo' };
 
 
 export const InstitutionalRequestStore = signalStore(
@@ -28,7 +28,9 @@ export const InstitutionalRequestStore = signalStore(
   withState(initialState),
   withComputed((store) => {
     const progressData = computed(() => store.currentInstitutionRequest().progressData);
+    const institutionInfo = computed(() => progressData()?.institutionInfo);
     return {
+      institutionInfo,
       progressData
     };
   }),

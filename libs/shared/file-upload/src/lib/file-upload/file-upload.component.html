@@ -5,7 +5,7 @@
   (change)="handleChange($event)"
   type="file"
   [accept]="allowedFileTypes"
-  fill="outline"
+  fill="solid"
   (drop)="fileDropped($event); fileOverDragZone.set(false)"
   (dragover)="$event.preventDefault(); fileOverDragZone.set(true)"
   (dragleave)="$event.preventDefault(); fileOverDragZone.set(false)"
@@ -13,6 +13,9 @@
   [class.file-over]="fileOverDragZone()"
 >
   <ion-row slot="label" class="ion-padding-vertical">
+    <ion-text class="ion-padding-bottom">
+      <small>Institution logo</small>
+    </ion-text>
     <ion-col class="ion-no-padding" size="12">
       <ion-icon name="upload" class="ion-margin-end"></ion-icon>
       <ion-text class="ion-hide-sm-down"> Drag and drop files here or upload</ion-text>

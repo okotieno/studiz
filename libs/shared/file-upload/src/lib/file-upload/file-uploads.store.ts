@@ -39,15 +39,18 @@ export default signalStore(
 
     const storeFileUploads = (fileUploads: FileUploadState['fileUploads']) => {
       if (store.multiple()) {
-        patchState(store, { fileUploads });
+        patchState(store, { fileUploads: { ...fileUploads } });
+      } else if (fileUploads.length > 0) {
+        patchState(store, { fileUploads: [{ ...fileUploads[fileUploads.length - 1] }] });
       } else {
-        patchState(store, { fileUploads: fileUploads[fileUploads.length - 1] ? [fileUploads[fileUploads.length - 1]] : [] });
+        patchState(store, { fileUploads: [] });
       }
     };
 
     const updateFileUploadProp = <T extends keyof FileUpload>(prop: T, i: number, val: FileUpload[T]) => {
       const fileUploads = [...store.fileUploads()];
       if (!store.multiple()) {
+        console.log({ val, i, prop });
         fileUploads[0][prop] = val;
       } else {
         fileUploads[i][prop] = val;
@@ -106,7 +109,6 @@ export default signalStore(
         }))
       ];
       storeFileUploads(fileUploads);
-
       from(store.fileUploads().map((file, i) =>
         of(true).pipe(
           tap(() => {
@@ -130,6 +132,7 @@ export default signalStore(
                 updateFileUploadProp<'progress'>('progress', i, 100);
                 updateFileUploadProp<'uploading'>('uploading', i, false);
                 updateFileUploadProp<'fileUpload'>('fileUpload', i, res.data?.uploadSingleFile?.data as IFileUploadModel);
+                storeFileUploads([...store.fileUploads()]);
               }),
               catchError((res) => {
                 updateFileUploadProp<'progress'>('progress', i, 100);
@@ -158,9 +161,14 @@ export default signalStore(
     );
 
     const fileUploadValue = computed(() => {
-      return (store.fileUploads()
-        .map((item) => item.fileUpload)
-        .filter((item) => item?.id) ?? []) as IFileUploadModel[];
+      const fileUploads = [...store.fileUploads()];
+      return (
+        store.fileUploads()
+          .map((item) => ({
+            ...item.fileUpload
+          }))
+        // .filter((item) => item?.id ? item : [])
+      ) as IFileUploadModel[];
     });
 
     return { fileUploadsWithIcons, fileUploadValue };

@@ -68,7 +68,7 @@ const ALLOWED_FILE_TYPES = [
   providers: [FileUploadStore]
 })
 export class FileUploadComponent implements ControlValueAccessor {
-
+  label = input('')
   uploadedFilesStore = inject(FileUploadStore);
   fileUploadsWithIcons = this.uploadedFilesStore.fileUploadsWithIcons;
 
@@ -90,6 +90,16 @@ export class FileUploadComponent implements ControlValueAccessor {
 
   allowedFileTypes = ALLOWED_FILE_TYPES;
   fileOverDragZone = signal(false);
+
+  fileUploadChangeEffect = effect(() => {
+    this.uploadedFilesStore.fileUploads();
+    const val = this.uploadedFilesStore.fileUploads().map(x => x.fileUpload);
+    if (val) {
+      this.onChanges?.(val as { id: number }[]);
+    } else {
+      this.onChanges?.([]);
+    }
+  });
 
   writeValue(obj: { id: number }[]): void {
     untracked(() => {
@@ -164,7 +174,7 @@ export class FileUploadComponent implements ControlValueAccessor {
 
   triggerInputChange() {
     this.onTouched?.();
-    this.onChanges?.([...this.uploadedFilesStore.fileUploadValue()]);
+    // this.onChanges?.([...this.uploadedFilesStore.fileUploadValue()]);
   }
 
   async triggerUpload() {

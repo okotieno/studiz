@@ -7,7 +7,7 @@ import {
   IonContent,
   IonFooter,
   IonIcon,
-  IonInput,
+  IonInput, IonItem,
   IonLabel,
   IonNav,
   IonRow,
@@ -16,6 +16,7 @@ import {
 import { FormBuilder, ReactiveFormsModule, Validators } from '@angular/forms';
 import { JsonPipe } from '@angular/common';
 import { FileUploadComponent } from '@studiz/file-upload';
+import { AdminInfoComponent } from '../admins-info/admin-info.component';
 
 
 @Component({
@@ -32,7 +33,8 @@ import { FileUploadComponent } from '@studiz/file-upload';
     IonText,
     IonFooter,
     IonContent,
-    FileUploadComponent
+    FileUploadComponent,
+    IonItem
   ],
   templateUrl: './institution-info.component.html',
   styleUrl: './institution-info.component.scss'
@@ -43,24 +45,32 @@ export class InstitutionInfoComponent {
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
     // logoFileUpload: [null as null | [{ id: number }], Validators.required]
-    logoFileUpload: [[{ id: 1 }, { id: 2 }] as null | { id: number }[], Validators.required]
+    logoFileUpload: [[] as { id: number }[], [Validators.required]]
   });
   institutionalRequestStore = inject(InstitutionalRequestStore);
 
   institutionInfoEffect = effect(() => {
     const progressData = this.institutionalRequestStore.institutionInfo();
     console.log(progressData);
+    this.form.get('name')?.setValue(progressData?.name ?? '');
+    this.form.get('logoFileUpload')?.setValue(progressData?.logoFileUpload ? [{ id: progressData?.logoFileUpload.id }] : []);
 
   });
 
   saveInfo() {
-    // this.institutionalRequestStore.saveInstitutionalInfo(this.form.value).subscribe({
-    //   next: async () => {
-    //     await this.ionNav().push(SummaryComponent, {
-    //       ionNav: this.ionNav()
-    //     }, {});
-    //     this.institutionalRequestStore.updateCurrentStep('summary');
-    //   }
-    // });
+    console.log(this.form.value)
+    this.institutionalRequestStore.saveProgressData({ institutionInfo: {
+      name: this.form.value.name ?? '',
+      logoFileUpload: {
+        id: this.form.value.logoFileUpload?.[0]?.id as number
+      }
+      }}).subscribe({
+      next: async () => {
+        await this.ionNav().push(AdminInfoComponent, {
+          ionNav: this.ionNav()
+        }, {});
+        this.institutionalRequestStore.updateCurrentStep('systemAdminInfo');
+      }
+    });
   }
 }

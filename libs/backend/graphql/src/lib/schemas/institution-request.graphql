@@ -12,7 +12,7 @@ input InstitutionRequestProgressDataAdminsInfoInput {
 }
 
 type InstitutionRequestProgressDataInstitutionInfo {
-  name: String!
+  name: String
   logoFileUpload: FileUploadModel
 }
 
@@ -21,7 +21,13 @@ type InstitutionRequestProgressData {
   institutionInfo: InstitutionRequestProgressDataInstitutionInfo
 }
 
+input InstitutionRequestProgressDataInstitutionInfoInput {
+  name: String
+  logoFileUpload: SelectCategory
+}
+
 input InstitutionRequestProgressDataInput {
+  institutionInfo: InstitutionRequestProgressDataInstitutionInfoInput,
   adminInfos: [InstitutionRequestProgressDataAdminsInfoInput]
 }
 

@@ -22,7 +22,7 @@ export type IGetInstitutionRequestsQueryVariables = Types.Exact<{
 }>;
 
 
-export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { institutionInfo?: { name: string, logoFileUpload?: string | null } | null, adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
+export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { institutionInfo?: { name?: string | null, logoFileUpload?: { originalName?: string | null, id: number, url?: string | null, mimetype?: string | null, size?: number | null } | null } | null, adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
 
 export type IDeleteInstitutionRequestByIdMutationVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
@@ -77,7 +77,7 @@ export const CreateInstitutionRequestDocument = gql`
   })
   export class ICreateInstitutionRequestGQL extends Apollo.Mutation<ICreateInstitutionRequestMutation, ICreateInstitutionRequestMutationVariables> {
     override document = CreateInstitutionRequestDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -96,7 +96,7 @@ export const GetInstitutionRequestByIdDocument = gql`
   })
   export class IGetInstitutionRequestByIdGQL extends Apollo.Query<IGetInstitutionRequestByIdQuery, IGetInstitutionRequestByIdQueryVariables> {
     override document = GetInstitutionRequestByIdDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -114,8 +114,11 @@ export const GetInstitutionRequestsDocument = gql`
         institutionInfo {
           name
           logoFileUpload {
+            originalName
             id
             url
+            mimetype
+            size
           }
         }
         adminInfos {
@@ -137,7 +140,7 @@ export const GetInstitutionRequestsDocument = gql`
   })
   export class IGetInstitutionRequestsGQL extends Apollo.Query<IGetInstitutionRequestsQuery, IGetInstitutionRequestsQueryVariables> {
     override document = GetInstitutionRequestsDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -155,7 +158,7 @@ export const DeleteInstitutionRequestByIdDocument = gql`
   })
   export class IDeleteInstitutionRequestByIdGQL extends Apollo.Mutation<IDeleteInstitutionRequestByIdMutation, IDeleteInstitutionRequestByIdMutationVariables> {
     override document = DeleteInstitutionRequestByIdDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -176,7 +179,7 @@ export const UpdateInstitutionRequestDocument = gql`
   })
   export class IUpdateInstitutionRequestGQL extends Apollo.Mutation<IUpdateInstitutionRequestMutation, IUpdateInstitutionRequestMutationVariables> {
     override document = UpdateInstitutionRequestDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -197,7 +200,7 @@ export const RegisterInstitutionRequestDocument = gql`
   })
   export class IRegisterInstitutionRequestGQL extends Apollo.Mutation<IRegisterInstitutionRequestMutation, IRegisterInstitutionRequestMutationVariables> {
     override document = RegisterInstitutionRequestDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -215,7 +218,7 @@ export const UpdateInstitutionRequestProgressDocument = gql`
   })
   export class IUpdateInstitutionRequestProgressGQL extends Apollo.Mutation<IUpdateInstitutionRequestProgressMutation, IUpdateInstitutionRequestProgressMutationVariables> {
     override document = UpdateInstitutionRequestProgressDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }
@@ -233,7 +236,7 @@ export const CompleteInstitutionRequestDocument = gql`
   })
   export class ICompleteInstitutionRequestGQL extends Apollo.Mutation<ICompleteInstitutionRequestMutation, ICompleteInstitutionRequestMutationVariables> {
     override document = CompleteInstitutionRequestDocument;
-
+    
     constructor(apollo: Apollo.Apollo) {
       super(apollo);
     }

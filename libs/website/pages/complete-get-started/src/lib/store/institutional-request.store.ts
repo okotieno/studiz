@@ -1,26 +1,28 @@
 import { patchState, signalStore, withComputed, withHooks, withMethods, withState } from '@ngrx/signals';
 import { computed, inject } from '@angular/core';
 import {
+  ICompleteInstitutionRequestGQL,
   InstitutionRequestFrontendService,
   IUpdateInstitutionRequestProgressGQL
 } from '@studiz/frontend/institution-request-frontend-service';
 import {
   IInstitutionRequestModel,
-  IInstitutionRequestProgressDataAdminsInfo, IInstitutionRequestStatus,
+  IInstitutionRequestProgressDataAdminsInfo,
+  IInstitutionRequestStatus,
   IQueryOperatorEnum
 } from '@studiz/shared/types/frontend';
 import { map, tap } from 'rxjs';
 import { SHOW_ERROR_MESSAGE, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
-import {
-  ICompleteInstitutionRequestGQL
-} from '@studiz/frontend/institution-request-frontend-service';
 
 type ICurrentStep = 'institutionInfo' | 'systemAdminInfo' | 'summary' | 'success';
 
 const initialState: {
   currentStep: ICurrentStep,
   currentInstitutionRequest: IInstitutionRequestModel
-} = { currentInstitutionRequest: { adminEmail: '', id: 0, institutionName: '', slug: '' }, currentStep: 'institutionInfo' };
+} = {
+  currentInstitutionRequest: { adminEmail: '', id: 0, institutionName: '', slug: '' },
+  currentStep: 'institutionInfo'
+};
 
 
 export const InstitutionalRequestStore = signalStore(
@@ -35,7 +37,7 @@ export const InstitutionalRequestStore = signalStore(
     };
   }),
   withMethods((store) => {
-    const completeInstitutionRequestGQL = inject(ICompleteInstitutionRequestGQL)
+    const completeInstitutionRequestGQL = inject(ICompleteInstitutionRequestGQL);
 
     const updateInstitutionRequestProgressGQL = inject(IUpdateInstitutionRequestProgressGQL);
     const updateCurrentInstitutionRequest = (currentInstitutionRequest: IInstitutionRequestModel) => {
@@ -49,22 +51,29 @@ export const InstitutionalRequestStore = signalStore(
     const completeInstitutionRegistration = () => {
       return completeInstitutionRequestGQL.mutate({
         id: store.currentInstitutionRequest.slug()
-      }, {context: {
-        [SHOW_ERROR_MESSAGE]: true,
+      }, {
+        context: {
+          [SHOW_ERROR_MESSAGE]: true,
           [SHOW_SUCCESS_MESSAGE]: true
-        }})
-    }
+        }
+      });
+    };
 
-    const saveProgressData = (formValue: IInstitutionRequestProgressDataAdminsInfo[]) => {
+    const saveProgressData = (
+      { adminInfos, institutionInfo }: {
+        institutionInfo?: { name: string, logoFileUpload: any },
+        adminInfos?: IInstitutionRequestProgressDataAdminsInfo[]
+      }) => {
       let currentInstitutionRequest = store.currentInstitutionRequest();
       currentInstitutionRequest = {
         ...currentInstitutionRequest,
         progressData: {
           ...currentInstitutionRequest.progressData,
-          adminInfos: formValue
+          adminInfos,
+          institutionInfo
         }
-      }
-      updateCurrentInstitutionRequest(currentInstitutionRequest)
+      };
+      updateCurrentInstitutionRequest(currentInstitutionRequest);
       return updateInstitutionRequestProgressGQL.mutate({
         id: store.currentInstitutionRequest.id(),
         // params: store.progressData() as IInstitutionRequestProgressData
@@ -73,7 +82,13 @@ export const InstitutionalRequestStore = signalStore(
             email: item?.email,
             firstName: item?.firstName,
             lastName: item?.lastName
-          }))
+          })),
+          institutionInfo: {
+            name: store.progressData()?.institutionInfo?.name,
+            logoFileUpload: {
+              id: store.progressData()?.institutionInfo?.logoFileUpload?.id as number
+            },
+          }
         }
       }, { context: { [SHOW_ERROR_MESSAGE]: true, [SHOW_SUCCESS_MESSAGE]: true } });
     };

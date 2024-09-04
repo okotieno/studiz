@@ -8,7 +8,8 @@ import {
   IonFooter,
   IonIcon,
   IonInput,
-  IonLabel, IonNav,
+  IonLabel,
+  IonNav,
   IonRow,
   IonText
 } from '@ionic/angular/standalone';
@@ -37,7 +38,7 @@ import { SummaryComponent } from '../summary/summary.component';
   styleUrl: './admin-info.component.scss'
 })
 export class AdminInfoComponent {
-  ionNav = input.required<IonNav>()
+  ionNav = input.required<IonNav>();
   fb = inject(FormBuilder);
   form = this.fb.nonNullable.group({
     adminInfos: this.fb.nonNullable.array([
@@ -54,8 +55,8 @@ export class AdminInfoComponent {
     while (this.systemAdminInfoControl.controls.length > 0) {
       this.systemAdminInfoControl.removeAt(0);
       untracked(() => {
-        this.systemAdminInfo.set([])
-      })
+        this.systemAdminInfo.set([]);
+      });
     }
     progressData?.adminInfos?.forEach((adminInfo) => {
       untracked(() => {
@@ -116,7 +117,7 @@ export class AdminInfoComponent {
   }
 
   saveInfo() {
-    this.institutionalRequestStore.saveProgressData(this.form.value.adminInfos ?? []).subscribe({
+    this.institutionalRequestStore.saveProgressData({ adminInfos: this.form.value.adminInfos ?? [] }).subscribe({
       next: async () => {
         await this.ionNav().push(SummaryComponent, {
           ionNav: this.ionNav()

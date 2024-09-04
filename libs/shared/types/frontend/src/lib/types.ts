@@ -115,11 +115,17 @@ export type IInstitutionRequestProgressDataAdminsInfoInput = {
 
 export type IInstitutionRequestProgressDataInput = {
   adminInfos?: InputMaybe<Array<InputMaybe<IInstitutionRequestProgressDataAdminsInfoInput>>>;
+  institutionInfo?: InputMaybe<IInstitutionRequestProgressDataInstitutionInfoInput>;
 };
 
 export type IInstitutionRequestProgressDataInstitutionInfo = {
-  logoFileUpload?: Maybe<Scalars['String']['output']>;
-  name: Scalars['String']['output'];
+  logoFileUpload?: Maybe<IFileUploadModel>;
+  name?: Maybe<Scalars['String']['output']>;
+};
+
+export type IInstitutionRequestProgressDataInstitutionInfoInput = {
+  logoFileUpload?: InputMaybe<ISelectCategory>;
+  name?: InputMaybe<Scalars['String']['input']>;
 };
 
 export enum IInstitutionRequestStatus {

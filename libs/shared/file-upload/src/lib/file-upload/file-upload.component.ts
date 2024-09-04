@@ -1,7 +1,6 @@
 import {
   ChangeDetectionStrategy,
   Component,
-  computed,
   inject,
   input,
   Optional,
@@ -75,14 +74,8 @@ export class FileUploadComponent implements ControlValueAccessor {
   uploadedFilesStore = inject(FileUploadStore);
   fileUploadsWithIcons = this.uploadedFilesStore.fileUploadsWithIcons
 
-
   ionInput = viewChild.required(IonInput);
-  fileIcons: Record<string, string> = {
-    'default': 'file',
-    'image/jpeg': 'file-jpg-downloaded',
-    'image/png': 'file-png-downloaded',
-    'image/svg': 'file-svg-downloaded'
-  };
+
   backendUrl = inject(BACKEND_URL);
   @Self() @Optional() ngControl = inject(NgControl);
   onChanges?: (param: { id: number }[] | { id: number }) => void;
@@ -90,30 +83,13 @@ export class FileUploadComponent implements ControlValueAccessor {
   disabled = signal(false);
   alertCtrl = inject(AlertController);
   fileUploadInfo = signal<IFileUploadModel[]>([]);
-  fileUploadInfoWithIcons = computed(() => {
-      return this.fileUploadInfo().map((file) => ({
-        ...file,
-        icon: this.fileIcons[file.mimetype as string] ? this.fileIcons[file.mimetype as string] : this.fileIcons['default']
-      }));
-    }
-  );
-  selectedFiles: File[] | null = null;
+
   multiple = input(false);
   fileUrls = signal<string[]>([]);
-  uploadFiles = signal<File[]>([]);
-  currentUploadingFile = signal<File | null>(null);
-  currentUploadingFileUrl = computed(() => {
-    const currentUploadingFile = this.currentUploadingFile();
-    return currentUploadingFile ? URL.createObjectURL(currentUploadingFile) : null;
-  });
-  currentUploadingFileUrlIcon = computed(() => {
-    return this.fileIcons[this.currentUploadingFile()?.type as string] ? this.fileIcons[this.currentUploadingFile()?.type as string] : this.fileIcons['default'];
-  });
-  isUploading = signal<boolean[]>([]);
-  isUploadingCompleted = computed(() => this.isUploading().every((uploading) => !uploading));
+
+
   allowedFileTypes = ALLOWED_FILE_TYPES;
   fileOverDragZone = signal(false);
-  uploadProgress = signal(0);
   fileUploadService = inject(FileUploadFrontendService);
 
   writeValue(obj: { id: number }[]): void {
@@ -166,82 +142,10 @@ export class FileUploadComponent implements ControlValueAccessor {
   }
 
   handleChange(event: any) {
-    this.onTouched?.();
     const files = event.target.files as FileList;
-    // this.selectedFiles = Array.from(files) as File[];
     this.uploadedFilesStore.addFiles(files);
     event.target.value = null;
-
-
-
-    // this.fileUrls.update((fileUrls) => [
-    //     ...fileUrls,
-    //     ...this.selectedFiles?.map((selectedFile) => URL.createObjectURL(selectedFile)) ?? []
-    //   ]
-    // );
-    //
-    // this.uploadFiles.set(
-    //   [...this.uploadFiles(), ...this.selectedFiles]
-    // );
-    //
-    // this.handleUploadFile();
-  }
-
-
-  handleUploadFile() {
-
-    if (this.selectedFiles && this.selectedFiles.length > 0) {
-      this.isUploading.set(Array(this.selectedFiles.length).fill(true));
-      let currentUploadProgress = 0;
-      from(this.selectedFiles.map(file => {
-          return of(true).pipe(
-            tap(() => {
-              this.currentUploadingFile.set(file);
-              this.uploadProgress.set(0);
-              timer(100, 100).pipe(
-                takeWhile(() => this.uploadProgress() < 100)
-              ).subscribe({
-                next: () => {
-                  this.uploadProgress.update((progress) => Math.round(Math.min(progress + ((100 - progress) / 10), 99)));
-                }
-              });
-            }),
-            switchMap(() => this.fileUploadService.uploadFile(file).pipe(
-              tap(() => {
-                this.uploadProgress.set(100);
-              }),
-              catchError((res) => {
-
-                console.log({ file });
-                // this.fileUploadInfo.update(fileUploads => {
-                //   fileUploads.push(fileUpload);
-                //   return [...fileUploads];
-                // });
-
-                return throwError(() => res);
-              })
-            ))
-          );
-        }
-      )).pipe(
-        concatAll()
-      ).subscribe({
-        next: (response) => {
-          console.log(response);
-          const fileUpload = response.data?.uploadSingleFile.data as IFileUploadModel;
-          this.fileUploadInfo.update(fileUploads => {
-            fileUploads.push(fileUpload);
-            return [...fileUploads];
-          });
-          this.onChanges?.(this.fileUploadInfo());
-          this.isUploading.update(uploading => {
-            uploading[currentUploadProgress] = false;
-            currentUploadProgress++;
-            return [...uploading];
-          });
-        }
-      });
-    }
+    this.triggerInputChange();
   }
 
   async handleRemovesFile($index: number) {
@@ -258,24 +162,19 @@ export class FileUploadComponent implements ControlValueAccessor {
     await alertDialog.present();
     const { role } = await alertDialog.onWillDismiss();
     if (role === 'destructive') {
-      this.selectedFiles?.splice($index, 1);
-      this.fileUrls.update(fileUrls => {
-        fileUrls.splice($index, 1);
-        return [...fileUrls];
-      });
-      this.fileUploadInfo.update(uploadFiles => {
-        uploadFiles.splice($index, 1);
-        return [...uploadFiles];
-      });
-      this.onTouched?.();
-      this.onChanges?.([...this.fileUploadInfo()]);
+      this.uploadedFilesStore.removeFile($index)
+      this.triggerInputChange();
     }
+  }
+
+  triggerInputChange() {
+    this.onTouched?.();
+    this.onChanges?.([...this.uploadedFilesStore.fileUploadValue()]);
   }
 
   async triggerUpload() {
     const inputElement = await this.ionInput().getInputElement();
     inputElement.click();
-
   }
 
   fileDropped($event: any) {
@@ -283,18 +182,7 @@ export class FileUploadComponent implements ControlValueAccessor {
     $event.preventDefault();
     $event.stopPropagation();
     const files = $event.dataTransfer.files as FileList;
-    this.selectedFiles = Array.from(files) as File[];
-
-    this.fileUrls.update((fileUrls) => [
-        ...fileUrls,
-        ...this.selectedFiles?.map((selectedFile) => URL.createObjectURL(selectedFile)) ?? []
-      ]
-    );
-
-    this.uploadFiles.set(
-      [...this.uploadFiles(), ...this.selectedFiles]
-    );
-
-    this.handleUploadFile();
+    this.uploadedFilesStore.addFiles(files);
+    this.triggerInputChange();
   }
 }

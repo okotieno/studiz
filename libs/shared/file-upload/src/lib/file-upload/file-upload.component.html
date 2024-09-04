@@ -46,8 +46,14 @@
                   {{ file.file?.name ?? file.fileUpload?.originalName }}
                 </ion-text>
                 <ion-text style="display: inline-flex; align-items: center">
-                  {{ file.progress }}%
-                  <ion-icon class="ion-margin-start" color="success" name="circle-check"></ion-icon>
+                  @if(file.hasError) {
+                    0%
+                    <ion-icon class="ion-margin-start" color="danger" name="file-exclamation"></ion-icon>
+                  } @else {
+                    {{ file.progress }}%
+                    <ion-icon class="ion-margin-start" color="success" name="file-check"></ion-icon>
+                  }
+
                 </ion-text>
               </ion-row>
               <ion-text>
@@ -55,7 +61,8 @@
               </ion-text>
             </ion-col>
           </ion-row>
-          <ion-progress-bar style="height: 14px" [color]="file.hasError ? 'danger': 'success'" class="ion-margin-vertical"
+          <ion-progress-bar style="height: 14px" [color]="file.hasError ? 'danger': 'success'"
+                            class="ion-margin-vertical"
                             [value]="(file.progress ?? 0) / 100"></ion-progress-bar>
         </ion-label>
         <ion-buttons slot="end">
@@ -65,119 +72,6 @@
         </ion-buttons>
       </ion-item>
     }
-    <!--    @if (!isUploadingCompleted()) {-->
-    <!--      <ion-item>-->
-    <!--        <ion-avatar slot="start" style="width: 70px; height: 70px">-->
-    <!--          <ion-img [src]="currentUploadingFileUrl()"></ion-img>-->
-    <!--        </ion-avatar>-->
-    <!--        <ion-label>-->
-    <!--          <ion-row class="ion-align-items-center ion-no-margin ion-no-padding">-->
-    <!--            <ion-col class="ion-no-margin ion-no-padding" style="width: 30px; max-width: 30px">-->
-    <!--              <ion-icon style="font-size: 20px" class="" [name]="currentUploadingFileUrlIcon()"></ion-icon>-->
-    <!--            </ion-col>-->
-    <!--            <ion-col class="ion-no-margin ion-no-padding">-->
-    <!--              <ion-row class="ion-no-padding ion-no-margin ion-justify-content-between">-->
-    <!--                <ion-text>-->
-    <!--                  {{ currentUploadingFile()?.name }}-->
-    <!--                </ion-text>-->
-    <!--                <ion-text style="display: inline-flex; align-items: center">-->
-    <!--                  {{ uploadProgress() }}%-->
-    <!--                  <ion-icon class="ion-margin-start" color="success" name="circle-check"></ion-icon>-->
-    <!--                </ion-text>-->
-    <!--              </ion-row>-->
-    <!--              <ion-text>-->
-    <!--                <small>{{ currentUploadingFile()?.size | fileSize }}</small>-->
-    <!--              </ion-text>-->
-    <!--            </ion-col>-->
-    <!--          </ion-row>-->
-    <!--          <ion-progress-bar style="height: 14px" color="success" class="ion-margin-vertical"-->
-    <!--                            [value]="uploadProgress()/100"></ion-progress-bar>-->
-    <!--        </ion-label>-->
-    <!--        <ion-buttons slot="end">-->
-    <!--          <ion-button [disabled]="true" shape="round" color="danger" fill="clear">-->
-    <!--            <ion-icon name="circle-xmark"></ion-icon>-->
-    <!--          </ion-button>-->
-    <!--        </ion-buttons>-->
-    <!--      </ion-item>-->
-    <!--    }-->
   </ion-list>
 
 }
-
-<!--<ion-row class="dropzone ion-padding ion-align-items-center ion-justify-content-center"-->
-<!--         (dragover)="fileOverDragZone.set(true)"-->
-<!--         (dragleave)="fileOverDragZone.set(false)"-->
-<!--         [class.file-over]="fileOverDragZone()"-->
-<!--&gt;-->
-<!--  @if (showPreview()) {-->
-
-<!--    <ion-row class="image-preview ion-align-items-end"-->
-<!--             [ngStyle]="{ 'background-image': 'url(' + fileUrl() + ')' }">-->
-<!--    </ion-row>-->
-<!--  }-->
-<!--  <ion-icon [style.opacity]="showPreview() ? 0: 1" name="upload"></ion-icon>-->
-<!--  <ion-text [style.opacity]="showPreview() ? 0: 1">Drag and drop files here</ion-text>-->
-<!--  <ion-text [style.opacity]="showPreview() ? 0: 1">OR</ion-text>-->
-
-<!--  <ion-text [style.opacity]="showPreview() ? 0: 1">Browse for file</ion-text>-->
-<!--  <ion-text [style.opacity]="showPreview() ? 0: 1">(PNG, JPG, SVG)</ion-text>-->
-<!--  <input-->
-<!--    [accept]="allowedFileTypes"-->
-<!--    type="file"-->
-<!--    id="fileDropRef" [multiple]="multiple()"-->
-<!--    (change)="handleChange($event)">-->
-<!--</ion-row>-->
-
-<!--@if (showPreview()) {-->
-<!--  <ion-row class="ion-align-items-end">-->
-
-<!--    <ion-col size="12"-->
-<!--    >-->
-<!--      @if (showUploadButtons()) {-->
-<!--        <ion-text>{{ uploadFile()?.name }}</ion-text>-->
-<!--        <ion-row class="ion-justify-content-center ion-align-items-baseline">-->
-<!--          <ion-button-->
-<!--            shape="round"-->
-<!--            color="primary"-->
-<!--            type="button"-->
-<!--            [disabled]="isUploading()"-->
-<!--            (click)="handleUploadFile()"-->
-<!--          >-->
-<!--            {{ !isUploading() ? 'UPLOAD' : 'UPLOADING...' }}-->
-<!--          </ion-button>-->
-<!--          <ion-button-->
-<!--            shape="round"-->
-<!--            color="danger"-->
-<!--            type="button"-->
-<!--            [disabled]="isUploading()"-->
-<!--            (click)="handleRemovesFile()"-->
-<!--          >-->
-<!--            REMOVE-->
-<!--          </ion-button>-->
-<!--        </ion-row>-->
-<!--      }-->
-
-<!--    </ion-col>-->
-<!--  </ion-row>-->
-<!--}-->
-
-<!--<ion-list>-->
-<!--  @for (fileUpload of fileUploadInfoWithIcons(); track fileUpload.id) {-->
-<!--    <ion-item>-->
-<!--      <ion-icon slot="start" [name]="fileUpload.icon"></ion-icon>-->
-<!--      <ion-label>-->
-<!--        <ion-text>-->
-<!--          {{ fileUpload.originalName }}-->
-<!--        </ion-text>-->
-<!--        <ion-text size="small">{{ fileUpload.size | fileSize }}</ion-text>-->
-<!--      </ion-label>-->
-<!--      <ion-buttons>-->
-<!--        <ion-button color="danger" fill="clear">-->
-<!--          <ion-icon name="trash-can"></ion-icon>-->
-<!--        </ion-button>-->
-<!--      </ion-buttons>-->
-<!--    </ion-item>-->
-<!--  }-->
-
-<!--</ion-list>-->
-

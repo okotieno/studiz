@@ -50,6 +50,11 @@ export default signalStore(
       fileUploads[i].fileUpload = fileUpload;
       patchState(store, { fileUploads });
     };
+    const removeFile = (i: number) => {
+      const fileUploads = [...store.fileUploads()];
+      fileUploads.splice(i, 1)
+      patchState(store, { fileUploads });
+    }
     const addFiles = (fileList: FileList) => {
       const files = Array.from(fileList) as File[];
       patchState(store, {
@@ -86,7 +91,6 @@ export default signalStore(
 
             return fileUploadService.uploadFile(file.file).pipe(
               tap((res) => {
-                console.log(file.file)
                 setUploadProgress(i, 100);
                 setIsUploading(i, false);
                 setUploadedFile(i, res.data?.uploadSingleFile?.data as IFileUploadModel);
@@ -105,7 +109,7 @@ export default signalStore(
       ).subscribe();
 
     };
-    return { addFiles };
+    return { addFiles, removeFile };
   }),
   withComputed((store) => {
     const fileUploadsWithIcons = computed(() => {
@@ -116,6 +120,12 @@ export default signalStore(
       }
     );
 
-    return { fileUploadsWithIcons };
+    const fileUploadValue = computed(() => {
+      return (store.fileUploads()
+        .map((item) => item.fileUpload )
+        .filter((item) => item?.id) ?? []) as IFileUploadModel[]
+    })
+
+    return { fileUploadsWithIcons, fileUploadValue };
   })
 );

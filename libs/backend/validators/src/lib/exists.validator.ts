@@ -16,7 +16,7 @@ export class ExistsConstraint implements ValidatorConstraintInterface {
     if (!value && value !== 0) {
       return true;
     }
-    console.log({ field, value, args })
+
     const existingRecord = await model.findOne({ where: { [field]: value } });
 
     return !!existingRecord;

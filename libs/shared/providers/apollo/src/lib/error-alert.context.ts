@@ -13,7 +13,6 @@ export const
     const message = [originalError?.['message']].join(', ');
 
     if(error?.extensions?.['code'] === 'INTERNAL_SERVER_ERROR') {
-      console.log(error?.extensions);
       errorMessage = (error?.extensions?.['stacktrace'] as string [])?.[0] ?? ''
     }
 

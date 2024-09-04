@@ -18,15 +18,23 @@ export class FileUploadService extends CrudAbstractService<FileUploadModel> {
 
   constructor(
     private readonly minio: MinioService,
-    @InjectModel(FileUploadModel) fileUploadService: typeof FileUploadModel,
+    @InjectModel(FileUploadModel) fileUploadService: typeof FileUploadModel
   ) {
-    super(fileUploadService)
+    super(fileUploadService);
   }
 
-  public async upload(file: BufferedFile, baseBucket: string = this.baseBucket) {
-    if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
-      throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST);
+  public async upload({ file, baseBucket = this.baseBucket }: { file: BufferedFile, baseBucket?: string }) {
+
+    const allowedFileTypes = ['image/jpeg', 'image/png'];
+
+    if (!allowedFileTypes.includes(file.mimetype)) {
+      throw new HttpException('File type not supported', HttpStatus.BAD_REQUEST);
     }
+
+    //
+    // if (!(file.mimetype.includes('jpeg') || file.mimetype.includes('png'))) {
+    //   throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST);
+    // }
     const temp_filename = Date.now().toString();
     const hashedFileName = crypto.createHash('md5').update(temp_filename).digest('hex');
     const ext = file.originalName.substring(file.originalName.lastIndexOf('.'), file.originalName.length);
@@ -41,7 +49,7 @@ export class FileUploadService extends CrudAbstractService<FileUploadModel> {
       if (err) throw new HttpException('Error uploading file', HttpStatus.BAD_REQUEST);
     });
 
-    return fileName
+    return fileName;
   }
 
   async delete(objetName: string, baseBucket: string = this.baseBucket) {

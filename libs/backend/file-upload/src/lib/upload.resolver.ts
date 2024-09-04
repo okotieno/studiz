@@ -32,7 +32,6 @@ export class FileUploadResolver {
     @Body('file') fileObject: any
   ) {
     const file = await fileObject.file;
-    console.log(file);
     const { createReadStream, filename: originalName, mimetype, encoding } = file;
     const buffer = await new Promise<Buffer>((resolve, reject) => {
       const chunks: Buffer[] = [];
@@ -49,7 +48,7 @@ export class FileUploadResolver {
       mimetype: mimetype as AppMimeType,
       originalName
     };
-    const name = await this.fileUploadService.upload(bufferedFile);
+    const name = await this.fileUploadService.upload({ file: bufferedFile });
 
     const fileUpload = await this.fileUploadService.create({
       name,

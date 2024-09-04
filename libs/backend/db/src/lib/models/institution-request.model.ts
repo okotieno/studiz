@@ -26,7 +26,7 @@ export class InstitutionRequestModel extends Model {
     type: DataTypes.JSON
   })
   progressData?: {
-    institutionInfo: { name: string, logoUrl: string },
+    institutionInfo: { name: string, logoFileUpload: string },
     adminInfos: { email: string, firstName: string, lastName: string }[]
   };
 
@@ -42,7 +42,7 @@ export class InstitutionRequestModel extends Model {
   static setProgressData(instance: InstitutionRequestModel) {
     if (!instance.progressData) {
       instance.progressData = {
-        institutionInfo: { name: String(instance.institutionName), logoUrl: '' },
+        institutionInfo: { name: String(instance.institutionName), logoFileUpload: '' },
         adminInfos: []
       };
     }

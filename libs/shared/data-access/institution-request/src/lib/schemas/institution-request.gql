@@ -25,7 +25,7 @@ query GetInstitutionRequests($query: QueryParams) {
       progressData {
         institutionInfo {
           name
-          logoUrl
+          logoFileUpload
         }
         adminInfos {
           lastName

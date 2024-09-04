@@ -1,6 +1,7 @@
 import {
   ChangeDetectionStrategy,
   Component,
+  effect,
   inject,
   input,
   Optional,
@@ -26,13 +27,9 @@ import {
   IonText
 } from '@ionic/angular/standalone';
 import { JsonPipe, NgStyle, PercentPipe } from '@angular/common';
-import { IFileUploadModel, IQueryOperatorEnum } from '@studiz/shared/types/frontend';
 import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
-import { BACKEND_URL } from '@studiz/frontend/constants';
 import { FileSizePipe } from './file-size.pipe';
-import { catchError, concatAll, from, of, switchMap, takeWhile, tap, throwError, timer } from 'rxjs';
-import { FileUploadFrontendService } from '@studiz/frontend/file-upload-frontend-service';
 import FileUploadStore from './file-uploads.store';
 
 const ALLOWED_FILE_TYPES = [
@@ -71,58 +68,35 @@ const ALLOWED_FILE_TYPES = [
   providers: [FileUploadStore]
 })
 export class FileUploadComponent implements ControlValueAccessor {
+
   uploadedFilesStore = inject(FileUploadStore);
-  fileUploadsWithIcons = this.uploadedFilesStore.fileUploadsWithIcons
+  fileUploadsWithIcons = this.uploadedFilesStore.fileUploadsWithIcons;
 
   ionInput = viewChild.required(IonInput);
 
-  backendUrl = inject(BACKEND_URL);
   @Self() @Optional() ngControl = inject(NgControl);
   onChanges?: (param: { id: number }[] | { id: number }) => void;
   onTouched?: () => void;
   disabled = signal(false);
   alertCtrl = inject(AlertController);
-  fileUploadInfo = signal<IFileUploadModel[]>([]);
-
   multiple = input(false);
-  fileUrls = signal<string[]>([]);
+  multipleEffect = effect(() => {
+    const multiple = this.multiple();
+    untracked(() => {
+      this.uploadedFilesStore.setMultiple(multiple);
+    });
 
+  });
 
   allowedFileTypes = ALLOWED_FILE_TYPES;
   fileOverDragZone = signal(false);
-  fileUploadService = inject(FileUploadFrontendService);
 
   writeValue(obj: { id: number }[]): void {
     untracked(() => {
-      this.fetchImageObjects(obj);
+      if (obj?.[0]?.id) {
+        this.uploadedFilesStore.loadImages(obj);
+      }
     });
-  }
-
-  fetchImageObjects(imageIds?: { id: number }[]): void {
-    if (imageIds?.[0]?.id) {
-      this.fileUrls.set(
-        imageIds.map(item => `${this.backendUrl}/images/${item.id}`)
-      );
-
-      this.fileUploadService.getItems({
-        filters: [
-          {
-            values: [],
-            value: imageIds.map(({ id }) => id).join(','),
-            operator: IQueryOperatorEnum.In,
-            field: 'id'
-          }
-        ]
-      }).subscribe({
-        next: (result) => {
-          if (result.items) {
-            this.fileUploadInfo.set([...result.items] as IFileUploadModel[]);
-          }
-        }
-      });
-
-    }
-
   }
 
   registerOnChange(fn: (param: { id: number }[] | { id: number }) => void): void {
@@ -141,11 +115,32 @@ export class FileUploadComponent implements ControlValueAccessor {
     this.ngControl.valueAccessor = this;
   }
 
-  handleChange(event: any) {
-    const files = event.target.files as FileList;
-    this.uploadedFilesStore.addFiles(files);
-    event.target.value = null;
-    this.triggerInputChange();
+  async handleChange(event: any) {
+    const completeAction = () => {
+      const files = event.target.files as FileList;
+      this.uploadedFilesStore.addFiles(files);
+      event.target.value = null;
+      this.triggerInputChange();
+    };
+    if (!this.multiple() && this.uploadedFilesStore.fileUploads().length > 0) {
+      const alertDialog = await this.alertCtrl.create({
+        header: 'Replace file',
+        message: `This action will replace existing file, continue?`,
+        cssClass: 'alert alert-danger',
+        buttons: [
+          'Cancel',
+          { role: 'destructive', text: 'Yes Replace' }
+        ]
+      });
+
+      await alertDialog.present();
+      const { role } = await alertDialog.onWillDismiss();
+      if (role === 'destructive') {
+        completeAction();
+      }
+    } else {
+      completeAction();
+    }
   }
 
   async handleRemovesFile($index: number) {
@@ -162,7 +157,7 @@ export class FileUploadComponent implements ControlValueAccessor {
     await alertDialog.present();
     const { role } = await alertDialog.onWillDismiss();
     if (role === 'destructive') {
-      this.uploadedFilesStore.removeFile($index)
+      this.uploadedFilesStore.removeFile($index);
       this.triggerInputChange();
     }
   }

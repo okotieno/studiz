@@ -13,7 +13,7 @@ input InstitutionRequestProgressDataAdminsInfoInput {
 
 type InstitutionRequestProgressDataInstitutionInfo {
   name: String!
-  logoUrl: String
+  logoFileUpload: FileUploadModel
 }
 
 type InstitutionRequestProgressData {

@@ -30,13 +30,14 @@
 
 @if (fileUploadsWithIcons().length > 0) {
   <ion-list class="ion-no-margin ion-margin-top">
-    @for (file of fileUploadsWithIcons(); track file.fileUpload?.id) {
+
+    @for (file of fileUploadsWithIcons(); track file.id ) {
       <ion-item [lines]="$last ? 'none': null">
         <ion-avatar slot="start" style="width: 70px; height: 70px">
           <ion-img [src]="file.fileUpload?.url ?? file.url"></ion-img>
         </ion-avatar>
         <ion-label>
-          <ion-row class="ion-align-items-center ion-no-margin ion-no-padding">
+          <ion-row class="ion-align-items-center ion-no-margin ion-no-padding ion-wrap">
             <ion-col class="ion-no-margin ion-no-padding" style="width: 30px; max-width: 30px">
               <ion-icon style="font-size: 20px" class="" [name]="file.icon"></ion-icon>
             </ion-col>
@@ -60,10 +61,14 @@
                 <small>{{ (file.file?.size ?? file.fileUpload?.size ?? 0) * ((file?.progress ?? 0) / 100) | fileSize }}</small>
               </ion-text>
             </ion-col>
+            <ion-col class="ion-no-margin ion-no-padding" size="12"></ion-col>
           </ion-row>
           <ion-progress-bar style="height: 14px" [color]="file.hasError ? 'danger': 'success'"
                             class="ion-margin-vertical"
                             [value]="(file.progress ?? 0) / 100"></ion-progress-bar>
+          <ion-text color="danger">
+            <small>{{ file.errorMessage }}</small>
+          </ion-text>
         </ion-label>
         <ion-buttons slot="end">
           <ion-button (click)="handleRemovesFile($index)" shape="round" color="danger" fill="clear">

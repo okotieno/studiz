@@ -9,5 +9,6 @@ circle-check
 circle-xmark
 file
 file-png
+file-jpg
 file-exclamation
 file-check

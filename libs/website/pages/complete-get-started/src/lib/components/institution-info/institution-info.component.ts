@@ -42,13 +42,14 @@ export class InstitutionInfoComponent {
   fb = inject(FormBuilder);
   form = this.fb.nonNullable.group({
     name: ['', [Validators.required]],
-    logoUrl: ['', Validators.required]
+    // logoFileUpload: [null as null | [{ id: number }], Validators.required]
+    logoFileUpload: [[{ id: 1 }, { id: 2 }] as null | { id: number }[], Validators.required]
   });
   institutionalRequestStore = inject(InstitutionalRequestStore);
 
   institutionInfoEffect = effect(() => {
     const progressData = this.institutionalRequestStore.institutionInfo();
-    console.log(progressData)
+    console.log(progressData);
 
   });
 

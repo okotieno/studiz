@@ -17,13 +17,11 @@ export class ImageController {
     try {
       const fileUpload = await this.fileUploadService.findById(imageId) as FileUploadModel;
       const objectName = fileUpload.name as string;
-
       const fileBuffer = await this.fileUploadService.getObject( objectName);
-      res.header('Content-Disposition', `attachment; filename=${objectName}`);
-      res.header('Content-Type', 'image/jpeg'); // Set appropriate content type for the image
+      res.header('Content-Disposition', `attachment; filename=${fileUpload.originalName}`);
+      res.header('Content-Type', fileUpload.mimetype);
       res.send(fileBuffer);
     } catch (error) {
-      console.log({ error })
       res.status(500).send('Error downloading file');
     }
   }

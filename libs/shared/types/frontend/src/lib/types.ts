@@ -118,7 +118,7 @@ export type IInstitutionRequestProgressDataInput = {
 };
 
 export type IInstitutionRequestProgressDataInstitutionInfo = {
-  logoUrl?: Maybe<Scalars['String']['output']>;
+  logoFileUpload?: Maybe<Scalars['String']['output']>;
   name: Scalars['String']['output'];
 };
 

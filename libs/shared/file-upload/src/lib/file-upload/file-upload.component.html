@@ -33,7 +33,7 @@
     @for (file of fileUploadsWithIcons(); track file.fileUpload?.id) {
       <ion-item [lines]="$last ? 'none': null">
         <ion-avatar slot="start" style="width: 70px; height: 70px">
-          <ion-img [src]="file.url ?? file.fileUpload?.url"></ion-img>
+          <ion-img [src]="file.fileUpload?.url ?? file.url"></ion-img>
         </ion-avatar>
         <ion-label>
           <ion-row class="ion-align-items-center ion-no-margin ion-no-padding">

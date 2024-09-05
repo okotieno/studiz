@@ -7,6 +7,7 @@ import {
 } from '@studiz/frontend/institution-request-frontend-service';
 import {
   IInstitutionRequestModel,
+  IInstitutionRequestProgressData,
   IInstitutionRequestProgressDataAdminsInfo,
   IInstitutionRequestStatus,
   IQueryOperatorEnum
@@ -48,6 +49,18 @@ export const InstitutionalRequestStore = signalStore(
       patchState(store, { currentStep });
     };
 
+    const updateProgressData = <T extends keyof Required<IInstitutionRequestProgressData>>(prop: T, val: IInstitutionRequestProgressData[T]) => {
+      patchState(store, {
+        currentInstitutionRequest: {
+          ...store.currentInstitutionRequest(),
+          progressData: {
+            ...store.currentInstitutionRequest().progressData,
+            [prop]: val
+          }
+        }
+      });
+    };
+
     const completeInstitutionRegistration = () => {
       return completeInstitutionRequestGQL.mutate({
         id: store.currentInstitutionRequest.slug()
@@ -64,19 +77,28 @@ export const InstitutionalRequestStore = signalStore(
         institutionInfo?: { name: string, logoFileUpload: any },
         adminInfos?: IInstitutionRequestProgressDataAdminsInfo[]
       }) => {
-      let currentInstitutionRequest = store.currentInstitutionRequest();
-      currentInstitutionRequest = {
-        ...currentInstitutionRequest,
-        progressData: {
-          ...currentInstitutionRequest.progressData,
-          adminInfos,
-          institutionInfo
-        }
-      };
-      updateCurrentInstitutionRequest(currentInstitutionRequest);
+
+      if (adminInfos) {
+        updateProgressData<'adminInfos'>('adminInfos', adminInfos);
+      }
+
+      if (institutionInfo) {
+        updateProgressData<'institutionInfo'>('institutionInfo', institutionInfo);
+      }
+
+      // console.log({ institutionInfo, adminInfos });
+      // let currentInstitutionRequest = store.currentInstitutionRequest();
+      // currentInstitutionRequest = {
+      //   ...currentInstitutionRequest,
+      //   progressData: {
+      //     ...currentInstitutionRequest.progressData,
+      //     adminInfos: adminInfos ? adminInfos : currentInstitutionRequest.progressData?.adminInfos ?? [],
+      //     institutionInfo
+      //   }
+      // };
+      // updateCurrentInstitutionRequest(currentInstitutionRequest);
       return updateInstitutionRequestProgressGQL.mutate({
         id: store.currentInstitutionRequest.id(),
-        // params: store.progressData() as IInstitutionRequestProgressData
         params: {
           adminInfos: (store.progressData()?.adminInfos ?? []).map((item) => ({
             email: item?.email,
@@ -87,7 +109,7 @@ export const InstitutionalRequestStore = signalStore(
             name: store.progressData()?.institutionInfo?.name,
             logoFileUpload: {
               id: store.progressData()?.institutionInfo?.logoFileUpload?.id as number
-            },
+            }
           }
         }
       }, { context: { [SHOW_ERROR_MESSAGE]: true, [SHOW_SUCCESS_MESSAGE]: true } });

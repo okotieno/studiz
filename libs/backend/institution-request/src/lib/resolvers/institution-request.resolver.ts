@@ -23,6 +23,10 @@ import { InstitutionRequestDeletedEvent } from '../events/institution-request-de
 import { RegisterInstitutionInputDto } from '../dto/register-institution-input.dto';
 import { TranslationService } from '@studiz/backend/translation';
 import { CompleteInstitutionRequestInputDto } from '../dto/complete-institution-request-input.dto';
+import {
+  InstitutionRequestProgressInputDto,
+  UpdateInstitutionRequestProgressInputDto
+} from '../dto/update-institution-request-progress-input.dto';
 
 @Resolver()
 export class InstitutionRequestResolver {
@@ -125,15 +129,15 @@ export class InstitutionRequestResolver {
 
   @Mutation()
   async updateInstitutionRequestProgress(
-    @Body(new ValidationPipe()) params: UpdateInstitutionRequestInputDto
+    @Body(new ValidationPipe()) input: UpdateInstitutionRequestProgressInputDto
   ) {
 
-    console.log(params);
     const institutionRequest = await this.institutionRequestService.findById(
-      params.id
+      input.id
     );
     if (institutionRequest) {
-      await institutionRequest?.update(params.params);
+      institutionRequest.progressData = input.params as Required<typeof input.params>
+      // await institutionRequest?.update(input.params);
       await institutionRequest?.save();
 
       this.eventEmitter.emit(

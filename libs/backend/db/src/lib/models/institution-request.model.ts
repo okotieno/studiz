@@ -27,8 +27,8 @@ export class InstitutionRequestModel extends Model {
     type: DataTypes.JSON
   })
   progressData?: {
-    institutionInfo: { name: string, logoFileUpload?: { id: number } | null },
-    adminInfos: { email: string, firstName: string, lastName: string }[]
+    institutionInfo: { name?: string, logoFileUpload?: { id: number } | null },
+    adminInfos: { email?: string, firstName?: string, lastName?: string }[]
   };
 
   @Column({

@@ -157,6 +157,7 @@ export class InstitutionRequestResolver {
   async completeRequestRegistration(
     @Body('input',new ValidationPipe()) params: CompleteInstitutionRequestInputDto
   ) {
+
     return {
       message: 'Institution registration complete successfully, We have sent an email to all admins provided on next steps',
     };

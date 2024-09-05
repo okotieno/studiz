@@ -43,7 +43,7 @@ export default signalStore(
       } else if (fileUploads.length > 0) {
         patchState(store, { fileUploads: [{ ...fileUploads[fileUploads.length - 1] }] });
       } else {
-        patchState(store, { fileUploads: [] });
+        patchState(store, { fileUploads });
       }
     };
 
@@ -160,17 +160,6 @@ export default signalStore(
       }
     );
 
-    const fileUploadValue = computed(() => {
-      const fileUploads = [...store.fileUploads()];
-      return (
-        store.fileUploads()
-          .map((item) => ({
-            ...item.fileUpload
-          }))
-        // .filter((item) => item?.id ? item : [])
-      ) as IFileUploadModel[];
-    });
-
-    return { fileUploadsWithIcons, fileUploadValue };
+    return { fileUploadsWithIcons };
   })
 );

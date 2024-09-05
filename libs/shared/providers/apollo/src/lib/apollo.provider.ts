@@ -56,7 +56,9 @@ export const provideApollo: () => [EnvironmentProviders, {
       ]);
 
       return {
-        cache: new InMemoryCache(),
+        cache: new InMemoryCache({
+          addTypename: false
+        }),
         link: combinedLink
       };
     },

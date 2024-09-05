@@ -11,9 +11,13 @@ input InstitutionRequestProgressDataAdminsInfoInput {
   email: String, firstName: String, lastName: String
 }
 
+type IdOnly {
+  id: Int
+}
+
 type InstitutionRequestProgressDataInstitutionInfo {
   name: String
-  logoFileUpload: FileUploadModel
+  logoFileUpload: IdOnly
 }
 
 type InstitutionRequestProgressData {

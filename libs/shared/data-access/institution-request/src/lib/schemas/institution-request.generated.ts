@@ -22,7 +22,7 @@ export type IGetInstitutionRequestsQueryVariables = Types.Exact<{
 }>;
 
 
-export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { institutionInfo?: { name?: string | null, logoFileUpload?: { originalName?: string | null, id: number, url?: string | null, mimetype?: string | null, size?: number | null } | null } | null, adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
+export type IGetInstitutionRequestsQuery = { institutionRequests: { items?: Array<{ id: number, institutionName: string, adminEmail: string, slug: string, status?: Types.IInstitutionRequestStatus | null, progressData?: { institutionInfo?: { name?: string | null, logoFileUpload?: { id?: number | null } | null } | null, adminInfos?: Array<{ lastName?: string | null, firstName?: string | null, email?: string | null } | null> | null } | null } | null> | null, meta?: { totalItems: number } | null } };
 
 export type IDeleteInstitutionRequestByIdMutationVariables = Types.Exact<{
   id: Types.Scalars['Int']['input'];
@@ -114,11 +114,7 @@ export const GetInstitutionRequestsDocument = gql`
         institutionInfo {
           name
           logoFileUpload {
-            originalName
             id
-            url
-            mimetype
-            size
           }
         }
         adminInfos {

@@ -82,6 +82,10 @@ export type IFileUploadModel = {
   url?: Maybe<Scalars['String']['output']>;
 };
 
+export type IIdOnly = {
+  id?: Maybe<Scalars['Int']['output']>;
+};
+
 export type IInstitutionModel = {
   id: Scalars['Int']['output'];
   name: Scalars['String']['output'];
@@ -119,7 +123,7 @@ export type IInstitutionRequestProgressDataInput = {
 };
 
 export type IInstitutionRequestProgressDataInstitutionInfo = {
-  logoFileUpload?: Maybe<IFileUploadModel>;
+  logoFileUpload?: Maybe<IIdOnly>;
   name?: Maybe<Scalars['String']['output']>;
 };
 

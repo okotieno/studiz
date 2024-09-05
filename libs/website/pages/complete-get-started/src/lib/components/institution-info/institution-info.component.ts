@@ -53,8 +53,8 @@ export class InstitutionInfoComponent {
     const progressData = this.institutionalRequestStore.institutionInfo();
     console.log(progressData);
     this.form.get('name')?.setValue(progressData?.name ?? '');
-    this.form.get('logoFileUpload')?.setValue(progressData?.logoFileUpload ? [{ id: progressData?.logoFileUpload.id }] : []);
-
+    this.form.get('logoFileUpload')?.setValue(progressData?.logoFileUpload?.id ? [{ id: progressData?.logoFileUpload.id }] : []);
+    console.log(this.form.value);
   });
 
   saveInfo() {

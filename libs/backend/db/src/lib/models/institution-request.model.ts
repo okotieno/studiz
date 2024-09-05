@@ -1,5 +1,6 @@
 import { BeforeCreate, BeforeUpdate, Column, Model, Table } from 'sequelize-typescript';
 import { DataTypes } from 'sequelize';
+import { FileUploadModel } from './file-upload.model';
 
 @Table({
   tableName: 'institution_requests',
@@ -26,7 +27,7 @@ export class InstitutionRequestModel extends Model {
     type: DataTypes.JSON
   })
   progressData?: {
-    institutionInfo: { name: string, logoFileUpload: string },
+    institutionInfo: { name: string, logoFileUpload?: { id: number } | null },
     adminInfos: { email: string, firstName: string, lastName: string }[]
   };
 
@@ -42,14 +43,13 @@ export class InstitutionRequestModel extends Model {
   static setProgressData(instance: InstitutionRequestModel) {
     if (!instance.progressData) {
       instance.progressData = {
-        institutionInfo: { name: String(instance.institutionName), logoFileUpload: '' },
+        institutionInfo: { name: String(instance.institutionName), logoFileUpload: null },
         adminInfos: []
       };
     }
     if (instance.progressData.adminInfos.length < 1 && instance.adminEmail) {
       instance.progressData.adminInfos.push({ email: instance.adminEmail, firstName: '', lastName: '' });
     }
-
 
   }
 }

@@ -121,6 +121,33 @@ export class InstitutionRequestResolver {
     throw new BadRequestException('No institution-request found');
   }
 
+
+
+  @Mutation()
+  async updateInstitutionRequestProgress(
+    @Body(new ValidationPipe()) params: UpdateInstitutionRequestInputDto
+  ) {
+
+    console.log(params);
+    const institutionRequest = await this.institutionRequestService.findById(
+      params.id
+    );
+    if (institutionRequest) {
+      await institutionRequest?.update(params.params);
+      await institutionRequest?.save();
+
+      this.eventEmitter.emit(
+        'institutionRequest.updated',
+        new InstitutionRequestUpdatedEvent(institutionRequest)
+      );
+      return {
+        message: 'Successfully created institutionRequest',
+        data: institutionRequest,
+      };
+    }
+    throw new BadRequestException('No institution-request found');
+  }
+
   @Mutation()
   // @UseGuards(JwtAuthGuard)
   async completeRequestRegistration(

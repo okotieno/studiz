@@ -26,11 +26,7 @@ query GetInstitutionRequests($query: QueryParams) {
         institutionInfo {
           name
           logoFileUpload {
-            originalName
             id
-            url
-            mimetype
-            size
           }
         }
         adminInfos {

@@ -174,7 +174,6 @@ export class FileUploadComponent implements ControlValueAccessor {
 
   triggerInputChange() {
     this.onTouched?.();
-    // this.onChanges?.([...this.uploadedFilesStore.fileUploadValue()]);
   }
 
   async triggerUpload() {

@@ -23,10 +23,10 @@ import {
   IonList,
   IonProgressBar,
   IonRow,
-  IonSkeletonText,
+  IonSkeletonText, IonSpinner,
   IonText
 } from '@ionic/angular/standalone';
-import { JsonPipe, NgStyle, PercentPipe } from '@angular/common';
+import { DecimalPipe, JsonPipe, NgStyle, PercentPipe } from '@angular/common';
 import { ControlValueAccessor, FormsModule, NgControl } from '@angular/forms';
 import { AlertController } from '@ionic/angular';
 import { FileSizePipe } from './file-size.pipe';
@@ -60,7 +60,9 @@ const ALLOWED_FILE_TYPES = [
     IonAvatar,
     IonImg,
     IonSkeletonText,
-    PercentPipe
+    PercentPipe,
+    DecimalPipe,
+    IonSpinner
   ],
   templateUrl: './file-upload.component.html',
   styleUrl: './file-upload.component.css',
@@ -71,6 +73,7 @@ export class FileUploadComponent implements ControlValueAccessor {
   label = input('')
   uploadedFilesStore = inject(FileUploadStore);
   fileUploadsWithIcons = this.uploadedFilesStore.fileUploadsWithIcons;
+  isUploading = this.uploadedFilesStore.isUploading
 
   ionInput = viewChild.required(IonInput);
 

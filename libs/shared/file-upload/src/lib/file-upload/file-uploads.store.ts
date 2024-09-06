@@ -137,6 +137,10 @@ export default signalStore(
     return { addFiles, removeFile, loadImages, setMultiple };
   }),
   withComputed((store) => {
+    const isUploading = computed(() => {
+        return store.fileUploads().some((file) => file.uploading);
+      }
+    );
     const fileUploadsWithIcons = computed(() => {
         return store.fileUploads().map((file) => ({
           ...file,
@@ -144,6 +148,6 @@ export default signalStore(
         })).reverse();
       }
     );
-    return { fileUploadsWithIcons };
+    return { fileUploadsWithIcons, isUploading };
   })
 );

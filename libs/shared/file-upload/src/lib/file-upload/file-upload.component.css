@@ -1,40 +1,4 @@
-.file-over {
-  background: #6f6f6f80;
+ion-spinner {
+  width: 20px !important;
+  height: 20px !important;
 }
-/*.dropzone {*/
-/*  !*width: 100%;*!*/
-/*  !*position: relative;*!*/
-/*  !*border: 1px solid #97979750;*!*/
-/*  !*border-radius: 8px;*!*/
-/*  !*flex-direction: column;*!*/
-/*  !*flex-wrap: wrap;*!*/
-/*  !*row-gap: 10px;*!*/
-/*  !*padding: 50px 10px;*!*/
-
-/*  ion-icon {*/
-/*    font-size: 30px;*/
-/*  }*/
-/*  input {*/
-/*    z-index: 2;*/
-/*    opacity: 0;*/
-/*    top: 0;*/
-/*    left: 0;*/
-/*    width: 100%;*/
-/*    height: 100%;*/
-/*    position: absolute;*/
-/*  }*/
-/*  &.file-over {*/
-/*    background: #6f6f6f66;*/
-/*    opacity: 0.5;*/
-/*  }*/
-/*}*/
-/*.image-preview {*/
-/*  !*position: absolute;*!*/
-/*  !*width: 100%;*!*/
-/*  !*height: 100%;*!*/
-/*  !*background-position: center;*!*/
-/*  !*background-repeat: no-repeat  ;*!*/
-/*  !*background-size: contain;*!*/
-/*  !*overflow: hidden;*!*/
-
-/*}*/

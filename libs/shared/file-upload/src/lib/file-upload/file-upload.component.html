@@ -1,5 +1,3 @@
-<!--{{ fileUploadsWithIcons() | json }}-->
-
 <ion-input
   [multiple]="multiple()"
   (change)="handleChange($event)"
@@ -11,6 +9,7 @@
   (dragleave)="$event.preventDefault(); fileOverDragZone.set(false)"
   (ionBlur)="fileOverDragZone.set(false)"
   [class.file-over]="fileOverDragZone()"
+  [disabled]="isUploading()"
 >
   <ion-row slot="label" class="ion-padding-vertical">
     <ion-text class="ion-padding-bottom">
@@ -26,8 +25,15 @@
       </ion-text>
     </ion-col>
   </ion-row>
-  <ion-button (click)="triggerUpload()" slot="end">
-    Upload
+
+  <ion-button [disabled]="isUploading()" class="ion-text-capitalize" (click)="triggerUpload()" slot="end">
+    @if(isUploading()) {
+      <span slot="end" class="ion-padding-horizontal"><ion-spinner class="ion-no-padding ion-no-margin" name="dots"></ion-spinner></span>
+
+    } @else {
+      upload
+    }
+
   </ion-button>
 </ion-input>
 
@@ -54,7 +60,7 @@
                     0%
                     <ion-icon class="ion-margin-start" color="danger" name="file-exclamation"></ion-icon>
                   } @else {
-                    {{ file.progress }}%
+                    {{ file.progress | number:'1.0-0' }}%
                     <ion-icon class="ion-margin-start" color="success" name="file-check"></ion-icon>
                   }
 

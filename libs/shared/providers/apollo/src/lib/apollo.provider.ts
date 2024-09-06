@@ -10,8 +10,9 @@ import { multipartFormContext } from './multipart-form.context';
 
 import extractFiles from 'extract-files/extractFiles.mjs';
 import isExtractableFile from 'extract-files/isExtractableFile.mjs';
-import { AlertController, ToastController } from '@ionic/angular/standalone';
+import { AlertController, LoadingController, ToastController } from '@ionic/angular/standalone';
 import { contextErrorAlert } from './error-alert.context';
+import { contextLoader } from './loader.context';
 
 
 export const provideApollo: () => [EnvironmentProviders, {
@@ -25,6 +26,7 @@ export const provideApollo: () => [EnvironmentProviders, {
   {
     provide: APOLLO_OPTIONS,
     useFactory(httpLink: HttpLink) {
+      const loadingController = inject(LoadingController);
       const toastController = inject(ToastController);
       const alertController = inject(AlertController);
       const http = httpLink.create({
@@ -49,6 +51,7 @@ export const provideApollo: () => [EnvironmentProviders, {
       );
 
       const combinedLink = ApolloLink.from([
+        contextLoader(loadingController),
         contextSuccessAlert(toastController),
         contextErrorAlert(alertController),
         multipartFormContext(),

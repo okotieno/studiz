@@ -128,9 +128,6 @@ dependencies:
   express:
     specifier: ~4.18.2
     version: 4.18.3
-  extract-files:
-    specifier: ^13.0.0
-    version: 13.0.0
   googleapis:
     specifier: ^142.0.0
     version: 142.0.0
@@ -12912,8 +12909,6 @@ packages:
     peerDependenciesMeta:
       webpack:
         optional: true
-      webpack-sources:
-        optional: true
     dependencies:
       webpack: 5.92.1(@swc/core@1.5.29)(esbuild@0.21.5)(webpack-cli@5.1.4)
       webpack-sources: 3.2.3
@@ -12924,8 +12919,6 @@ packages:
       webpack: '*'
     peerDependenciesMeta:
       webpack:
-        optional: true
-      webpack-sources:
         optional: true
     dependencies:
       webpack: 5.94.0(@swc/core@1.5.29)(webpack-cli@5.1.4)

@@ -12,6 +12,7 @@ import {
   NestFastifyApplication
 } from '@nestjs/platform-fastify';
 
+/* eslint @typescript-eslint/no-var-requires: "off" */
 const processRequest = require('graphql-upload/processRequest.js')
 
 function fastifyGraphQLUpload(fastify) {

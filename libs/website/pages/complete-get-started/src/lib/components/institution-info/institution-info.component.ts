@@ -51,14 +51,14 @@ export class InstitutionInfoComponent {
 
   institutionInfoEffect = effect(() => {
     const progressData = this.institutionalRequestStore.institutionInfo();
-    console.log(progressData);
+    // console.log(progressData);
     this.form.get('name')?.setValue(progressData?.name ?? '');
     this.form.get('logoFileUpload')?.setValue(progressData?.logoFileUpload?.id ? [{ id: progressData?.logoFileUpload.id }] : []);
-    console.log(this.form.value);
+    // console.log(this.form.value);
   });
 
   saveInfo() {
-    console.log(this.form.value)
+    // console.log(this.form.value)
     this.institutionalRequestStore.saveProgressData({ institutionInfo: {
       name: this.form.value.name ?? '',
       logoFileUpload: {

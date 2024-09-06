@@ -8,8 +8,7 @@ import { IQueryParams } from '@studiz/shared/types/frontend';
 @Injectable({
   providedIn: 'root'
 })
-export class FileUploadService  {
-  entity = 'file-upload';
+export class FileUploadService {
 
   constructor(
     private uploadFileGQL: IUploadFileGQL,
@@ -20,12 +19,17 @@ export class FileUploadService  {
   getItems(params: IQueryParams) {
     return this.getFileUploadsGQL.fetch({ query: params }).pipe(
       map((res) => res.data.fileUploads)
-    )
+    );
   }
 
-  uploadFile(file: any): Observable<MutationResult<IUploadFileMutation>> {
+  uploadFile(file: any, progressHandler?: (val: number) => void): Observable<MutationResult<IUploadFileMutation>> {
     return this.uploadFileGQL.mutate({ file }, {
       context: {
+        fetchOptions: {
+          onUploadProgress: ((progress: number) => {
+            progressHandler?.(progress);
+          })
+        },
         useMultipart: true,
         [SHOW_SUCCESS_MESSAGE]: true
       }

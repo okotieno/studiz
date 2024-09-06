@@ -4,16 +4,15 @@ import { WebSocketLink } from '@apollo/client/link/ws';
 import { ApolloLink, InMemoryCache, split } from '@apollo/client/core';
 import { getMainDefinition } from '@apollo/client/utilities';
 import { OperationDefinitionNode } from 'graphql/language';
-import { EnvironmentProviders, importProvidersFrom, inject, InjectionToken } from '@angular/core';
+import { EnvironmentProviders, importProvidersFrom, inject, InjectionToken, signal } from '@angular/core';
 import { contextSuccessAlert } from './success-alert.context';
 import { multipartFormContext } from './multipart-form.context';
 
-import extractFiles from 'extract-files/extractFiles.mjs';
-import isExtractableFile from 'extract-files/isExtractableFile.mjs';
 import { AlertController, LoadingController, ToastController } from '@ionic/angular/standalone';
 import { contextErrorAlert } from './error-alert.context';
 import { contextLoader } from './loader.context';
-
+import createUploadLink from 'apollo-upload-client/createUploadLink.mjs'
+import { customFetch } from './custom-fetch';
 
 export const provideApollo: () => [EnvironmentProviders, {
   provide: InjectionToken<any>;
@@ -25,13 +24,15 @@ export const provideApollo: () => [EnvironmentProviders, {
   ]),
   {
     provide: APOLLO_OPTIONS,
-    useFactory(httpLink: HttpLink) {
+    useFactory() {
+      const trackProgress = signal<number>(0);
       const loadingController = inject(LoadingController);
       const toastController = inject(ToastController);
       const alertController = inject(AlertController);
-      const http = httpLink.create({
+
+      const http = createUploadLink({
         uri: `${process.env?.['STUDIZ_BACKEND_URL'] ?? ''}/graphql`,
-        extractFiles: (body) => extractFiles(body, isExtractableFile) as any
+        fetch: typeof window === 'undefined' ? global.fetch : customFetch
       });
 
       const ws = new WebSocketLink({
@@ -54,9 +55,9 @@ export const provideApollo: () => [EnvironmentProviders, {
         contextLoader(loadingController),
         contextSuccessAlert(toastController),
         contextErrorAlert(alertController),
-        multipartFormContext(),
+        multipartFormContext(trackProgress)(),
         link
-      ]);
+      ] as ApolloLink[]);
 
       return {
         cache: new InMemoryCache({

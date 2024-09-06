@@ -54,7 +54,7 @@ export class FileUploadService extends CrudAbstractService<FileUploadModel> {
 
   async delete(objetName: string, baseBucket: string = this.baseBucket) {
     this.client.removeObjects(baseBucket, [objetName], function(err) {
-      if (err) throw new HttpException('Oops Something wrong happend', HttpStatus.BAD_REQUEST);
+      if (err) throw new HttpException('Oops Something wrong happened', HttpStatus.BAD_REQUEST);
     });
   }
 

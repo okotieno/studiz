@@ -7,9 +7,9 @@ import { MutationResult } from 'apollo-angular';
 const uploadFileGQLGQLMock = {
   mutate: jest.fn(() =>
     of({
-      data: { createFileUpload: { id: 1, name: 'Test FileUpload' } },
+      data: { createFileUpload: { id: 1, name: 'Test FileUpload' } }
     } as MutationResult)
-  ),
+  )
 };
 
 
@@ -20,8 +20,8 @@ describe('FileUploadService', () => {
     TestBed.configureTestingModule({
       providers: [
         FileUploadService,
-        { useValue: uploadFileGQLGQLMock, provide: IUploadFileGQL },
-      ],
+        { useValue: uploadFileGQLGQLMock, provide: IUploadFileGQL }
+      ]
     });
     service = TestBed.inject(FileUploadService);
   });
@@ -29,6 +29,5 @@ describe('FileUploadService', () => {
   it('should be created', () => {
     expect(service).toBeTruthy();
   });
-
 
 });

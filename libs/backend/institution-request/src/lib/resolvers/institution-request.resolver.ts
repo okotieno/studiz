@@ -24,7 +24,6 @@ import { RegisterInstitutionInputDto } from '../dto/register-institution-input.d
 import { TranslationService } from '@studiz/backend/translation';
 import { CompleteInstitutionRequestInputDto } from '../dto/complete-institution-request-input.dto';
 import {
-  InstitutionRequestProgressInputDto,
   UpdateInstitutionRequestProgressInputDto
 } from '../dto/update-institution-request-progress-input.dto';
 

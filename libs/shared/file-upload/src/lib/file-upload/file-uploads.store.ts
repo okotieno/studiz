@@ -1,7 +1,7 @@
 import { patchState, signalStore, withComputed, withMethods, withState } from '@ngrx/signals';
 import { IFileUploadModel, IQueryOperatorEnum } from '@studiz/shared/types/frontend';
-import { catchError, concatAll, from, of, switchMap, takeWhile, tap, timer } from 'rxjs';
-import { computed, inject } from '@angular/core';
+import { catchError, concatAll, from, of, switchMap, tap } from 'rxjs';
+import { ChangeDetectorRef, computed, inject } from '@angular/core';
 import { FileUploadFrontendService } from '@studiz/frontend/file-upload-frontend-service';
 
 const fileIcons: Record<string, string> = {
@@ -50,12 +50,10 @@ export default signalStore(
     const updateFileUploadProp = <T extends keyof FileUpload>(prop: T, i: number, val: FileUpload[T]) => {
       const fileUploads = [...store.fileUploads()];
       if (!store.multiple()) {
-        console.log({ val, i, prop });
         fileUploads[0][prop] = val;
       } else {
         fileUploads[i][prop] = val;
       }
-
       storeFileUploads(fileUploads);
     };
 
@@ -111,31 +109,18 @@ export default signalStore(
       storeFileUploads(fileUploads);
       from(store.fileUploads().map((file, i) =>
         of(true).pipe(
-          tap(() => {
-            if (file.uploading) {
-              timer(200, 50).pipe(
-                takeWhile(() => Number(file.progress) < 99)
-              ).subscribe({
-                next: (progress) => {
-                  updateFileUploadProp<'progress'>('progress', i, Math.round(Math.min(progress + ((100 - progress) / 10), 99)));
-                }
-              });
-            }
-          }),
           switchMap(() => {
             if (!file.uploading) {
               return of(false);
             }
 
-            return fileUploadService.uploadFile(file.file).pipe(
+            return fileUploadService.uploadFile(file.file, (updateVal: number) => updateFileUploadProp<'progress'>('progress', i, updateVal)).pipe(
               tap((res) => {
-                updateFileUploadProp<'progress'>('progress', i, 100);
                 updateFileUploadProp<'uploading'>('uploading', i, false);
                 updateFileUploadProp<'fileUpload'>('fileUpload', i, res.data?.uploadSingleFile?.data as IFileUploadModel);
                 storeFileUploads([...store.fileUploads()]);
               }),
               catchError((res) => {
-                updateFileUploadProp<'progress'>('progress', i, 100);
                 updateFileUploadProp<'uploading'>('uploading', i, false);
                 updateFileUploadProp<'hasError'>('hasError', i, true);
                 updateFileUploadProp<'errorMessage'>('errorMessage', i, res.message ? (res.message ?? 'Error uploading file') : undefined);
@@ -159,7 +144,6 @@ export default signalStore(
         })).reverse();
       }
     );
-
     return { fileUploadsWithIcons };
   })
 );

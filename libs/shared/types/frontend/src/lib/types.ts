@@ -20,6 +20,7 @@ export type IAccessToken = {
 };
 
 export type ICreateInstitutionInput = {
+  logoFileUpload?: InputMaybe<ISelectCategory>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
 
@@ -88,6 +89,7 @@ export type IIdOnly = {
 
 export type IInstitutionModel = {
   id: Scalars['Int']['output'];
+  logoFileUpload?: Maybe<IFileUploadModel>;
   name: Scalars['String']['output'];
 };
 
@@ -172,7 +174,7 @@ export type IMutation = {
 
 
 export type IMutationCompleteRequestRegistrationArgs = {
-  input?: InputMaybe<ISelectCategoryString>;
+  input?: InputMaybe<ISelectCategory>;
 };
 
 
@@ -448,6 +450,7 @@ export type ISuccessResponse = {
 };
 
 export type IUpdateInstitutionInput = {
+  logoFileUpload?: InputMaybe<ISelectCategory>;
   name?: InputMaybe<Scalars['String']['input']>;
 };
 

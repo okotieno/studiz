@@ -40,7 +40,7 @@ export class AuthService {
     }
   }
 
-  async login(user: UserModel | null) {
+  async login(user: UserModel | null, expiresIn = this.accessTokenExpiryPeriod) {
     if (!user) {
       return;
     }
@@ -53,7 +53,7 @@ export class AuthService {
     // const userDetails = await this.userService.findById(user.id);
     return {
       user: user,
-      accessToken: this.jwtService.sign({ ...payload, type: 'AuthToken' }, { expiresIn: this.accessTokenExpiryPeriod }),
+      accessToken: this.jwtService.sign({ ...payload, type: 'AuthToken' }, { expiresIn }),
       refreshToken: this.jwtService.sign({ ...payload, type: 'RefreshToken' }, { expiresIn: this.refreshTokenExpiryPeriod }),
       refreshTokenKey: uuid()
     };

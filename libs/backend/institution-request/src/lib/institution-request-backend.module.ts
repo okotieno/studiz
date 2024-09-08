@@ -4,17 +4,24 @@ import { InstitutionRequestBackendServiceModule } from '@studiz/backend/institut
 import { InstitutionRequestResolver } from './resolvers/institution-request.resolver';
 import { TranslationServiceModule } from '@studiz/backend/translation';
 import { EmailModule } from '@studiz/backend/email-service';
+import { UserBackendServiceModule } from '@studiz/backend/user-service';
+import { InstitutionBackendServiceModule } from '@studiz/backend/institution-service';
+import { AuthServiceBackendModule } from '@studiz/backend/auth-service';
 
 @Module({
   imports: [
     InstitutionRequestBackendServiceModule,
+    UserBackendServiceModule,
+    InstitutionBackendServiceModule,
+    AuthServiceBackendModule,
     TranslationServiceModule,
     EmailModule
   ],
   providers: [
     InstitutionRequestResolver,
-    InstitutionRequestModelEventsListener,
+    InstitutionRequestModelEventsListener
   ],
-  exports: [],
+  exports: []
 })
-export class InstitutionRequestModule {}
+export class InstitutionRequestModule {
+}

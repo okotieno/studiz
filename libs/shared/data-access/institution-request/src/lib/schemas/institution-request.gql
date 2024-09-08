@@ -79,7 +79,7 @@ mutation UpdateInstitutionRequestProgress(
 }
 
 mutation CompleteInstitutionRequest(
-  $id: String!
+  $id: Int!
 ) {
   completeRequestRegistration(input: {id: $id}) {
     message

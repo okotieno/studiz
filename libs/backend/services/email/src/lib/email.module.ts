@@ -1,11 +1,11 @@
 import { Module } from '@nestjs/common';
-import { WelcomeEmailService } from './welcome-email.service';
 import { createTransport } from 'nodemailer';
+import { EmailService } from './email.service';
 
 @Module({
   controllers: [],
   providers: [
-    WelcomeEmailService,
+    EmailService,
     {
       provide: 'EMAIL_TRANSPORTER',
       useValue: {
@@ -22,7 +22,7 @@ import { createTransport } from 'nodemailer';
     }
   ],
   exports: [
-    WelcomeEmailService
+    EmailService
   ],
 })
 export class EmailModule {

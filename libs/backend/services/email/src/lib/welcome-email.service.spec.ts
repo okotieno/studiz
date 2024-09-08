@@ -1,5 +1,5 @@
 import { Test, TestingModule } from '@nestjs/testing';
-import { WelcomeEmailService } from './welcome-email.service';
+import { EmailService } from './email.service';
 
 // Mocked email transporter
 const mockEmailTransporter = {
@@ -9,18 +9,18 @@ const mockEmailTransporter = {
   defaultFromEmail: 'test@example.com',
 };
 
-describe('WelcomeEmailService', () => {
-  let service: WelcomeEmailService;
+describe('EmailService', () => {
+  let service: EmailService;
 
   beforeEach(async () => {
     const module: TestingModule = await Test.createTestingModule({
       providers: [
-        WelcomeEmailService,
+        EmailService,
         { provide: 'EMAIL_TRANSPORTER', useValue: mockEmailTransporter },
       ],
     }).compile();
 
-    service = module.get<WelcomeEmailService>(WelcomeEmailService);
+    service = module.get<EmailService>(EmailService);
   });
 
   it('should be defined', () => {
@@ -29,7 +29,12 @@ describe('WelcomeEmailService', () => {
 
   it('should send welcome email', async () => {
     const email = 'recipient@example.com';
-    await service.send({ to: email, slug: '' });
+    await service.send({
+      to: email,
+      from: mockEmailTransporter.defaultFromEmail,
+      subject: 'Welcome to Studiz!',
+      text: 'You have successfully created an account with Studiz',
+    });
 
     // Check if the sendMail method was called with the correct parameters
     expect(mockEmailTransporter.transporter.sendMail).toHaveBeenCalledWith({

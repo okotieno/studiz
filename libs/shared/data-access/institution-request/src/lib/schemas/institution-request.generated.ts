@@ -55,7 +55,7 @@ export type IUpdateInstitutionRequestProgressMutationVariables = Types.Exact<{
 export type IUpdateInstitutionRequestProgressMutation = { updateInstitutionRequestProgress?: { message: string } | null };
 
 export type ICompleteInstitutionRequestMutationVariables = Types.Exact<{
-  id: Types.Scalars['String']['input'];
+  id: Types.Scalars['Int']['input'];
 }>;
 
 
@@ -220,7 +220,7 @@ export const UpdateInstitutionRequestProgressDocument = gql`
     }
   }
 export const CompleteInstitutionRequestDocument = gql`
-    mutation CompleteInstitutionRequest($id: String!) {
+    mutation CompleteInstitutionRequest($id: Int!) {
   completeRequestRegistration(input: {id: $id}) {
     message
   }

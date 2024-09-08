@@ -5,7 +5,7 @@ import {
   BadRequestException,
   Body,
   UseGuards,
-  ValidationPipe,
+  ValidationPipe
 } from '@nestjs/common';
 import { EventEmitter2 } from '@nestjs/event-emitter';
 import { InstitutionRequestCreatedEvent } from '../events/institution-request-created.event';
@@ -13,7 +13,7 @@ import { JwtAuthGuard } from '@studiz/backend/auth';
 import {
   PermissionGuard,
   Permissions,
-  PermissionsEnum,
+  PermissionsEnum
 } from '@studiz/backend/permission-service';
 import { IQueryParam, InstitutionRequestModel } from '@studiz/backend/db';
 import { UpdateInstitutionRequestInputDto } from '../dto/update-institution-request-input.dto';
@@ -33,13 +33,14 @@ export class InstitutionRequestResolver {
     private institutionRequestService: InstitutionRequestBackendService,
     private eventEmitter: EventEmitter2,
     private translationService: TranslationService
-  ) {}
+  ) {
+  }
 
   @Query(() => InstitutionRequestModel)
   institutionRequests(@Args('query') query: IQueryParam) {
     return this.institutionRequestService.findAll({
       ...query,
-      filters: query?.filters ?? [],
+      filters: query?.filters ?? []
     });
   }
 
@@ -64,7 +65,7 @@ export class InstitutionRequestResolver {
     }
 
     const institutionRequest = await this.institutionRequestService.create({
-      ...input,
+      ...input
     });
 
     this.eventEmitter.emit(
@@ -74,7 +75,7 @@ export class InstitutionRequestResolver {
 
     return {
       message: this.translationService.getTranslation('alert.institution.register'),
-      data: institutionRequest,
+      data: institutionRequest
     };
   }
 
@@ -85,7 +86,7 @@ export class InstitutionRequestResolver {
     @Body(new ValidationPipe()) params: CreateInstitutionRequestInputDto
   ) {
     const institutionRequest = await this.institutionRequestService.create({
-      ...params,
+      ...params
     });
 
     this.eventEmitter.emit(
@@ -95,7 +96,7 @@ export class InstitutionRequestResolver {
 
     return {
       message: 'Successfully created institution-request',
-      data: institutionRequest,
+      data: institutionRequest
     };
   }
 
@@ -118,12 +119,11 @@ export class InstitutionRequestResolver {
       );
       return {
         message: 'Successfully created institutionRequest',
-        data: institutionRequest,
+        data: institutionRequest
       };
     }
     throw new BadRequestException('No institution-request found');
   }
-
 
 
   @Mutation()
@@ -135,7 +135,7 @@ export class InstitutionRequestResolver {
       input.id
     );
     if (institutionRequest) {
-      institutionRequest.progressData = input.params as Required<typeof input.params>
+      institutionRequest.progressData = input.params as Required<typeof input.params>;
       // await institutionRequest?.update(input.params);
       await institutionRequest?.save();
 
@@ -145,7 +145,7 @@ export class InstitutionRequestResolver {
       );
       return {
         message: 'Successfully created institutionRequest',
-        data: institutionRequest,
+        data: institutionRequest
       };
     }
     throw new BadRequestException('No institution-request found');
@@ -154,12 +154,25 @@ export class InstitutionRequestResolver {
   @Mutation()
   // @UseGuards(JwtAuthGuard)
   async completeRequestRegistration(
-    @Body('input',new ValidationPipe()) params: CompleteInstitutionRequestInputDto
+    @Body('input', new ValidationPipe()) { id }: CompleteInstitutionRequestInputDto
   ) {
 
+    const institutionRequest = (await this.institutionRequestService.findById(
+      id
+    )) as InstitutionRequestModel;
+
+    institutionRequest.status = 'COMPLETED';
+    await institutionRequest.save();
+
+    this.eventEmitter.emit(
+      'institution-request.completed',
+      new InstitutionRequestUpdatedEvent(institutionRequest)
+    );
+
     return {
-      message: 'Institution registration complete successfully, We have sent an email to all admins provided on next steps',
+      message: this.translationService.getTranslation('alert.institutionRequest.complete')
     };
+
   }
 
   @Mutation()
@@ -180,7 +193,7 @@ export class InstitutionRequestResolver {
 
     return {
       message: 'Successfully deleted institution-request',
-      data: institutionRequest,
+      data: institutionRequest
     };
   }
 }

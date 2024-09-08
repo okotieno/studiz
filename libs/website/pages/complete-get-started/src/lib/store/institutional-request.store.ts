@@ -63,7 +63,7 @@ export const InstitutionalRequestStore = signalStore(
 
     const completeInstitutionRegistration = () => {
       return completeInstitutionRequestGQL.mutate({
-        id: store.currentInstitutionRequest.slug()
+        id: store.currentInstitutionRequest.id()
       }, {
         context: {
           [SHOW_ERROR_MESSAGE]: true,
@@ -85,18 +85,6 @@ export const InstitutionalRequestStore = signalStore(
       if (institutionInfo) {
         updateProgressData<'institutionInfo'>('institutionInfo', institutionInfo);
       }
-
-      // console.log({ institutionInfo, adminInfos });
-      // let currentInstitutionRequest = store.currentInstitutionRequest();
-      // currentInstitutionRequest = {
-      //   ...currentInstitutionRequest,
-      //   progressData: {
-      //     ...currentInstitutionRequest.progressData,
-      //     adminInfos: adminInfos ? adminInfos : currentInstitutionRequest.progressData?.adminInfos ?? [],
-      //     institutionInfo
-      //   }
-      // };
-      // updateCurrentInstitutionRequest(currentInstitutionRequest);
       return updateInstitutionRequestProgressGQL.mutate({
         id: store.currentInstitutionRequest.id(),
         params: {

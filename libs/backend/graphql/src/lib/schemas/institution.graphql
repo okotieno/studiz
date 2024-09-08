@@ -1,14 +1,17 @@
 type InstitutionModel {
   id: Int!
   name: String!
+  logoFileUpload: FileUploadModel
 }
 
 input CreateInstitutionInput {
   name: String
+  logoFileUpload: SelectCategory
 }
 
 input UpdateInstitutionInput {
   name: String
+  logoFileUpload: SelectCategory
 }
 
 type PaginatedInstitution {

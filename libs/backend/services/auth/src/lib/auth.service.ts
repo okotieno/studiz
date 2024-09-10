@@ -68,6 +68,9 @@ export class AuthService {
         type: decoded['type'],
       };
     } catch (error) {
+      if(String(error).includes('expired')) {
+        throw new UnauthorizedException('The access token has expired');
+      }
       throw new UnauthorizedException('Invalid token');
     }
   }

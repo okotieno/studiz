@@ -15,11 +15,6 @@
     "skipDefaultLibCheck": true,
     "baseUrl": ".",
     "paths": {
-      "@studiz/backend/file-upload": ["libs/backend/file-upload/src/index.ts"],
-      "@studiz/file-upload": ["libs/shared/file-upload/src/index.ts"],
-      "@studiz/frontend/file-upload-frontend-service": [
-        "libs/shared/data-access/file-upload/src/index.ts"
-      ],
       "@studiz-pro/website-complete-get-started": [
         "libs/website/pages/complete-get-started/src/index.ts"
       ],
@@ -43,6 +38,7 @@
       "@studiz/backend/email-service": [
         "libs/backend/services/email/src/index.ts"
       ],
+      "@studiz/backend/file-upload": ["libs/backend/file-upload/src/index.ts"],
       "@studiz/backend/graphql": ["libs/backend/graphql/src/index.ts"],
       "@studiz/backend/institution": ["libs/backend/institution/src/index.ts"],
       "@studiz/backend/institution-request": [
@@ -68,10 +64,14 @@
         "libs/backend/services/user/src/index.ts"
       ],
       "@studiz/backend/validators": ["libs/backend/validators/src/index.ts"],
+      "@studiz/file-upload": ["libs/shared/file-upload/src/index.ts"],
       "@studiz/frontend-generator": ["plugins/frontend/src/index.ts"],
       "@studiz/frontend/alert": ["libs/shared/alert/src/index.ts"],
       "@studiz/frontend/auth": ["libs/shared/auth/src/index.ts"],
       "@studiz/frontend/constants": ["libs/shared/constants/src/index.ts"],
+      "@studiz/frontend/file-upload-frontend-service": [
+        "libs/shared/data-access/file-upload/src/index.ts"
+      ],
       "@studiz/frontend/form-exit-guard": [
         "libs/shared/form-exit-guard/src/index.ts"
       ],
@@ -81,18 +81,20 @@
       "@studiz/frontend/layout": ["libs/shared/layout/src/index.ts"],
       "@studiz/frontend/list-page": ["libs/shared/list-page/src/index.ts"],
       "@studiz/frontend/login-page": ["libs/shared/pages/login/src/index.ts"],
+      "@studiz/frontend/not-found-page": [
+        "libs/shared/pages/not-found-page/src/index.ts"
+      ],
       "@studiz/frontend/side-nav": ["libs/shared/side-nav/src/index.ts"],
       "@studiz/frontend/success-page": [
         "libs/shared/pages/success-page/src/index.ts"
-      ],
-      "@studiz/frontend/not-found-page": [
-        "libs/shared/pages/not-found-page/src/index.ts"
       ],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
       "@studiz/pagination": ["libs/shared/pagination/src/index.ts"],
       "@studiz/shared/types/frontend": [
         "libs/shared/types/frontend/src/index.ts"
       ],
+      "@studiz/shell-home-page": ["libs/shell/pages/home/src/index.ts"],
+      "@studiz/shell-login-page": ["libs/shell/pages/login/src/index.ts"],
       "@studiz/stepper": ["libs/shared/stepper/src/index.ts"],
       "@studiz/theme": ["libs/shared/theme/src/index.ts"],
       "@studiz/user-setting": ["libs/shared/user-settings/src/index.ts"],
@@ -101,7 +103,10 @@
         "libs/website/pages/get-started/src/index.ts"
       ],
       "@studiz/website-home-page": ["libs/website/pages/home/src/index.ts"],
-      "@studiz/website-layout": ["libs/website/pages/layout/src/index.ts"]
+      "@studiz/website-layout": ["libs/website/pages/layout/src/index.ts"],
+      "admissions/Routes": [
+        "apps/admissions/src/app/remote-entry/entry.routes.ts"
+      ]
     }
   },
   "exclude": ["node_modules", "tmp"]

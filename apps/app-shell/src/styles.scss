@@ -1,1 +1,8 @@
 /* You can add global styles to this file, and also import other style files */
+ion-input {
+  --color: var(--ion-color-dark) !important;
+  --border-width: 2px !important;
+}
+ion-button {
+  text-transform: none !important;
+}

@@ -161,6 +161,7 @@ export type IMutation = {
   loginWithToken?: Maybe<ILoginResponse>;
   registerInstitutionRequest?: Maybe<ICreateInstitutionRequestSuccessResponse>;
   requestAccessToken?: Maybe<IAccessToken>;
+  requestLoginLink?: Maybe<ISuccessResponse>;
   signInWithGoogle?: Maybe<ILoginResponse>;
   test?: Maybe<Scalars['String']['output']>;
   updateInstitution?: Maybe<ICreateInstitutionSuccessResponse>;
@@ -240,6 +241,11 @@ export type IMutationRegisterInstitutionRequestArgs = {
 
 export type IMutationRequestAccessTokenArgs = {
   refreshToken: Scalars['String']['input'];
+};
+
+
+export type IMutationRequestLoginLinkArgs = {
+  email: Scalars['String']['input'];
 };
 
 

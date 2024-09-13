@@ -38,3 +38,9 @@ mutation RequestAccessToken($refreshToken: String!) {
     accessToken
   }
 }
+
+mutation RequestLoginLink($email: String!) {
+  requestLoginLink(email: $email) {
+    message
+  }
+}

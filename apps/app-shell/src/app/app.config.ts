@@ -9,6 +9,7 @@ import { provideApollo } from '@studiz/apollo-provider';
 import { routingAnimation } from '@studiz/animations';
 import { provideIonicAngular } from '@ionic/angular/standalone';
 import { APP_ENVIRONMENT } from '@studiz/frontend/constants';
+import { provideAnimations } from '@angular/platform-browser/animations';
 
 export const appConfig: ApplicationConfig = {
   providers: [
@@ -19,6 +20,7 @@ export const appConfig: ApplicationConfig = {
     }),
     ...provideApollo(),
     provideHttpClient(),
+    provideAnimations(),
     {
       provide: APP_ENVIRONMENT,
       useValue: process.env

@@ -28,6 +28,13 @@ export type IRequestAccessTokenMutationVariables = Types.Exact<{
 
 export type IRequestAccessTokenMutation = { requestAccessToken?: { accessToken?: string | null } | null };
 
+export type IRequestLoginLinkMutationVariables = Types.Exact<{
+  email: Types.Scalars['String']['input'];
+}>;
+
+
+export type IRequestLoginLinkMutation = { requestLoginLink?: { message: string } | null };
+
 export const UserFieldsFragmentDoc = gql`
     fragment UserFields on UserModel {
   id
@@ -99,6 +106,24 @@ export const RequestAccessTokenDocument = gql`
   })
   export class IRequestAccessTokenGQL extends Apollo.Mutation<IRequestAccessTokenMutation, IRequestAccessTokenMutationVariables> {
     override document = RequestAccessTokenDocument;
+    
+    constructor(apollo: Apollo.Apollo) {
+      super(apollo);
+    }
+  }
+export const RequestLoginLinkDocument = gql`
+    mutation RequestLoginLink($email: String!) {
+  requestLoginLink(email: $email) {
+    message
+  }
+}
+    `;
+
+  @Injectable({
+    providedIn: 'root'
+  })
+  export class IRequestLoginLinkGQL extends Apollo.Mutation<IRequestLoginLinkMutation, IRequestLoginLinkMutationVariables> {
+    override document = RequestLoginLinkDocument;
     
     constructor(apollo: Apollo.Apollo) {
       super(apollo);

@@ -3,11 +3,18 @@ import { AuthServiceBackend } from '@studiz/backend/auth-service';
 import { UserModel } from '@studiz/backend/db';
 import { UnauthorizedException } from '@nestjs/common';
 import { UserBackendService } from '@studiz/backend/user-service';
+import { EventEmitter2 } from '@nestjs/event-emitter';
+import { TranslationService } from '@studiz/backend/translation';
+import { LoginLinkRequestEvent } from '../events/login-link-request.event';
 
 @Resolver()
 export class AuthResolver {
   constructor(
-    private authService: AuthServiceBackend, private userService: UserBackendService) {
+    private authService: AuthServiceBackend,
+    private userService: UserBackendService,
+    private eventEmitter: EventEmitter2,
+    private translationService: TranslationService
+  ) {
   }
 
   @Mutation()
@@ -31,6 +38,20 @@ export class AuthResolver {
   }
 
   @Mutation()
+  async requestLoginLink(
+    @Args('email') email: string
+  ) {
+    this.eventEmitter.emit(
+      'login-link.request',
+      new LoginLinkRequestEvent(email)
+    );
+
+    return {
+      message: this.translationService.getTranslation('alert.auth.loginLinkRequest'),
+    };
+  }
+
+  @Mutation()
   async loginWithToken(
     @Args('token') token: string
   ) {
@@ -40,5 +61,6 @@ export class AuthResolver {
       return this.authService.login(user as UserModel);
     }
     throw new UnauthorizedException('Invalid token');
+
   }
 }

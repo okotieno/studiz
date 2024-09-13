@@ -12,5 +12,8 @@
   },
   "institutionRequest": {
     "complete": "Institution registration complete successfully, We have sent an email to all admins provided on next steps"
+  },
+  "auth": {
+    "loginLinkRequest": "Request for a login link received successfully. We will send you a link if the email provided is in our records."
   }
 }

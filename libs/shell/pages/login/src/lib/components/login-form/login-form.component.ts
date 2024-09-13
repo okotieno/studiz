@@ -23,7 +23,7 @@ import { AuthStore } from '@studiz/frontend/auth';
     slideRightAnimation
   ]
 })
-export class ShellLoginPageComponent {
+export class LoginFormComponent {
   authStore = inject(AuthStore);
   passwordInputElement = viewChild.required<IonInput>('passwordInputElement');
   currentLoginStep = signal<'username' | 'password'>('username');

@@ -13,4 +13,5 @@ extend type Mutation {
   signInWithGoogle(token: String!): LoginResponse
   loginWithToken(token: String!): LoginResponse
   requestAccessToken(refreshToken: String!): AccessToken
+  requestLoginLink(email: String!): SuccessResponse
 }

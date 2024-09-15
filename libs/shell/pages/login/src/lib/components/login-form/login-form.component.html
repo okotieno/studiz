@@ -1,83 +1,88 @@
-<ion-app>
-  <ion-content>
-    <ion-row class="ion-justify-content-center ion-align-items-center">
-      <ion-card>
-        <ion-card-header>
-          <ion-card-title>
-            Login
-          </ion-card-title>
-        </ion-card-header>
-        <ion-card-content>
-          <form [formGroup]="form">
-            <ion-row class="ion-justify-content-start ion-nowrap">
-              <ion-col size="12" [@slideLeft]="showEmailField()">
-                <ion-input
-                  formControlName="username"
-                  fill="solid"
-                  placeholder="Enter Username/Email"
-                  helperText="&nbsp;"
-                  errorText="username/email is required"
-                  (keydown.tab)="focusOnPasswordField($event)"
+<ion-header class="ion-no-border">
+  <ion-toolbar>
+    <ion-buttons slot="end">
+      <studiz-user-settings></studiz-user-settings>
+    </ion-buttons>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+  <ion-row class="ion-justify-content-center ion-align-items-center">
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>
+          Login
+        </ion-card-title>
+      </ion-card-header>
+      <ion-card-content>
+        <form [formGroup]="form">
+          <ion-row class="ion-justify-content-start ion-nowrap">
+            <ion-col size="12" [@slideLeft]="showEmailField()">
+              <ion-input
+                formControlName="username"
+                fill="solid"
+                placeholder="Enter Username/Email"
+                helperText="&nbsp;"
+                errorText="username/email is required"
+                (keydown.tab)="focusOnPasswordField($event)"
+              >
+                <ion-icon slot="start" name="user"></ion-icon>
+              </ion-input>
+            </ion-col>
+            <ion-col size="12" [@slideRight]="showPasswordField()">
+              <ion-input
+                formControlName="password"
+                [type]="showPasswordType()"
+                fill="solid"
+                placeholder="Enter Password"
+                helperText="&nbsp;"
+                errorText="password is required"
+                #passwordInputElement
+              >
+                <ion-icon slot="start" name="key"></ion-icon>
+                <ion-button
+                  slot="end"
+                  fill="clear"
+                  color="primary"
+                  (mousedown)="showPasswordText.set(true)"
+                  (mouseup)="showPasswordText.set(false)"
+                  (touchstart)="showPasswordText.set(true)"
+                  (touchend)="showPasswordText.set(false)"
                 >
-                  <ion-icon slot="start" name="user"></ion-icon>
-                </ion-input>
-              </ion-col>
-              <ion-col size="12" [@slideRight]="showPasswordField()">
-                <ion-input
-                  formControlName="password"
-                  [type]="showPasswordType()"
-                  fill="solid"
-                  placeholder="Enter Password"
-                  helperText="&nbsp;"
-                  errorText="password is required"
-                  #passwordInputElement
-                >
-                  <ion-icon slot="start" name="key"></ion-icon>
-                  <ion-button
-                    slot="end"
-                    fill="clear"
-                    color="primary"
-                    (mousedown)="showPasswordText.set(true)"
-                    (mouseup)="showPasswordText.set(false)"
-                    (touchstart)="showPasswordText.set(true)"
-                    (touchend)="showPasswordText.set(false)"
-                  >
-                    <ion-icon [name]="showPasswordIcon()" slot="icon-only"></ion-icon>
-                  </ion-button>
-                </ion-input>
-              </ion-col>
-            </ion-row>
-            <ion-row class="ion-justify-content-between ion-margin-top">
-              @if (currentLoginStep() === 'password') {
-                <ion-button (click)="sendLoginLink()" fill="clear">Get login link</ion-button>
-              }
-              @if (currentLoginStep() === 'username') {
-                <span>&nbsp;</span>
-                <ion-button [disabled]="usernameField.invalid" type="button" (click)="currentLoginStep.set('password')">
+                  <ion-icon [name]="showPasswordIcon()" slot="icon-only"></ion-icon>
+                </ion-button>
+              </ion-input>
+            </ion-col>
+          </ion-row>
+          <ion-row class="ion-justify-content-between ion-margin-top">
+            @if (currentLoginStep() === 'password') {
+              <ion-button (click)="sendLoginLink()" fill="clear">Get login link</ion-button>
+            }
+            @if (currentLoginStep() === 'username') {
+              <span>&nbsp;</span>
+              <ion-button [disabled]="usernameField.invalid" type="button" (click)="currentLoginStep.set('password')">
               <span class="ion-padding-horizontal">
                 Next
               </span>
-                </ion-button>
-              }
-              @if (currentLoginStep() === 'password') {
-                <ion-button [disabled]="form.invalid" type="button"
-                            (click)="currentLoginStep.set('password')">
+              </ion-button>
+            }
+            @if (currentLoginStep() === 'password') {
+              <ion-button [disabled]="form.invalid" type="button"
+                          (click)="currentLoginStep.set('password')">
               <span class="ion-padding-horizontal">
                 Next
               </span>
-                </ion-button>
-              }
+              </ion-button>
+            }
 
 
-            </ion-row>
-          </form>
+          </ion-row>
+        </form>
 
-        </ion-card-content>
-      </ion-card>
-    </ion-row>
+      </ion-card-content>
+    </ion-card>
+  </ion-row>
 
-  </ion-content>
-  <ion-footer class="ion-padding ion-no-border">
-    &copy; furahasolutions.tech
-  </ion-footer>
-</ion-app>
+</ion-content>
+<ion-footer class="ion-padding ion-no-border">
+  &copy; furahasolutions.tech
+</ion-footer>

@@ -1,6 +1,6 @@
-import { Component, input, OnDestroy } from '@angular/core';
-import { IonButton, IonCol, IonNav, IonRow, IonText, ViewDidEnter, ViewDidLeave } from '@ionic/angular/standalone';
-import { RouterLink } from '@angular/router';
+import { Component, inject, input } from '@angular/core';
+import { IonButton, IonCol, IonNav, IonRow, IonText } from '@ionic/angular/standalone';
+import { Router, RouterLink } from '@angular/router';
 import { DoneIllustration } from '@studiz/icons';
 
 @Component({
@@ -19,6 +19,13 @@ import { DoneIllustration } from '@studiz/icons';
   styleUrl: './success-page.component.css'
 })
 export class SuccessPageComponent {
+  router = inject(Router);
+  ionNav = inject(IonNav);
   successMessage = input('The operation was successful!');
   doneRoutesTo = input(['']);
+
+  async routeToOnDone() {
+    await this.ionNav.popToRoot();
+    await this.router.navigate(this.doneRoutesTo());
+  }
 }

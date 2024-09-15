@@ -1,29 +1,54 @@
 import { Component, computed, inject, signal, viewChild } from '@angular/core';
-import { IonicModule } from '@ionic/angular';
 import { slideLeftAnimation, slideRightAnimation } from './slide-left.animation';
 import { FormBuilder, FormControl, ReactiveFormsModule, Validators } from '@angular/forms';
-import { IonInput } from '@ionic/angular/standalone';
+import {
+  IonApp, IonButton,
+  IonButtons, IonCard, IonCardContent, IonCardHeader, IonCardTitle, IonCol,
+  IonContent, IonFooter,
+  IonHeader, IonIcon,
+  IonInput,
+  IonNav,
+  IonRow,
+  IonToolbar
+} from '@ionic/angular/standalone';
 import { take, tap, timer } from 'rxjs';
 import { TitleCasePipe } from '@angular/common';
-import { SHOW_ERROR_MESSAGE } from '@studiz/frontend/constants';
 import { AuthStore } from '@studiz/frontend/auth';
+import { SuccessPageComponent } from '@studiz/frontend/success-page';
+import { UserSettingsComponent } from '@studiz/user-setting';
 
 @Component({
   selector: 'studiz-shell-login-page',
   standalone: true,
   imports: [
-    IonicModule,
+    IonApp,
     ReactiveFormsModule,
-    TitleCasePipe
+    TitleCasePipe,
+    UserSettingsComponent,
+    IonHeader,
+    IonToolbar,
+    IonButtons,
+    IonContent,
+    IonRow,
+    IonCard,
+    IonCardHeader,
+    IonCardTitle,
+    IonCardContent,
+    IonCol,
+    IonInput,
+    IonIcon,
+    IonButton,
+    IonFooter
   ],
-  templateUrl: './shell-login-page.component.html',
-  styleUrl: './shell-login-page.component.css',
+  templateUrl: './login-form.component.html',
+  styleUrl: './login-form.component.css',
   animations: [
     slideLeftAnimation,
     slideRightAnimation
   ]
 })
 export class LoginFormComponent {
+  ionNav = inject(IonNav);
   authStore = inject(AuthStore);
   passwordInputElement = viewChild.required<IonInput>('passwordInputElement');
   currentLoginStep = signal<'username' | 'password'>('username');
@@ -59,6 +84,13 @@ export class LoginFormComponent {
   }
 
   sendLoginLink() {
-    this.authStore.requestLoginLink(this.usernameField.value).subscribe();
+    this.authStore.requestLoginLink(this.usernameField.value).pipe(
+      tap(async (res) => {
+        console.log(res.data?.requestLoginLink?.message)
+        await this.ionNav.push(SuccessPageComponent, {
+          successMessage: res.data?.requestLoginLink?.message
+        });
+      })
+    ).subscribe();
   }
 }

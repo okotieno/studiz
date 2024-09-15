@@ -11,7 +11,4 @@ import { APP_ENVIRONMENT } from '@studiz/frontend/constants';
 })
 export class RemoteEntryComponent {
   environment = inject(APP_ENVIRONMENT);
-  constructor() {
-    console.log('RemoteEntryComponent', this.environment);
-  }
 }

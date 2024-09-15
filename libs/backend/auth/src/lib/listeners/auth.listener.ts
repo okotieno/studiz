@@ -6,8 +6,7 @@ import { UserBackendService } from '@studiz/backend/user-service';
 import { AuthServiceBackend } from '@studiz/backend/auth-service';
 
 @Injectable()
-export class InstitutionRequestModelEventsListener {
-  frontendLink = process.env['STUDIZ_FRONTEND_URL'];
+export class AuthEventsListener {
   frontendAppLink = process.env['STUDIZ_FRONTEND_APP_URL'];
 
   constructor(
@@ -18,7 +17,8 @@ export class InstitutionRequestModelEventsListener {
   }
 
   @OnEvent('login-link.request')
-  async sendWelcomeEmail($event: LoginLinkRequestEvent) {
+  async sendLoginLinkEmail($event: LoginLinkRequestEvent) {
+
 
     if ($event.email) {
       const user = await this.userService.findByEmail($event.email);

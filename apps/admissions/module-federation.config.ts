@@ -8,11 +8,6 @@ const config: ModuleFederationConfig = {
   shared: (pkg: string, sharedConfig) => {
     // Don't share this package; each app can load its own version.
     // if (pkg === '@angular/core') return false;
-
-    console.log({ pkg, sharedConfig });
-
-
-
     return sharedConfig;
   }
 };

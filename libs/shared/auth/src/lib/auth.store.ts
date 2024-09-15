@@ -2,11 +2,11 @@ import { patchState, signalStore, withComputed, withMethods, withState } from '@
 import { IAccessToken, IUserModel } from '@studiz/shared/types/frontend';
 import { computed, inject, Signal } from '@angular/core';
 import { ILoginWithTokenGQL, IRequestLoginLinkGQL } from './schemas/auth.generated';
-import { catchError, map, of } from 'rxjs';
+import { catchError, map, of, tap } from 'rxjs';
 import { SHOW_ERROR_MESSAGE, SHOW_LOADER, SHOW_SUCCESS_MESSAGE } from '@studiz/frontend/constants';
 
 export interface AuthStateInterface {
-  user?: IUserModel,
+  user?: IUserModel | undefined,
   accessToken?: IAccessToken['accessToken'],
 }
 
@@ -16,9 +16,10 @@ export const AuthStore = signalStore(
   { providedIn: 'root' },
   withState(initialState),
   withComputed((store) => {
-
-    const isAuthenticated: Signal<boolean> = computed(() => !!store?.user?.()?.id);
-
+    const isAuthenticated = computed(() => {
+      const user = store.user?.();
+      return !!user?.id;
+    });
     return { isAuthenticated };
   }),
   withMethods((store) => {
@@ -28,20 +29,22 @@ export const AuthStore = signalStore(
       patchState(store, { accessToken });
     };
 
-    const authenticate = ({ accessToken }: {accessToken?: string}) => {
-      if(store.user) {
-        return store.user
-      }
-      if (accessToken) {
-        return authenticateByAccessToken(accessToken);
-      }
-      return;
-    }
+
+    const authenticate = ({ accessToken }: { accessToken?: string }) => {
+      if (store.user) return of(!!store.user());
+
+      if (accessToken) return authenticateByAccessToken(accessToken);
+
+      return of(false);
+    };
 
     const authenticateByAccessToken = (accessToken: string) => {
       return loginWithTokenGQL.mutate({ token: accessToken }, {
         context: { [SHOW_LOADER]: true, [SHOW_ERROR_MESSAGE]: true }
       }).pipe(
+        tap((res) => {
+          patchState(store, { user: { ...res.data?.loginWithToken?.user } });
+        }),
         map(() => {
           return true;
         }),
@@ -50,7 +53,7 @@ export const AuthStore = signalStore(
 
     };
 
-    const requestLoginLink =  (email: string) => requestLoginLinkGQL.mutate(
+    const requestLoginLink = (email: string) => requestLoginLinkGQL.mutate(
       { email },
       { context: { [SHOW_LOADER]: true, [SHOW_ERROR_MESSAGE]: true, [SHOW_SUCCESS_MESSAGE]: true } }
     );

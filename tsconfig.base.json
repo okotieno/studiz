@@ -89,6 +89,7 @@
         "libs/shared/pages/success-page/src/index.ts"
       ],
       "@studiz/icons": ["libs/shared/icons/src/index.ts"],
+      "@studiz/loader": ["libs/shared/loader/src/index.ts"],
       "@studiz/pagination": ["libs/shared/pagination/src/index.ts"],
       "@studiz/shared/types/frontend": [
         "libs/shared/types/frontend/src/index.ts"

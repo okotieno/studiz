@@ -21,6 +21,15 @@ export class AuthService {
     private userService: UserBackendService, private jwtService: JwtService) {
   }
 
+  getAuthToken(user: UserModel, period = this.accessTokenExpiryPeriod, type = 'AuthToken') {
+    const payload = {
+      email: user.email,
+      sub: user.id,
+    };
+
+    return  this.jwtService.sign({ ...payload, type }, { expiresIn: period })
+  }
+
   async signInGoogleUser(
     idToken: string
   ): Promise<UserModel | null> {

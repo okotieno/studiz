@@ -9,13 +9,17 @@ import {
   IonInput,
   IonNav,
   IonRow,
-  IonToolbar
+  IonToolbar,
+  IonModal,
+  ModalController
 } from '@ionic/angular/standalone';
 import { take, tap, timer } from 'rxjs';
-import { TitleCasePipe } from '@angular/common';
+import { JsonPipe, TitleCasePipe } from '@angular/common';
 import { AuthStore } from '@studiz/frontend/auth';
-import { SuccessPageComponent } from '@studiz/frontend/success-page';
 import { UserSettingsComponent } from '@studiz/user-setting';
+import { SendLoginLinkFormComponent } from '../send-login-link-form/send-login-link-form.component';
+import { SuccessPageComponent } from '@studiz/frontend/success-page';
+import { LoaderStore } from '@studiz/loader';
 
 @Component({
   selector: 'studiz-shell-login-page',
@@ -38,7 +42,9 @@ import { UserSettingsComponent } from '@studiz/user-setting';
     IonInput,
     IonIcon,
     IonButton,
-    IonFooter
+    IonFooter,
+    IonModal,
+    JsonPipe
   ],
   templateUrl: './login-form.component.html',
   styleUrl: './login-form.component.css',
@@ -48,6 +54,8 @@ import { UserSettingsComponent } from '@studiz/user-setting';
   ]
 })
 export class LoginFormComponent {
+  modalCtrl = inject(ModalController);
+  loaderStore = inject(LoaderStore)
   ionNav = inject(IonNav);
   authStore = inject(AuthStore);
   passwordInputElement = viewChild.required<IonInput>('passwordInputElement');
@@ -83,14 +91,30 @@ export class LoginFormComponent {
     console.log($event);
   }
 
-  sendLoginLink() {
-    this.authStore.requestLoginLink(this.usernameField.value).pipe(
-      tap(async (res) => {
-        console.log(res.data?.requestLoginLink?.message)
-        await this.ionNav.push(SuccessPageComponent, {
-          successMessage: res.data?.requestLoginLink?.message
-        });
-      })
-    ).subscribe();
+  async sendLoginLink() {
+    const modal = await this.modalCtrl.create({
+      component: SendLoginLinkFormComponent,
+      componentProps: {
+        email: this.usernameField.value
+      }
+    });
+    await modal.present();
+
+    const { role,data } = await modal.onWillDismiss();
+    if(role === 'submitted') {
+          await this.ionNav.push(SuccessPageComponent, {
+            successMessage: data?.message
+          });
+    }
+
+
+    // this.authStore.requestLoginLink(this.usernameField.value).pipe(
+    //   tap(async (res) => {
+    //     console.log(res.data?.requestLoginLink?.message)
+    //     await this.ionNav.push(SuccessPageComponent, {
+    //       successMessage: res.data?.requestLoginLink?.message
+    //     });
+    //   })
+    // ).subscribe();
   }
 }

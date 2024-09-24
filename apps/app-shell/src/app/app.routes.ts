@@ -1,7 +1,4 @@
-import {
-  ActivatedRouteSnapshot,
-  Route, Router
-} from '@angular/router';
+import { Route } from '@angular/router';
 import { loadRemoteModule } from '@nx/angular/mf';
 import { inject } from '@angular/core';
 import { AuthStore } from '@studiz/frontend/auth';
@@ -10,16 +7,16 @@ export const appRoutes: Route[] = [
   {
     path: '',
     canMatch: [
-      () => inject(AuthStore).isAuthenticated()
+      () => {
+        console.log('PATH Match', inject(AuthStore).isAuthenticated())
+        return inject(AuthStore).isAuthenticated()
+      }
     ],
     children: [
       {
         path: '',
         pathMatch: 'full',
         loadComponent: () => import('@studiz/shell-home-page'),
-        canMatch: [
-          () => inject(AuthStore).isAuthenticated()
-        ]
       },
       {
         path: 'admissions',
@@ -31,7 +28,10 @@ export const appRoutes: Route[] = [
   {
     path: '',
     canMatch: [
-      () => !inject(AuthStore).isAuthenticated()
+      () => {
+        console.log('PATH Match', inject(AuthStore).isAuthenticated())
+        return !inject(AuthStore).isAuthenticated()
+      }
     ],
     children: [
       {
@@ -41,10 +41,7 @@ export const appRoutes: Route[] = [
       },
       {
         path: 'login',
-        loadComponent: () => import('@studiz/shell-login-page'),
-        canMatch: [
-          () => !inject(AuthStore).isAuthenticated()
-        ]
+        loadComponent: () => import('@studiz/shell-login-page')
       }
     ]
   }

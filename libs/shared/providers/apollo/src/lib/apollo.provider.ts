@@ -13,6 +13,7 @@ import { contextErrorAlert } from './error-alert.context';
 import { contextLoader } from './loader.context';
 import createUploadLink from 'apollo-upload-client/createUploadLink.mjs'
 import { customFetch } from './custom-fetch';
+import { LoaderStore } from '@studiz/loader';
 
 export const provideApollo: () => [EnvironmentProviders, {
   provide: InjectionToken<any>;
@@ -27,6 +28,7 @@ export const provideApollo: () => [EnvironmentProviders, {
     useFactory() {
       const trackProgress = signal<number>(0);
       const loadingController = inject(LoadingController);
+      const loaderStore = inject(LoaderStore);
       const toastController = inject(ToastController);
       const alertController = inject(AlertController);
 
@@ -52,7 +54,8 @@ export const provideApollo: () => [EnvironmentProviders, {
       );
 
       const combinedLink = ApolloLink.from([
-        contextLoader(loadingController),
+        // contextLoader(loadingController),
+        contextLoader(loaderStore),
         contextSuccessAlert(toastController),
         contextErrorAlert(alertController),
         multipartFormContext(trackProgress)(),

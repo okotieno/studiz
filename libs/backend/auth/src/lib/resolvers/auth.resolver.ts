@@ -47,7 +47,7 @@ export class AuthResolver {
     );
 
     return {
-      message: this.translationService.getTranslation('alert.auth.loginLinkRequest'),
+      message: this.translationService.getTranslation('alert.auth.loginLinkRequest')
     };
   }
 
@@ -56,7 +56,7 @@ export class AuthResolver {
     @Args('token') token: string
   ) {
     const { email, type } = this.authService.validateToken(token);
-    if (type === 'RefreshToken') {
+    if (['RefreshToken', 'LoginToken'].includes(type)) {
       const user = await this.userService.findByEmail(email) as UserModel;
       return this.authService.login(user as UserModel);
     }

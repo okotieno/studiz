@@ -10,7 +10,6 @@ module.exports = composePlugins(
     if (!config.plugins) {
       config.plugins = [];
     }
-    // config.plugins.push(() => getProcessEnv());
     config.plugins.push(new DefinePlugin(getProcessEnv()));
     return config;
   }

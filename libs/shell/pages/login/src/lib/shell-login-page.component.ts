@@ -3,8 +3,8 @@ import { IonApp, IonNav } from '@ionic/angular/standalone';
 import { LoginFormComponent } from './components/login-form/login-form.component';
 import { AuthStore } from '@studiz/frontend/auth';
 import { JsonPipe } from '@angular/common';
-import { switchMap, take, tap } from 'rxjs';
-import { Router } from 'express';
+import { from, switchMap, take, tap } from 'rxjs';
+import { Router } from '@angular/router';
 
 @Component({
   selector: 'studiz-shell-login-page',
@@ -25,18 +25,15 @@ export class ShellLoginPageComponent {
     const accessToken = this.accessToken();
     if (accessToken) {
       this.authStore.authenticate({ accessToken }).pipe(
-        // switchMap(authenticated => this.router.navigate(['/'])),
+        switchMap(authenticated => {
+          if (authenticated) {
+            return from(this.router.navigate(['/']));
+          } else {
+            return from(this.router.navigate(['/login']));
+          }
+        }),
         take(1)
       ).subscribe();
-    }
-  }, { allowSignalWrites: true });
-
-  isAuthenticated = this.authStore.isAuthenticated;
-  isAuthenticatedEffect = effect(() => {
-    const isAuthenticated = this.isAuthenticated();
-    console.log('isAuthenticated', isAuthenticated);
-    if (this.authStore.isAuthenticated()) {
-      console.log('isAuthenticated');
     }
   });
 

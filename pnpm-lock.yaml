@@ -295,9 +295,6 @@ devDependencies:
   '@typescript-eslint/utils':
     specifier: ^7.16.0
     version: 7.18.0(eslint@8.57.0)(typescript@5.5.4)
-  dotenv:
-    specifier: ^16.4.5
-    version: 16.4.5
   eslint:
     specifier: ~8.57.0
     version: 8.57.0

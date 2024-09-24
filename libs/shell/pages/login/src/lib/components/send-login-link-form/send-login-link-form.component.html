@@ -1,0 +1,42 @@
+<ion-header class="ion-no-border">
+  <ion-toolbar class="ion-padding">
+    <ion-title>Send Login Link</ion-title>
+  </ion-toolbar>
+</ion-header>
+<ion-content>
+
+  <form [formGroup]="form" id="send-login-link-form">
+    <ion-row class="ion-justify-content-start ion-nowrap">
+      <ion-col size="12">
+        <ion-input
+          formControlName="email"
+          fill="solid"
+          placeholder="Enter Email"
+          helperText="&nbsp;"
+          errorText="valid email is required"
+        >
+          <ion-icon slot="start" name="user"></ion-icon>
+        </ion-input>
+      </ion-col>
+    </ion-row>
+  </form>
+
+</ion-content>
+<ion-footer class="ion-padding ion-no-border">
+  <ion-row>
+    <ion-button
+      (click)="closeModal()"
+      fill="outline"
+      type="button">
+      <span class="ion-padding-horizontal"> Confirm</span>
+    </ion-button>
+    <ion-button
+      [disabled]="form.invalid"
+      type="submit"
+      form="send-login-link-form"
+      (click)="submit()">
+      <span class="ion-padding-horizontal"> Confirm</span>
+    </ion-button>
+  </ion-row>
+
+</ion-footer>

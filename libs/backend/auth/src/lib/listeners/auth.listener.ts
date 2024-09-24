@@ -26,14 +26,16 @@ export class AuthEventsListener {
         throw new UnauthorizedException('Invalid email');
       }
 
-      const auth = await this.authService.login(user, '300s');
+      const accessToken = this.authService.getAuthToken(user, '30000s', 'LoginToken');
+      // const accessToken = this.authService.getAuthToken(user, '300s', 'LoginToken');
+      // const auth = await this.authService.login(user, '300s');
 
       const mailOptions = {
         to: $event.email,
         subject: 'Login Request',
         html: `
              <h1>Login to studiz</h1>
-              <a href="${this.frontendAppLink}?accessToken=${auth?.accessToken}">Continue to app</a>
+              <a href="${this.frontendAppLink}?accessToken=${accessToken}">Continue to app</a>
               `
       };
       await this.emailService.send(mailOptions);

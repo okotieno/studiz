@@ -3,3 +3,4 @@ eye
 eye-slash
 key
 gear
+envelope

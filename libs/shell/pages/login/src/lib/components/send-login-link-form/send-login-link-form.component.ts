@@ -10,7 +10,7 @@ import {
   IonToolbar,
   ModalController
 } from '@ionic/angular/standalone';
-import { catchError, tap } from 'rxjs';
+import { tap } from 'rxjs';
 import { AuthStore } from '@studiz/frontend/auth';
 
 @Component({

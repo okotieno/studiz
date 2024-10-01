@@ -27,7 +27,6 @@ export const provideApollo: () => [EnvironmentProviders, {
     provide: APOLLO_OPTIONS,
     useFactory() {
       const trackProgress = signal<number>(0);
-      const loadingController = inject(LoadingController);
       const loaderStore = inject(LoaderStore);
       const toastController = inject(ToastController);
       const alertController = inject(AlertController);
